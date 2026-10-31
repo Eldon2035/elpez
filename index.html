@@ -1,92 +1,58 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EL DON 2035 - EL PEZ OFICIAL</title>
-<style>
-body{background:#0a0a2a;color:#fff;font-family:Arial;text-align:center;margin:0;padding:20px}
-h1{color:#FFD700;cursor:pointer}
-.upload{border:2px dashed #FFD700;padding:15px;border-radius:15px;margin:20px auto;max-width:500px;background:#1a1a3a}
-input{margin:8px;width:90%;padding:10px;border-radius:10px;border:none;background:#2a2a4a;color:#fff}
-button{background:#FFD700;color:#000;font-weight:bold;padding:12px 20px;border:none;border-radius:30px;cursor:pointer;margin:5px}
-.tema{background:#1e1e3e;padding:15px;border-radius:15px;margin:15px auto;max-width:500px;display:flex;gap:15px;align-items:center;text-align:left}
-.tema img{width:80px;height:80px;border-radius:10px;object-fit:cover;background:#333}
-audio{width:100%;margin-top:8px}
-.del{background:#ff3b3b;color:#fff;display:none}
-.admin-on .del{display:inline-block}
-</style>
+<title>EL DON 2035 EL PEZ OFICIAL</title>
 </head>
-<body id="body">
-<h1 id="logo">EL DON 2035 EL PEZ OFICIAL 🐟</h1>
+<body style="background:#0a0a2a;color:#fff;font-family:Arial;text-align:center;padding:20px">
+<h1 style="color:#FFD700" id="logo">EL DON 2035 EL PEZ OFICIAL</h1>
 <p>Tus Temas (<span id="contador">0</span>)</p>
-<div class="upload">
-<h3 style="color:#FFD700">SUBIR TU MÚSICA REAL</h3>
-<input type="text" id="titulo" placeholder="Título">
-<input type="file" id="mp3" accept="audio/*">
-<input type="file" id="portada" accept="image/*"><br>
-<button onclick="subirTema()">SUBIR DE VERDAD</button>
-<p id="msg" style="color:#00ff88"></p>
+
+<div style="border:2px dashed #FFD700;padding:15px;border-radius:15px;max-width:500px;margin:20px auto;background:#1a1a3a">
+<h3 style="color:#FFD700">SUBIR TU MUSICA REAL</h3>
+<input id="titulo" placeholder="Titulo" style="width:90%;padding:10px;margin:5px"><br>
+<input id="mp3" type="file" accept="audio/*" style="margin:5px"><br>
+<input id="portada" type="file" accept="image/*" style="margin:5px"><br>
+<button onclick="subir()" style="background:#FFD700;padding:12px 20px;border-radius:20px;font-weight:bold">SUBIR DE VERDAD</button>
 </div>
+
 <div id="lista"></div>
+
 <script>
-let temas = JSON.parse(localStorage.getItem('temas_pez') || '[]');
-function render(){
-  const lista = document.getElementById('lista');
-  lista.innerHTML="";
-  temas.forEach((t,i)=>{
-    lista.innerHTML+=`
-    <div class="tema">
-      <img src="${t.cover || 'https://via.placeholder.com/80/FFD700/000?text=EL+PEZ'}">
-      <div style="flex:1">
-        <b style="color:#FFD700">${t.titulo}</b>
-        <audio controls src="${t.audio}"></audio><br>
-        <button onclick="window.open('https://wa.me/?text=Escucha ${t.titulo} https://eldon2035.github.io/elpez/')">WhatsApp</button>
-        <button class="del" onclick="borrar(${i})">Borrar</button>
-      </div>
-    </div>`;
-  });
-  document.getElementById('contador').textContent=temas.length;
+let temas = JSON.parse(localStorage.getItem("temas_pez") || "[]");
+function pintar(){
+ document.getElementById("lista").innerHTML="";
+ temas.forEach((t,i)=>{
+  document.getElementById("lista").innerHTML+= '<div style="background:#1e1e3e;padding:10px;margin:10px auto;max-width:500px;border-radius:10px"><img src="'+(t.cover||'https://via.placeholder.com/80')+'" style="width:80px;height:80px;border-radius:10px"><br><b>'+t.titulo+'</b><br><audio controls src="'+t.audio+'" style="width:100%"></audio><br><button onclick="borrar('+i+')">Borrar</button></div>';
+ });
+ document.getElementById("contador").innerText=temas.length;
 }
-function subirTema(){
-  const titulo=document.getElementById('titulo').value.trim();
-  const fileMp3=document.getElementById('mp3').files[0];
-  const fileCover=document.getElementById('portada').files[0];
-  if(!titulo||!fileMp3){alert("Pon título y mp3");return;}
-  const rMp3=new FileReader();
-  rMp3.onload=eMp3=>{
-    if(fileCover){
-      const rC=new FileReader();
-      rC.onload=eC=>{
-        temas.push({titulo,audio:eMp3.target.result,cover:eC.target.result});
-        localStorage.setItem('temas_pez',JSON.stringify(temas));
-        render();
-      };
-      rC.readAsDataURL(fileCover);
-    }else{
-      temas.push({titulo,audio:eMp3.target.result,cover:""});
-      localStorage.setItem('temas_pez',JSON.stringify(temas));
-      render();
-    }
-  };
-  rMp3.readAsDataURL(fileMp3);
-}
-function borrar(i){
-  temas.splice(i,1);
-  localStorage.setItem('temas_pez',JSON.stringify(temas));
-  render();
-}
-let toques=0;
-document.getElementById('logo').addEventListener('click',()=>{
-  toques++;
-  if(toques>=5){
-    const p=prompt("Clave:");
-    if(p==="Elpez2035"){document.body.classList.add('admin-on');}
-    toques=0;
+function subir(){
+ let tit=document.getElementById("titulo").value;
+ let f=document.getElementById("mp3").files[0];
+ let c=document.getElementById("portada").files[0];
+ if(!tit||!f){alert("Falta titulo y mp3");return;}
+ let r=new FileReader();
+ r.onload=function(e){
+  if(c){
+   let rc=new FileReader();
+   rc.onload=function(ec){
+    temas.push({titulo:tit,audio:e.target.result,cover:ec.target.result});
+    localStorage.setItem("temas_pez",JSON.stringify(temas));
+    pintar();
+   };
+   rc.readAsDataURL(c);
+  }else{
+   temas.push({titulo:tit,audio:e.target.result,cover:""});
+   localStorage.setItem("temas_pez",JSON.stringify(temas));
+   pintar();
   }
-  setTimeout(()=>toques=0,3000);
-});
-render();
+ };
+ r.readAsDataURL(f);
+}
+function borrar(i){temas.splice(i,1);localStorage.setItem("temas_pez",JSON.stringify(temas));pintar();}
+pintar();
 </script>
 </body>
 </html>
