@@ -7,73 +7,36 @@
 <style>
 body{margin:0;min-height:100vh;color:#fff;font-family:'Poppins',Arial;background:#020414 url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1400') fixed;background-size:cover}
 body::before{content:"";position:fixed;inset:0;background:rgba(3,5,20,0.78);z-index:-1}
-.topbar{display:flex;align-items:center;gap:14px;padding:14px 20px;background:rgba(8,10,30,0.9);border-bottom:1px solid rgba(255,215,0,0.25);backdrop-filter:blur(12px);position:sticky;top:0;z-index:20}
+.topbar{display:flex;align-items:center;gap:14px;padding:14px 20px;background:rgba(8,10,30,0.9);border-bottom:1px solid rgba(255,215,0,0.25);position:sticky;top:0;z-index:20}
 .topbar img{width:58px;height:58px;border-radius:50%;border:2px solid #FFD700}
 .topbar h1{font-family:'Cinzel',serif;color:#FFD700;font-size:17px;margin:0;letter-spacing:2px}
 .card{max-width:560px;margin:22px auto;background:rgba(20,25,60,0.75);backdrop-filter:blur(14px);border:1px solid rgba(255,215,0,0.2);border-radius:18px;padding:20px}
-label{color:#FFD700;font-weight:700;font-size:12px;display:block;margin:14px 0 6px;text-align:left}
+label{color:#FFD700;font-weight:700;font-size:12px;display:block;margin:14px 0 6px}
 input,select,textarea{width:100%;box-sizing:border-box;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(0,0,0,0.45);color:#fff}
 .btn{width:100%;padding:14px;background:linear-gradient(90deg,#FFD700,#ffb700);color:#000;font-weight:800;border:none;border-radius:12px;margin-top:18px;cursor:pointer}
-.tema{display:flex;gap:12px;background:rgba(255,255,255,0.06);padding:12px;border-radius:14px;margin-bottom:12px}
+.tema{display:flex;gap:12px;background:rgba(255,255,255,0.06);padding:12px;border-radius:14px;margin-bottom:12px;align-items:center}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <img src="logo.png"><div><h1>EL DON 2035 EL PEZ OFICIAL</h1><span style="font-size:11px;opacity:0.7">Edición Lujo • Tus Temas (<span id="contador">0</span>)</span></div>
-</div>
+<div class="topbar"><img src="logo.png"><div><h1>EL DON 2035 EL PEZ OFICIAL</h1><span style="font-size:11px;opacity:0.7">Edicion Lujo • Tus Temas (<span id="contador">0</span>)</span></div></div>
 <div class="card">
-<label>Dedicado a</label><input id="dedicado">
-<label>Genero</label><select id="genero"><option>Balada Romántica</option><option>Reggaeton</option><option>Salsa</option></select>
+<label>Dedicado a</label><input id="dedicado" placeholder="Mi Conchita">
+<label>Genero</label><select id="genero"><option>Balada Romantica</option><option>Reggaeton</option><option>Salsa</option></select>
 <label>Letra</label><textarea id="letra"></textarea>
 <label>Archivo MP3</label><input type="file" id="mp3" accept="audio/*">
-<label>Portada</label><input type="file" id="portada" accept="image/*">
+<label>Portada JPG</label><input type="file" id="portada" accept="image/*">
 <button class="btn" id="btnSubir">SUBIR DE VERDAD</button>
 <p id="msg" style="color:#00ff88;text-align:center"></p>
 </div>
-<div class="card"><b style="color:#FFD700">🎧 Tus Temas (<span id="contador2">0</span>)</b><div id="lista" style="margin-top:12px"></div></div>
+<div class="card"><b style="color:#FFD700">🎧 Tus Temas (<span id="contador2">0</span>)</b><div id="lista"></div></div>
 <script>
-let temas=JSON.parse(localStorage.getItem("temas_pez_full")||"[]");
-function render(){
- let l=document.getElementById("lista"); if(!l) return; l.innerHTML="";
- temas.forEach((t)=>{
-  let d=document.createElement("div");d.className="tema";
-  d.innerHTML=`<img src="${t.cover||'logo.png'}" style="width:60px;height:60px;border-radius:10px"><div style="flex:1"><b style="color:#FFD700">${t.titulo}</b><br><audio controls src="${t.audio}" class="aud" style="width:100%"></audio></div>`;l.appendChild(d);
- });
- let c1=document.getElementById("contador"); if(c1) c1.textContent=temas.length;
- let c2=document.getElementById("contador2"); if(c2) c2.textContent=temas.length;
- let audios=document.querySelectorAll(".aud");
- audios.forEach((a,idx)=>{a.addEventListener("ended",()=>{let s=audios[idx+1];if(s)s.play();});a.addEventListener("play",()=>{audios.forEach(o=>{if(o!==a)o.pause();});});});
-}
-function subir(){
- let dedicado=document.getElementById("dedicado").value;
- let genero=document.getElementById("genero").value;
- let letra=document.getElementById("letra").value;
- let titulo=letra.split("\n")[0].substring(0,30)||dedicado||"Mi Tema";
- let f=document.getElementById("mp3").files[0];
- let c=document.getElementById("portada").files[0];
- if(!f){alert("Mi pez, selecciona MP3 primero");return;}
- if(f.size>15000000){alert("MP3 muy pesado, máx 15MB mi pez");return;}
- document.getElementById("msg").textContent="Subiendo...";
- let r=new FileReader();
- r.onload=(e)=>{
-  try{
-   if(c){
-    let rc=new FileReader();rc.onload=(ec)=>{
-     temas.push({titulo,dedicado,genero,letra,audio:e.target.result,cover:ec.target.result});
-     localStorage.setItem("temas_pez_full",JSON.stringify(temas));
-     document.getElementById("msg").textContent="¡Subido mi pez! ✅"; render();
-    };rc.readAsDataURL(c);
-   }else{
-    temas.push({titulo,dedicado,genero,letra,audio:e.target.result,cover:""});
-    localStorage.setItem("temas_pez_full",JSON.stringify(temas));
-    document.getElementById("msg").textContent="¡Subido mi pez! ✅"; render();
-   }
-  }catch(err){alert("Memoria llena mi pez, borra una canción vieja"); document.getElementById("msg").textContent="Error memoria";}
- };
- r.readAsDataURL(f);
-}
-document.getElementById("btnSubir").addEventListener("click", subir);
-render();
+localStorage.removeItem("temas_pez_full");
+let db;function abrirDB(){return new Promise((res,rej)=>{let r=indexedDB.open("PezDB",1);r.onupgradeneeded=e=>{e.target.result.createObjectStore("temas",{keyPath:"id",autoIncrement:true})};r.onsuccess=e=>{db=e.target.result;res()}})}
+function guardarTema(t){return new Promise((res,rej)=>{let tx=db.transaction("temas","readwrite");tx.objectStore("temas").add(t);tx.oncomplete=res})}
+function obtenerTemas(){return new Promise((res)=>{let tx=db.transaction("temas","readonly");let req=tx.objectStore("temas").getAll();req.onsuccess=()=>res(req.result)})}
+async function render(){let temas=await obtenerTemas();let l=document.getElementById("lista");l.innerHTML="";temas.forEach((t)=>{let urlAudio=URL.createObjectURL(t.audioBlob);let urlCover=t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png';let d=document.createElement("div");d.className="tema";d.innerHTML=`<img src="${urlCover}" style="width:60px;height:60px;border-radius:10px"><div style="flex:1"><b style="color:#FFD700">${t.titulo}</b><br><audio controls src="${urlAudio}" class="aud" style="width:100%"></audio></div>`;l.appendChild(d)});document.getElementById("contador").textContent=temas.length;document.getElementById("contador2").textContent=temas.length}
+async function subir(){let dedicado=document.getElementById("dedicado").value;let genero=document.getElementById("genero").value;let letra=document.getElementById("letra").value;let titulo=letra.split("\n")[0].substring(0,40)||dedicado||"Mi Tema";let f=document.getElementById("mp3").files[0];let c=document.getElementById("portada").files[0];if(!f){alert("Falta MP3");return}document.getElementById("msg").textContent="Subiendo...";await guardarTema({titulo,dedicado,genero,letra,audioBlob:f,coverBlob:c||null});document.getElementById("msg").textContent="¡Subido mi pez! ✅";render()}
+abrirDB().then(render);document.getElementById("btnSubir").addEventListener("click",subir);
 </script>
 </body>
 </html>
