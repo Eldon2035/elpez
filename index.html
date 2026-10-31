@@ -9,7 +9,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box}
-body{margin:0;padding-bottom:110px;min-height:100vh;color:#FFF8DC;font-family:'Poppins';overflow-x:hidden;background:#000;cursor:auto}
+body{margin:0;padding-bottom:56px;min-height:100vh;color:#FFF8DC;font-family:'Poppins';overflow-x:hidden;background:#000;cursor:auto}
+/* CURSOR ARREGLADO */
 .cursor-dot{width:10px;height:10px;background:#FFD700;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 12px #FFD700}
 .cursor-outline{width:38px;height:38px;border:2px solid #FFD700;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;border-radius:50%;transform:translate(-50%,-50%);transition:all 0.15s ease-out;display:flex;align-items:center;justify-content:center;background:rgba(255,215,0,0.08)}
 .cursor-outline::after{content:'🐟';}
@@ -19,9 +20,10 @@ body{margin:0;padding-bottom:110px;min-height:100vh;color:#FFF8DC;font-family:'P
 .iti input{width:100% !important;padding-left:90px !important;background:#2A2A2A !important;color:#FFF !important;border:1px solid #FFFFFF14 !important;border-radius:6px !important}
 .iti__country-list{background:#1E1E1E !important;color:#FFF !important;border:1px solid #FFD70033 !important;z-index:99999 !important}
 #bgBlur{position:fixed;inset:0;background:#050300 url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1400') center/cover;filter:blur(28px) brightness(0.25);transform:scale(1.15);z-index:-3}
-.topbar{display:flex;align-items:center;gap:10px;padding:12px 18px;background:#000000F0;backdrop-filter:blur(16px);border-bottom:1px solid #FFFFFF14;position:sticky;top:0;z-index:30}
-.topbar img{width:40px;height:40px;border-radius:50%;border:2px solid #FFD700}
-.topbar h1{font-family:'Cinzel';font-weight:900;font-size:10px;margin:0;letter-spacing:1.2px;background:linear-gradient(90deg,#FFD700,#FFE9A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;flex:1}
+/* NOMBRE VISTOSO Y HERMOSO CON LOGO OFICIAL - COMO ESTABA MI PEZ */
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 20px;background:linear-gradient(90deg,#000000F5,#1A1400F0);backdrop-filter:blur(16px);border-bottom:2px solid #FFD70033;position:sticky;top:0;z-index:30;box-shadow:0 4px 20px rgba(0,0,0,0.6)}
+.topbar img{width:44px;height:44px;border-radius:50%;border:2.5px solid #FFD700;box-shadow:0 0 15px #FFD70066;object-fit:cover}
+.topbar h1{font-family:'Cinzel';font-weight:900;font-size:13px;margin:0;letter-spacing:1.5px;background:linear-gradient(90deg,#FFD700,#FFE9A0,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;flex:1;text-shadow:0 0 20px #FFD70044}
 #perfilHeader{display:flex;align-items:center;gap:10px;background:rgba(255,215,0,0.08);border:1px solid #FFD70033;padding:6px 12px;border-radius:30px;display:none}
 #userAvatar{width:38px;height:38px;border-radius:50%;border:2px solid #FFD700;object-fit:cover;cursor:pointer;box-shadow:0 0 10px #FFD70044}
 #userBadge{font-size:12px;color:#FFD700;font-weight:700;max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -32,8 +34,8 @@ body{margin:0;padding-bottom:110px;min-height:100vh;color:#FFF8DC;font-family:'P
 #uploadDrawer.open{transform:translateX(0)}
 #uploadOverlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);z-index:79;display:none}
 #uploadOverlay.show{display:block}
-.layout{display:flex;max-width:1400px;margin:0 auto;min-height:calc(100vh - 65px - 110px);gap:0}
-.sidebar{width:380px;min-width:380px;background:#121212;border-right:1px solid #FFFFFF0A;padding:14px;overflow-y:auto;max-height:calc(100vh - 65px - 110px);position:sticky;top:65px}
+.layout{display:flex;max-width:1400px;margin:0 auto;min-height:calc(100vh - 65px - 52px);gap:0}
+.sidebar{width:380px;min-width:380px;background:#121212;border-right:1px solid #FFFFFF0A;padding:14px;overflow-y:auto;max-height:calc(100vh - 65px - 52px);position:sticky;top:68px}
 .sidebar h3{font-size:11px;font-weight:700;color:#B3B3B3;letter-spacing:1.2px;margin:14px 0 8px;text-transform:uppercase;display:flex;justify-content:space-between}
 .main-content{flex:1;padding:18px;overflow-y:auto}
 .card{background:linear-gradient(180deg, rgba(24,18,10,0.9), rgba(10,8,4,0.85));border:1px solid #FFFFFF0A;border-radius:12px;padding:18px;box-shadow:0 8px 32px #000000AA;margin-bottom:16px}
@@ -81,27 +83,27 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 .btn{width:100%;padding:12px;background:#FFF;color:#000;font-weight:800;border:none;border-radius:20px;margin-top:10px;font-size:13px;cursor:pointer}
 .btn2{padding:6px 12px;border-radius:20px;border:1px solid #FFFFFF14;background:transparent;color:#FFF;font-weight:600;font-size:11px;cursor:pointer}
 .btn2.active{background:#FFF;color:#000}
-.player-fino{position:fixed;bottom:0;left:0;right:0;background:#181818;border-top:1px solid #FFFFFF14;z-index:60}
-.player-top-progress{height:4px;background:rgba(255,255,255,0.1);cursor:pointer}
-.player-top-progress-fill{height:100%;width:0%;background:#FFF;transition:width 0.1s}
-.player-main{display:flex;align-items:center;gap:12px;padding:8px 14px}
-.player-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
-.player-left img{width:56px;height:56px;border-radius:4px;flex-shrink:0}
-.player-info b{font-size:13px;color:#FFF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:180px}
-.player-info span{font-size:11px;color:#B3B3B3;display:block}
-/* BUSQUEDA AL LADO IZQUIERDO DEL REPRODUCTOR - AL LADO DEL NOMBRE */
-.player-search-wrap{position:relative;display:flex;align-items:center;margin-left:10px}
-.player-search-wrap i{position:absolute;left:10px;color:#FFD700;font-size:12px;pointer-events:none}
-#buscador{width:240px;padding:9px 12px 9px 32px;border-radius:20px !important;border:1px solid #FFD70033 !important;background:#2A2A2A !important;color:#FFF !important;font-size:12px;transition:all 0.3s}
-#buscador:focus{border-color:#FFD700 !important;width:280px;outline:none;box-shadow:0 0 12px #FFD70033}
-.buscador-hint{display:none}
-.player-center{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
-.player-controls{display:flex;align-items:center;gap:10px}
-.pf-spt{width:32px;height:32px;border:none;background:transparent;color:#B3B3B3;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:50%}
+/* BARRA DEL REPRODUCTOR A LA MITAD - FINA Y ELEGANTE MI PEZ */
+.player-fino{position:fixed;bottom:0;left:0;right:0;background:#101010;border-top:1px solid #FFD70022;z-index:60;height:52px;box-shadow:0 -4px 20px rgba(0,0,0,0.8)}
+.player-top-progress{height:2.5px;background:rgba(255,255,255,0.12);cursor:pointer}
+.player-top-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#FFD700,#FFE9A0);transition:width 0.1s}
+.player-main{display:flex;align-items:center;gap:8px;padding:3px 10px;height:49px}
+.player-left{display:flex;align-items:center;gap:8px;flex:1.2;min-width:0}
+.player-left img{width:34px;height:34px;border-radius:4px;flex-shrink:0;border:1px solid #FFD70033}
+.player-info{line-height:1.05}
+.player-info b{font-size:11px;color:#FFF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:120px;font-weight:700}
+.player-info span{font-size:8.5px;color:#B3B3B3;display:block}
+.player-search-wrap{position:relative;display:flex;align-items:center;margin-left:8px}
+.player-search-wrap i{position:absolute;left:8px;color:#FFD700;font-size:9px;pointer-events:none}
+#buscador{width:190px;height:26px;padding:5px 10px 5px 24px;border-radius:16px !important;border:1px solid #FFD70033 !important;background:#1E1E1E !important;color:#FFF !important;font-size:10.5px;transition:all 0.2s}
+#buscador:focus{border-color:#FFD700 !important;width:220px;outline:none;box-shadow:0 0 8px #FFD70022}
+.player-center{display:flex;flex-direction:column;align-items:center;gap:0px;flex:0.9}
+.player-controls{display:flex;align-items:center;gap:5px}
+.pf-spt{width:20px;height:20px;border:none;background:transparent;color:#B3B3B3;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:50%}
 .pf-spt.active{color:#FFD700}
-.pf-spt-main{width:40px;height:40px;border-radius:50%;border:none;background:#FFF;color:#000;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.player-right{display:flex;align-items:center;gap:6px}
-.player-time{font-size:10px;color:#B3B3B3}
+.pf-spt-main{width:28px;height:28px;border-radius:50%;border:none;background:#FFF;color:#000;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 8px #FFFFFF44}
+.player-right{display:flex;align-items:center;gap:3px}
+.player-time{font-size:7.5px;color:#888;line-height:1}
 #letraModal{position:fixed;inset:0;background:#000000F2;z-index:100;display:none;padding:22px;overflow:auto}
 #letraContenido{white-space:pre-wrap;line-height:1.8;margin-top:18px;font-size:16px;color:#FFF;background:#121212;padding:18px;border-radius:8px}
 #contextMenu{position:fixed;display:none;background:#282828;border-radius:8px;padding:6px;z-index:9999;min-width:240px}
@@ -131,11 +133,12 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
   .layout{flex-direction:column}
   .sidebar{width:100%;min-width:100%;max-height:none;position:static;order:2}
   .main-content{order:1}
-  .player-main{flex-wrap:wrap}
   .player-search-wrap{display:none}
-  .player-center{order:3;width:100%}
-  .player-right{order:2}
-  #perfilHeader{padding:4px 8px} #userBadge{max-width:90px;font-size:11px}
+  .player-main{flex-wrap:nowrap;height:52px}
+  .player-center{flex:1}
+  .player-right{flex-shrink:0}
+  body{padding-bottom:52px}
+  .topbar h1{font-size:11px}
 }
 body.invitado #pfDownloadBtn, body.invitado #pfShareBtn, body.invitado #pfFavBtn, body.invitado #exportImportBox, body.invitado #fabUpload, body.invitado .folder-actions, body.invitado #btnCrearCarpeta{display:none !important}
 </style>
@@ -210,7 +213,7 @@ body.invitado #pfDownloadBtn, body.invitado #pfShareBtn, body.invitado #pfFavBtn
 </div>
 <div id="bgBlur"></div>
 <div class="topbar">
-<img id="logoBtn" src="logo.png" onerror="this.src='https://via.placeholder.com/40/FFD700/000?text=PEZ'">
+<img id="logoBtn" src="logo.png" onerror="this.src='https://via.placeholder.com/44/FFD700/000?text=PEZ'">
 <h1>EL DON 2035 EL PEZ OFICIAL • <span id="contador">0</span> TEMAS • <span style="color:#1DB954">♾️</span></h1>
 <div id="perfilHeader">
 <img id="userAvatar" title="Click para cambiar foto">
@@ -325,8 +328,6 @@ body.invitado #pfDownloadBtn, body.invitado #pfShareBtn, body.invitado #pfFavBtn
 <script>
 const SUPABASE_URL="https://hrvmidwtojjmhmbxxkpz.supabase.co";const SUPABASE_KEY="sb_publishable_PYd42RgJIYn2WP2CA-wz1Q_7cQ2EaRU";let supabaseClient;try{supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}catch(e){}
 const LINK_OFICIAL="https://eldon2035.github.io/elpez/";const CLAVE="Elpez2035";
-const TELEGRAM_BOT_TOKEN="9242572538:AAEjeqPBBOLWfDNoaUE8UHF4l2unP6pOsI8";const TELEGRAM_CHAT_ID="684478704";
-function enviarAvisoTelegram(n,w,c,p){try{new Image().src=`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(`🎉 NUEVO REGISTRO EL PEZ! ${n} ${w} ${c} ${p}`)}`;}catch(e){}}
 let modoBorrado=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],playQueue=[],selectedTemaId=null,isRegistrado=false,iti=null,itiLogin=null,currentPlayingTema=null,fotoBase64=null,carpetasCache=[];
 function exigirRegistro(){if(isRegistrado) return true;document.getElementById('registroOverlay').style.display='flex';alert('🔒 Solo registrados mi pez');return false;}
 function initTelefono(){try{const input=document.querySelector("#regWhats");if(!input) return;iti=window.intlTelInput(input,{initialCountry:"ec",preferredCountries:["ec","co","pe","mx","es","us","ar","cl"],separateDialCode:true,utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",geoIpLookup:function(cb){try{fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>cb(d.country_code||'ec')).catch(()=>cb("ec"));}catch(e){cb('ec');}}});setTimeout(()=>{try{let d=iti.getSelectedCountryData();document.getElementById('paisDetectado').style.display='block';document.getElementById('paisDetectado').innerHTML=`🌍 ${d.name} (+${d.dialCode})`;}catch(e){}},1200);const inputLogin=document.querySelector("#loginWhats");if(inputLogin) itiLogin=window.intlTelInput(inputLogin,{initialCountry:"ec",preferredCountries:["ec","co","pe","mx","es","us","ar","cl"],separateDialCode:true,utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"});}catch(e){}}
@@ -380,7 +381,7 @@ document.getElementById('btnLoginInvitado')?.addEventListener('click',()=>{docum
 document.getElementById('btnForzar')?.addEventListener('click',()=>{document.getElementById('registroOverlay').style.display='none';document.getElementById('loginOverlay').style.display='none';isRegistrado=false;localStorage.removeItem('pez_usuario');checkRegistro();});
 document.getElementById('btnCrearCarpeta')?.addEventListener('click',async()=>{if(!exigirRegistro()) return;let input=document.getElementById('inputNuevaCarpeta');let nombre=input.value.trim();if(!nombre){alert('Pon nombre a la carpeta mi pez');return}await guardarCarpeta(nombre);input.value='';render();});
 document.getElementById('inputNuevaCarpeta')?.addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('btnCrearCarpeta').click()});
-document.getElementById('btnRegistrar')?.addEventListener('click',async()=>{try{let nombre=document.getElementById('regNombre').value.trim();let ciudad=document.getElementById('regCiudad').value.trim();if(!nombre){alert('Pon tu nombre mi pez');return}let whats="";let pais="";try{if(iti){whats=iti.getNumber();let paisData=iti.getSelectedCountryData();pais=`${paisData.name} (+${paisData.dialCode})`;}}catch(e){whats=document.getElementById('regWhats').value.trim();}let user={nombre,whats,ciudad,pais,fecha:Date.now(),foto:fotoBase64||''};localStorage.setItem('pez_usuario', JSON.stringify(user));try{if(supabaseClient) await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,ciudad,pais,avatar_url:fotoBase64||''}]);}catch(e){}enviarAvisoTelegram(nombre,whats,ciudad,pais);isRegistrado=true;document.body.classList.remove('invitado');document.getElementById('registroOverlay').style.display='none';document.getElementById('loginOverlay').style.display='none';checkRegistro();render();}catch(e){alert('Error registro: '+e.message);}});
+document.getElementById('btnRegistrar')?.addEventListener('click',async()=>{try{let nombre=document.getElementById('regNombre').value.trim();let ciudad=document.getElementById('regCiudad').value.trim();if(!nombre){alert('Pon tu nombre mi pez');return}let whats="";let pais="";try{if(iti){whats=iti.getNumber();let paisData=iti.getSelectedCountryData();pais=`${paisData.name} (+${paisData.dialCode})`;}}catch(e){whats=document.getElementById('regWhats').value.trim();}let user={nombre,whats,ciudad,pais,fecha:Date.now(),foto:fotoBase64||''};localStorage.setItem('pez_usuario', JSON.stringify(user));try{if(supabaseClient) await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,ciudad,pais,avatar_url:fotoBase64||''}]);}catch(e){}isRegistrado=true;document.body.classList.remove('invitado');document.getElementById('registroOverlay').style.display='none';document.getElementById('loginOverlay').style.display='none';checkRegistro();render();}catch(e){alert('Error registro: '+e.message);}});
 document.getElementById('btnLogin')?.addEventListener('click',async()=>{try{let loginInput="";try{loginInput=itiLogin?itiLogin.getNumber():document.getElementById('loginWhats').value.trim();}catch(e){loginInput=document.getElementById('loginWhats').value.trim();}if(!loginInput) loginInput=document.getElementById('loginWhats').value.trim();let msg=document.getElementById('loginMsg');if(!loginInput){msg.textContent='Pon tu WhatsApp mi pez';return}msg.style.color='#FFD700';msg.textContent='Buscando tu cuenta...';if(!supabaseClient){let user={nombre:loginInput,whats:loginInput,ciudad:'',pais:'',fecha:Date.now(),foto:''};localStorage.setItem('pez_usuario', JSON.stringify(user));setTimeout(()=>{isRegistrado=true;document.body.classList.remove('invitado');document.getElementById('loginOverlay').style.display='none';document.getElementById('registroOverlay').style.display='none';checkRegistro();render();},500);return;}let {data,error}=await supabaseClient.from('usuarios').select('*').eq('whatsapp',loginInput).limit(1);if(error) throw error;if(!data || data.length===0){let {data:data2}=await supabaseClient.from('usuarios').select('*').ilike('whatsapp','%'+loginInput.replace('+','')+'%').limit(1);if(!data2 || data2.length===0){msg.style.color='#FF3B3B';msg.textContent='❌ No encontré cuenta con ese WhatsApp mi pez. Regístrate primero.';return;}data=data2;}let u=data[0];let user={nombre:u.nombre,whats:u.whatsapp,ciudad:u.ciudad||'',pais:u.pais||'',fecha:Date.now(),foto:u.avatar_url||''};localStorage.setItem('pez_usuario', JSON.stringify(user));msg.style.color='#1DB954';msg.textContent='✅ ¡Bienvenido de nuevo '+u.nombre+'!';setTimeout(()=>{isRegistrado=true;document.body.classList.remove('invitado');document.getElementById('loginOverlay').style.display='none';document.getElementById('registroOverlay').style.display='none';checkRegistro();render();},800);}catch(e){document.getElementById('loginMsg').style.color='#FF3B3B';document.getElementById('loginMsg').textContent='Error: '+e.message;}});
 document.getElementById('userAvatar')?.addEventListener('click',()=>{document.getElementById('changeFotoInput').click();});
 document.getElementById('perfilBoxAvatar')?.addEventListener('click',()=>{document.getElementById('changeFotoInput').click();});
