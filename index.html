@@ -20,11 +20,12 @@ body{margin:0;padding-bottom:110px;min-height:100vh;color:#FFF8DC;font-family:'P
 .iti input{width:100% !important;padding-left:90px !important;background:#2A2A2A !important;color:#FFF !important;border:1px solid #FFFFFF14 !important;border-radius:6px !important}
 .iti__country-list{background:#1E1E1E !important;color:#FFF !important;border:1px solid #FFD70033 !important;z-index:99999 !important}
 #bgBlur{position:fixed;inset:0;background:#050300 url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1400') center/cover;filter:blur(28px) brightness(0.25);transform:scale(1.15);z-index:-3}
-.topbar{display:flex;align-items:center;gap:10px;padding:12px 18px;background:#000000F0;backdrop-filter:blur(16px);border-bottom:1px solid #FFFFFF14;position:sticky;top:0;z-index:30}
+.topbar{display:flex;align-items:center;gap:8px;padding:12px 18px;background:#000000F0;backdrop-filter:blur(16px);border-bottom:1px solid #FFFFFF14;position:sticky;top:0;z-index:30}
 .topbar img{width:40px;height:40px;border-radius:50%;border:2px solid #FFD700}
-.topbar h1{font-family:'Cinzel';font-weight:900;font-size:11px;margin:0;letter-spacing:1.2px;background:linear-gradient(90deg,#FFD700,#FFE9A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;flex:1}
+.topbar h1{font-family:'Cinzel';font-weight:900;font-size:10px;margin:0;letter-spacing:1.2px;background:linear-gradient(90deg,#FFD700,#FFE9A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;flex:1}
 #fechaHoraTop{font-size:10px;font-weight:600;color:#B3B3B3;background:rgba(255,255,255,0.08);padding:4px 10px;border-radius:20px}
 #userBadge{font-size:10px;background:#FFD70022;color:#FFD700;padding:4px 10px;border-radius:20px;display:none;cursor:pointer}
+#userAvatar{width:32px;height:32px;border-radius:50%;border:2px solid #FFD700;display:none;object-fit:cover;cursor:pointer}
 #fabUpload{position:fixed;right:0;top:50%;transform:translateY(-50%);background:linear-gradient(180deg,#FFD700,#FFE9A0);color:#000;padding:18px 12px;border-radius:14px 0 0 14px;z-index:70;font-weight:900;font-size:12px;letter-spacing:1px;cursor:pointer;box-shadow:-4px 0 20px #000000AA;display:none;writing-mode:vertical-rl;border:none}
 #uploadDrawer{position:fixed;top:0;right:0;width:400px;max-width:92vw;height:100vh;background:#121212;border-left:1px solid #FFD70033;z-index:80;transform:translateX(100%);transition:transform 0.35s;overflow-y:auto;padding:20px}
 #uploadDrawer.open{transform:translateX(0)}
@@ -33,7 +34,13 @@ body{margin:0;padding-bottom:110px;min-height:100vh;color:#FFF8DC;font-family:'P
 .layout{display:flex;max-width:1400px;margin:0 auto;min-height:calc(100vh - 65px - 110px);gap:0}
 .sidebar{width:380px;min-width:380px;background:#121212;border-right:1px solid #FFFFFF0A;padding:14px;overflow-y:auto;max-height:calc(100vh - 65px - 110px);position:sticky;top:65px}
 .sidebar h3{font-size:11px;font-weight:700;color:#B3B3B3;letter-spacing:1.2px;margin:14px 0 8px;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
-.main-content{flex:1;padding:18px;overflow-y:auto}
+.main-content{flex:1;padding:18px;overflow-y:auto;position:relative}
+/* BUSCADOR IZQUIERDO MEDIO REDONDEADO */
+.buscador-wrapper{position:relative;display:flex;align-items:center;gap:10px;margin-bottom:18px;justify-content:flex-start}
+#buscador{width:320px;max-width:60%;padding:12px 18px 12px 44px;border-radius:25px !important;border:1px solid #FFD70044 !important;background:linear-gradient(180deg,#1E1E1E,#121212) !important;color:#FFF !important;font-size:13px;box-shadow:0 4px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.1) inset;transition:all 0.3s}
+#buscador:focus{border-color:#FFD700 !important;box-shadow:0 4px 25px rgba(255,215,0,0.15), 0 0 0 1px rgba(255,215,0,0.2) inset;outline:none;width:360px}
+.buscador-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#FFD700;font-size:14px;pointer-events:none}
+.buscador-hint{font-size:10px;color:#666;background:rgba(255,255,255,0.06);padding:4px 10px;border-radius:20px}
 .card{background:linear-gradient(180deg, rgba(24,18,10,0.9), rgba(10,8,4,0.85));border:1px solid #FFFFFF0A;border-radius:12px;padding:18px;box-shadow:0 8px 32px #000000AA;margin-bottom:16px}
 .cover-wrap{position:relative;width:100%;aspect-ratio:1/1;max-height:480px;border-radius:8px;overflow:hidden}
 .cover-wrap img{width:100%;height:100%;object-fit:cover}
@@ -89,7 +96,6 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 .player-center{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
 .player-controls{display:flex;align-items:center;gap:10px}
 .pf-spt{width:32px;height:32px;border:none;background:transparent;color:#B3B3B3;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:50%}
-.pf-spt:hover{background:rgba(255,255,255,0.1);color:#FFF}
 .pf-spt.active{color:#FFD700}
 .pf-spt-main{width:40px;height:40px;border-radius:50%;border:none;background:#FFF;color:#000;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .player-right{display:flex;align-items:center;gap:6px}
@@ -100,13 +106,15 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 #contextMenu button{display:block;width:100%;text-align:left;padding:10px 12px;background:transparent;border:none;color:#E8E8E8;font-size:13px;border-radius:4px;cursor:pointer}
 .filtros{display:flex;gap:6px;margin:10px 0}
 #registroOverlay{position:fixed;inset:0;background:rgba(0,0,0,0.92);backdrop-filter:blur(20px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
-.registroBox{background:linear-gradient(180deg,#1E1E1E,#121212);border:1px solid #FFD70033;border-radius:16px;padding:28px;max-width:420px;width:100%;box-shadow:0 20px 60px #000000AA;text-align:center;max-height:90vh;overflow-y:auto}
+.registroBox{background:linear-gradient(180deg,#1E1E1E,#121212);border:1px solid #FFD70033;border-radius:16px;padding:28px;max-width:420px;width:100%;box-shadow:0 20px 60px #000000AA;text-align:center;max-height:92vh;overflow-y:auto}
 .registroBox h2{font-family:'Cinzel';font-weight:900;font-size:22px;margin:0 0 8px;background:linear-gradient(90deg,#FFD700,#FFE9A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .registroBox input{margin-bottom:10px;text-align:left}
 .registroBox .btn{margin-top:14px;background:linear-gradient(90deg,#FFD700,#FFE9A0);color:#000}
 .aviso-legal{background:#1E1E1E;border:1px solid #FFFFFF14;color:#FFE9A0;padding:12px;border-radius:10px;font-size:11px;line-height:1.5;margin-top:12px;text-align:left}
 #avisoBloqueo{background:#FFD70011;border:1px dashed #FFD70033;color:#FFE9A0;padding:10px 14px;border-radius:8px;font-size:11px;text-align:center;margin:10px 0}
-@media(max-width:900px){.layout{flex-direction:column}.sidebar{width:100%;min-width:100%;max-height:none;position:static;order:2}.main-content{order:1}#uploadDrawer{width:100%}.player-main{flex-wrap:wrap}.player-center{order:3;width:100%}.player-right{order:2}}
+.foto-preview{width:90px;height:90px;border-radius:50%;border:3px solid #FFD700;object-fit:cover;margin:0 auto 12px;display:none;background:#2A2A2A}
+.foto-placeholder{width:90px;height:90px;border-radius:50%;border:3px dashed #FFD70055;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:30px;color:#FFD70055;background:#1E1E1E}
+@media(max-width:900px){.layout{flex-direction:column}.sidebar{width:100%;min-width:100%;max-height:none;position:static;order:2}.main-content{order:1}#uploadDrawer{width:100%}.player-main{flex-wrap:wrap}.player-center{order:3;width:100%}.player-right{order:2}#buscador{width:100%;max-width:100%}.buscador-hint{display:none}}
 </style>
 </head>
 <body>
@@ -115,17 +123,20 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 
 <div id="registroOverlay">
 <div class="registroBox">
-<div style="font-size:50px;margin-bottom:12px">🔒</div>
+<div style="font-size:40px;margin-bottom:8px">🔒</div>
 <h2>EL DON 2035 EL PEZ</h2>
-<p>Estás en modo <b style="color:#FFD700">INVITADO</b> • Puedes escuchar, para subir regístrate</p>
+<p>Estás en modo <b style="color:#FFD700">INVITADO</b> • Regístrate para subir música</p>
+<div class="foto-placeholder" id="fotoPlaceholder"><i class="fa-solid fa-camera"></i></div>
+<img id="fotoPreview" class="foto-preview">
+<input type="file" id="regFoto" accept="image/*" style="margin-bottom:4px">
+<p style="font-size:10px;color:#666;margin:0 0 10px">Tu foto de perfil (opcional) 📸</p>
 <input id="regNombre" placeholder="Tu nombre completo">
 <input id="regWhats" type="tel" placeholder="Tu WhatsApp">
 <div id="paisDetectado" style="font-size:11px;color:#FFD700;margin:-4px 0 8px;display:none;background:#FFD70011;padding:6px 10px;border-radius:20px"></div>
 <input id="regCiudad" placeholder="Tu ciudad">
 <div class="aviso-legal">
-<b style="color:#1DB954">✅ PERMITIDO:</b> IA, autor propio, libre de derechos<br><br>
-<b style="color:#FF3B3B;font-size:14px;background:#FF3B3B22;padding:4px 8px;border-radius:6px;display:inline-block">⛔ PROHIBIDO MÚSICA CON COPYRIGHT</b><br>
-<span style="color:#FF3B3B;font-weight:700">Nada de canciones comerciales.</span>
+<b style="color:#1DB954">✅ PERMITIDO:</b> IA, autor propio, libre de derechos<br>
+<b style="color:#FF3B3B;font-size:13px;background:#FF3B3B22;padding:3px 8px;border-radius:6px;display:inline-block;margin-top:6px">⛔ PROHIBIDO MÚSICA CON COPYRIGHT</b>
 </div>
 <button class="btn" id="btnRegistrar"><i class="fa-solid fa-unlock"></i> REGISTRARME GRATIS</button>
 <button class="btn2" id="btnInvitado" style="margin-top:10px;border:none;color:#666">Seguir como invitado</button>
@@ -161,7 +172,9 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 <div id="bgBlur"></div>
 <div class="topbar">
 <img id="logoBtn" src="logo.png" onerror="this.src='https://via.placeholder.com/40/FFD700/000?text=PEZ'">
-<h1>EL DON 2035 EL PEZ OFICIAL • <span id="contador">0</span> TEMAS • <span style="color:#1DB954">♾️ BUCLE INFINITO</span></h1>
+<h1>EL DON 2035 EL PEZ OFICIAL • <span id="contador">0</span> TEMAS • <span style="color:#1DB954">♾️</span></h1>
+<img id="userAvatar" title="Click para cambiar foto">
+<input type="file" id="changeFotoInput" accept="image/*" style="display:none">
 <span id="userBadge"></span>
 <button id="btnCerrarSesion" class="btn2" style="display:none;background:#FF444422;color:#FF4444;border-color:#FF444455"><i class="fa-solid fa-right-from-bracket"></i> SALIR</button>
 <span id="fechaHoraTop"></span>
@@ -171,12 +184,12 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 <div class="layout">
 <div class="sidebar" id="sidebar">
 <div id="avisoBloqueo"></div>
-<div style="display:flex;gap:6px;margin-bottom:8px"><input id="buscador" placeholder="🔍 Buscar..." style="flex:1"><button class="btn2" id="btnExport"><i class="fa-solid fa-download"></i></button><input type="file" id="importFile" accept=".json" style="display:none"><button class="btn2" id="btnImport"><i class="fa-solid fa-upload"></i></button></div>
 <div class="filtros">
 <button class="btn2 active" id="filtroTodos" onclick="setFiltro('todos')">TODO</button>
 <button class="btn2" id="filtroLocal" onclick="setFiltro('local')"><span class="badge badge-local" style="font-size:8px">LOCAL</span></button>
 <button class="btn2" id="filtroOnline" onclick="setFiltro('online')"><span class="badge badge-online" style="font-size:8px">ONLINE</span></button>
 </div>
+<div style="display:flex;gap:6px;margin-bottom:12px"><button class="btn2" id="btnExport"><i class="fa-solid fa-download"></i> Exportar</button><input type="file" id="importFile" accept=".json" style="display:none"><button class="btn2" id="btnImport"><i class="fa-solid fa-upload"></i> Importar</button></div>
 <h3><span>TUS TEMAS LOCALES</span><span class="count count-local" id="contador2">0</span></h3>
 <div id="lista"></div>
 <div class="folder open" id="folderOtros">
@@ -188,11 +201,18 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 </div>
 </div>
 <div class="main-content">
+
+<div class="buscador-wrapper">
+<i class="fa-solid fa-magnifying-glass buscador-icon"></i>
+<input id="buscador" placeholder="🔍 Buscar tu música aquí mi pez...">
+<span class="buscador-hint">♾️ Bucle infinito</span>
+</div>
+
 <div class="card">
 <div class="cover-wrap">
 <img id="mainCover" src="logo.png">
 <div class="cover-overlay"></div>
-<div class="cover-title"><h2 id="mainTitle">Elige un tema</h2><p id="mainDedicado">Escucha gratis • ♾️ Bucle infinito activado</p><span id="sitioFecha">eldon2035.github.io/elpez</span></div>
+<div class="cover-title"><h2 id="mainTitle">Elige un tema</h2><p id="mainDedicado">Escucha gratis • ♾️ Bucle infinito</p><span id="sitioFecha">eldon2035.github.io/elpez</span></div>
 </div>
 <div class="visualizer paused" id="visualizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
 <div class="progress" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
@@ -203,7 +223,7 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 <button class="spt-btn" id="prevBtn"><i class="fa-solid fa-backward-step"></i></button>
 <button class="spt-main" id="playBtn"><i class="fa-solid fa-play" id="playIcon"></i></button>
 <button class="spt-btn" id="nextBtn"><i class="fa-solid fa-forward-step"></i></button>
-<button class="spt-btn active" id="modeBtn" title="Bucle infinito activado"><i class="fa-solid fa-repeat"></i></button>
+<button class="spt-btn active" id="modeBtn"><i class="fa-solid fa-repeat"></i></button>
 </div>
 <p id="nowPlaying" style="text-align:center;font-size:12px;color:#B3B3B3;margin-top:14px"></p>
 </div>
@@ -241,9 +261,9 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 const SUPABASE_URL="https://hrvmidwtojjmhmbxxkpz.supabase.co";const SUPABASE_KEY="sb_publishable_PYd42RgJIYn2WP2CA-wz1Q_7cQ2EaRU";const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const LINK_OFICIAL="https://eldon2035.github.io/elpez/";const CLAVE="Elpez2035";
 const TELEGRAM_BOT_TOKEN="9242572538:AAEjeqPBBOLWfDNoaUE8UHF4l2unP6pOsI8";const TELEGRAM_CHAT_ID="684478704";
 function enviarAvisoTelegram(nombre,whats,ciudad,pais){try{let m=`🎉 NUEVO REGISTRO EL PEZ!\n\n👤 ${nombre}\n📱 ${whats}\n🌍 ${pais}\n🏙️ ${ciudad}\n🕐 ${new Date().toLocaleString('es-EC')}`;let url=`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(m)}`;new Image().src=url;}catch(e){}}
-let modoBorrado=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],playQueue=[],selectedTemaId=null,isRegistrado=false,iti=null,currentPlayingTema=null;
+let modoBorrado=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],playQueue=[],selectedTemaId=null,isRegistrado=false,iti=null,currentPlayingTema=null,fotoBase64=null;
 function initTelefono(){const input=document.querySelector("#regWhats");iti=window.intlTelInput(input,{initialCountry:"ec",preferredCountries:["ec","co","pe","mx","es","us","ar","cl"],separateDialCode:true,utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",geoIpLookup:function(cb){fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>cb(d.country_code)).catch(()=>cb("ec"));}});input.addEventListener('countrychange',()=>{let d=iti.getSelectedCountryData();let el=document.getElementById('paisDetectado');el.style.display='block';el.innerHTML=`🌍 ${d.name} (+${d.dialCode}) • ${d.iso2.toUpperCase()}`;});setTimeout(()=>{let d=iti.getSelectedCountryData();let el=document.getElementById('paisDetectado');el.style.display='block';el.innerHTML=`🌍 Detectado: ${d.name} (+${d.dialCode})`;},800);}
-function checkRegistro(){let urlParams=new URLSearchParams(window.location.search);if(urlParams.get('admin')==='Elpez2035'){let adminUser={nombre:"ADMIN Fabian",whats:"+593 admin",ciudad:"Santo Domingo",pais:"Ecuador ADMIN",fecha:Date.now()};localStorage.setItem('pez_usuario', JSON.stringify(adminUser));history.replaceState({}, '', window.location.pathname);}let u=localStorage.getItem('pez_usuario');let badge=document.getElementById('userBadge');let btnSalir=document.getElementById('btnCerrarSesion');let fab=document.getElementById('fabUpload');if(u){isRegistrado=true;try{let d=JSON.parse(u);badge.style.display='inline-block';badge.textContent='👤 '+d.nombre;if(btnSalir)btnSalir.style.display='inline-block';if(fab)fab.style.display='block';document.getElementById('registroOverlay').style.display='none';document.getElementById('avisoBloqueo').innerHTML='✅ Registrado - Sube en la muesca derecha →';document.getElementById('avisoBloqueo').style.background='#1DB95411';document.getElementById('avisoBloqueo').style.color='#1DB954';}catch(e){}}else{isRegistrado=false;badge.style.display='none';if(btnSalir)btnSalir.style.display='none';if(fab)fab.style.display='none';document.getElementById('avisoBloqueo').innerHTML='🔒 Invitado - Puedes ver y reproducir • <a href="#" id="linkRegistrar2" style="color:#FFD700;font-weight:800">Regístrate para subir</a>';}}
+function checkRegistro(){let urlParams=new URLSearchParams(window.location.search);if(urlParams.get('admin')==='Elpez2035'){let adminUser={nombre:"ADMIN Fabian",whats:"+593 admin",ciudad:"Santo Domingo",pais:"Ecuador ADMIN",fecha:Date.now(),foto:''};localStorage.setItem('pez_usuario', JSON.stringify(adminUser));history.replaceState({}, '', window.location.pathname);}let u=localStorage.getItem('pez_usuario');let badge=document.getElementById('userBadge');let btnSalir=document.getElementById('btnCerrarSesion');let fab=document.getElementById('fabUpload');let avatar=document.getElementById('userAvatar');if(u){isRegistrado=true;try{let d=JSON.parse(u);badge.style.display='inline-block';badge.textContent='👤 '+d.nombre;if(btnSalir)btnSalir.style.display='inline-block';if(fab)fab.style.display='block';if(d.foto){avatar.src=d.foto;avatar.style.display='block';}else{avatar.style.display='none';}document.getElementById('registroOverlay').style.display='none';document.getElementById('avisoBloqueo').innerHTML='✅ Registrado como '+d.nombre+' - Sube en la muesca derecha →';document.getElementById('avisoBloqueo').style.background='#1DB95411';document.getElementById('avisoBloqueo').style.color='#1DB954';}catch(e){}}else{isRegistrado=false;badge.style.display='none';if(btnSalir)btnSalir.style.display='none';if(fab)fab.style.display='none';if(avatar)avatar.style.display='none';document.getElementById('avisoBloqueo').innerHTML='🔒 Invitado - Puedes ver y reproducir • <a href="#" id="linkRegistrar2" style="color:#FFD700;font-weight:800">Regístrate para subir</a>';}}
 function setFiltro(t){filtroTipo=t;document.querySelectorAll('.filtros .btn2').forEach(b=>b.classList.remove('active'));document.getElementById('filtro'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active');render();}
 function actualizarFechas(){let ahora=new Date();let meses=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];let topTxt=`${ahora.getDate()} ${meses[ahora.getMonth()]} • ${String(ahora.getHours()).padStart(2,'0')}:${String(ahora.getMinutes()).padStart(2,'0')}`;let elTop=document.getElementById('fechaHoraTop');if(elTop)elTop.textContent=topTxt;}
 function abrirDB(){return new Promise(r=>{let q=indexedDB.open("PezDB",1);q.onupgradeneeded=e=>{e.target.result.createObjectStore("temas",{keyPath:"id",autoIncrement:true})};q.onsuccess=e=>{db=e.target.result;r()}})}
@@ -256,31 +276,18 @@ function verLetra(id){let idBusca=id||currentPlayingTema?.id;let t=[...temasCach
 function descargar(id){let idBusca=id||currentPlayingTema?.id;let t=[...temasCache,...temasOnlineCache].find(x=>String(x.id)===String(idBusca))||currentPlayingTema;if(!t){alert("Pon una canción primero mi pez");return}if(t.audio_url||t.cancion_url){window.open(t.audio_url||t.cancion_url,'_blank');return;}if(t.audioBlob){let url=URL.createObjectURL(t.audioBlob);let a=document.createElement("a");a.href=url;a.download=t.titulo+".mp3";a.click()}else alert("No hay archivo para descargar mi pez")}
 function compartir(id,titulo){let tit=titulo||currentPlayingTema?.titulo||"Tema EL PEZ";let texto=encodeURIComponent("🎧 "+tit+" - EL DON 2035 EL PEZ OFICIAL: "+LINK_OFICIAL);window.open("https://wa.me/?text="+texto,"_blank")}
 function formatTime(s){if(isNaN(s))return"0:00";let m=Math.floor(s/60);let sec=Math.floor(s%60);return m+":"+(sec<10?"0":"")+sec}
-
-// BUCLE INFINITO - CORREGIDO MI PEZ
-function actualizarPlayQueue(){
-  if(filtroTipo==='local') playQueue=[...temasCache];
-  else if(filtroTipo==='online') playQueue=[...temasOnlineCache];
-  else playQueue=[...temasCache,...temasOnlineCache];
-  // Si hay filtro de busqueda
-  if(filtro) playQueue=playQueue.filter(t=>(t.titulo+(t.dedicado||"")).toLowerCase().includes(filtro.toLowerCase()));
-}
+function actualizarPlayQueue(){if(filtroTipo==='local') playQueue=[...temasCache];else if(filtroTipo==='online') playQueue=[...temasOnlineCache];else playQueue=[...temasCache,...temasOnlineCache];if(filtro) playQueue=playQueue.filter(t=>(t.titulo+(t.dedicado||"")).toLowerCase().includes(filtro.toLowerCase()));}
 function tocar(idx,isOnline=false){
   actualizarPlayQueue();
   let t;
   if(typeof idx==='number' && playQueue.length>0 && idx<playQueue.length && (filtroTipo!=='todos' || filtro)){
-    // si viene de lista filtrada, usar playQueue
-    t=playQueue[idx];
-    currentIdx=idx;
+    t=playQueue[idx];currentIdx=idx;
   } else if(isOnline){
     t=temasOnlineCache[idx];
-    // buscar indice real en playQueue
-    actualizarPlayQueue();
     let realIdx=playQueue.findIndex(x=>String(x.id)===String(t.id));
     currentIdx=realIdx>=0?realIdx:0;
   } else {
     t=temasCache[idx];
-    actualizarPlayQueue();
     let realIdx=playQueue.findIndex(x=>String(x.id)===String(t.id));
     currentIdx=realIdx>=0?realIdx:idx;
   }
@@ -291,7 +298,7 @@ function tocar(idx,isOnline=false){
   document.getElementById("mainCover").src=urlC;
   document.getElementById("bgBlur").style.backgroundImage="url('"+urlC+"')";
   document.getElementById("mainTitle").textContent=t.titulo||"Sin titulo";
-  document.getElementById("mainDedicado").textContent=(t.dedicado||t.artista||"")+" • "+(t.online?"🌐 ONLINE":"📱 LOCAL")+" • ♾️ Bucle Infinito";
+  document.getElementById("mainDedicado").textContent=(t.dedicado||t.artista||"")+" • "+(t.online?"🌐 ONLINE":"📱 LOCAL")+" • ♾️";
   document.getElementById("pImg").src=urlC;
   document.getElementById("pTitle").textContent=t.titulo;
   document.getElementById("pDed").textContent=(t.dedicado||t.artista||"EL DON 2035")+" • ♾️";
@@ -300,7 +307,7 @@ function tocar(idx,isOnline=false){
   document.getElementById("playIcon").className="fa-solid fa-pause";
   document.getElementById("pfPlayIcon").className="fa-solid fa-pause";
   document.getElementById("playBtn").classList.add("playing");
-  document.getElementById("nowPlaying").textContent="▶️ Sonando: "+t.titulo+" • ♾️ Bucle infinito activado";
+  document.getElementById("nowPlaying").textContent="▶️ Sonando: "+t.titulo+" • ♾️";
   document.getElementById("visualizer").classList.remove("paused");
   if(!t.online && t.id){let tx=db.transaction("temas","readwrite");let req=tx.objectStore("temas").get(t.id);req.onsuccess=()=>{let tt=req.result;if(!tt)return;tt.repro=(tt.repro||0)+1;tx.objectStore("temas").put(tt)};}
   render(false);
@@ -308,60 +315,31 @@ function tocar(idx,isOnline=false){
 function nextTrack(){
   actualizarPlayQueue();
   if(playQueue.length===0) return;
-  if(shuffle){
-    currentIdx=Math.floor(Math.random()*playQueue.length);
-  } else {
-    currentIdx=(currentIdx+1)%playQueue.length; // BUCLE INFINITO MI PEZ
-  }
-  let t=playQueue[currentIdx];
-  currentPlayingTema=t;
+  if(shuffle){currentIdx=Math.floor(Math.random()*playQueue.length);}else{currentIdx=(currentIdx+1)%playQueue.length;}
+  let t=playQueue[currentIdx];currentPlayingTema=t;
   let urlA=t.audio_url||t.cancion_url||(t.audioBlob?URL.createObjectURL(t.audioBlob):"");
   let urlC=t.cover_url||t.portada_url||(t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png');
-  document.getElementById("mainCover").src=urlC;
-  document.getElementById("bgBlur").style.backgroundImage="url('"+urlC+"')";
-  document.getElementById("mainTitle").textContent=t.titulo;
-  document.getElementById("mainDedicado").textContent=(t.dedicado||t.artista||"")+" • ♾️ Bucle";
-  document.getElementById("pImg").src=urlC;
-  document.getElementById("pTitle").textContent=t.titulo;
-  document.getElementById("pDed").textContent=(t.dedicado||t.artista||"EL DON 2035");
-  let a=document.getElementById("mainAudio");
-  a.src=urlA;a.volume=volumen;a.play();
-  document.getElementById("playIcon").className="fa-solid fa-pause";
-  document.getElementById("pfPlayIcon").className="fa-solid fa-pause";
-  document.getElementById("nowPlaying").textContent="▶️ Sonando: "+t.titulo+" • ♾️";
-  document.getElementById("visualizer").classList.remove("paused");
-  render(false);
+  document.getElementById("mainCover").src=urlC;document.getElementById("pImg").src=urlC;document.getElementById("pTitle").textContent=t.titulo;document.getElementById("mainTitle").textContent=t.titulo;
+  let a=document.getElementById("mainAudio");a.src=urlA;a.volume=volumen;a.play();
+  document.getElementById("playIcon").className="fa-solid fa-pause";document.getElementById("pfPlayIcon").className="fa-solid fa-pause";render(false);
 }
 function prevTrack(){
   actualizarPlayQueue();
   if(playQueue.length===0) return;
-  if(shuffle){
-    currentIdx=Math.floor(Math.random()*playQueue.length);
-  } else {
-    currentIdx=(currentIdx-1+playQueue.length)%playQueue.length; // BUCLE INFINITO ATRAS TAMBIEN
-  }
-  let t=playQueue[currentIdx];
-  currentPlayingTema=t;
+  if(shuffle){currentIdx=Math.floor(Math.random()*playQueue.length);}else{currentIdx=(currentIdx-1+playQueue.length)%playQueue.length;}
+  let t=playQueue[currentIdx];currentPlayingTema=t;
   let urlA=t.audio_url||t.cancion_url||(t.audioBlob?URL.createObjectURL(t.audioBlob):"");
   let urlC=t.cover_url||t.portada_url||(t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png');
-  document.getElementById("mainCover").src=urlC;
-  document.getElementById("pImg").src=urlC;
-  document.getElementById("pTitle").textContent=t.titulo;
-  document.getElementById("mainTitle").textContent=t.titulo;
-  let a=document.getElementById("mainAudio");
-  a.src=urlA;a.volume=volumen;a.play();
-  document.getElementById("playIcon").className="fa-solid fa-pause";
-  document.getElementById("pfPlayIcon").className="fa-solid fa-pause";
-  render(false);
+  document.getElementById("mainCover").src=urlC;document.getElementById("pImg").src=urlC;document.getElementById("pTitle").textContent=t.titulo;document.getElementById("mainTitle").textContent=t.titulo;
+  let a=document.getElementById("mainAudio");a.src=urlA;a.volume=volumen;a.play();
+  document.getElementById("playIcon").className="fa-solid fa-pause";document.getElementById("pfPlayIcon").className="fa-solid fa-pause";render(false);
 }
-
 async function cargarOnline(){const{data,error}=await supabaseClient.from('canciones').select('*').order('created_at',{ascending:false});if(error){return[];}return data.map(d=>({id:d.id,titulo:d.titulo,dedicado:d.artista||d.dedicado,genero:d.genero||'Online',letra:d.letra,portada_url:d.portada_url,cover_url:d.portada_url,cancion_url:d.cancion_url,audio_url:d.cancion_url,online:true}))}
 function limpiarNombre(n){return n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9._-]/g,'_').replace(/__+/g,'_').slice(0,70);}
 function mostrarMenu(e,id){e.preventDefault();selectedTemaId=id;const menu=document.getElementById('contextMenu');menu.style.left=e.clientX+'px';menu.style.top=e.clientY+'px';menu.style.display='block';}
 function ocultarMenu(){document.getElementById('contextMenu').style.display='none';}
 async function reintentarSubida(soloPortada=false){if(!selectedTemaId)return;ocultarMenu();let t=await obtenerTemaPorId(selectedTemaId);if(!t)return;let msg=document.getElementById('msg');msg.textContent="♻️ Reintentando '"+t.titulo+"'...";try{let portada_url="",cancion_url="";if(t.coverBlob){let nombreP=Date.now()+"_retry_portada_"+limpiarNombre(t.titulo+"_portada.jpg");let{error}=await supabaseClient.storage.from('portadas').upload(nombreP,t.coverBlob);if(!error){let{data}=supabaseClient.storage.from('portadas').getPublicUrl(nombreP);portada_url=data.publicUrl;}}if(!soloPortada&&t.audioBlob){let nombreC=Date.now()+"_retry_"+limpiarNombre(t.titulo+".mp3");let{error}=await supabaseClient.storage.from('canciones').upload(nombreC,t.audioBlob);if(error)throw error;let{data}=supabaseClient.storage.from('canciones').getPublicUrl(nombreC);cancion_url=data.publicUrl;}if(soloPortada){let{data:existe}=await supabaseClient.from('canciones').select('*').eq('titulo',t.titulo).limit(1);if(existe&&existe.length>0&&portada_url){await supabaseClient.from('canciones').update({portada_url:portada_url}).eq('id',existe[0].id);}else if(portada_url){await supabaseClient.from('canciones').insert([{artista:t.dedicado||'El Don 2035',titulo:t.titulo,letra:t.letra,portada_url,cancion_url:""}]);}}else{await supabaseClient.from('canciones').insert([{artista:t.dedicado||'El Don 2035',titulo:t.titulo,letra:t.letra,portada_url,cancion_url}]);}msg.textContent="¡Reintentado ONLINE! ✅ "+t.titulo;render();}catch(err){msg.textContent="Error al reintentar: "+err.message;}}
-async function render(){let temas=await obtenerTemas();temas.sort((a,b)=>(a.orden||0)-(b.orden||0));let online=await cargarOnline();temasOnlineCache=online;let filtrarTexto=t=>!filtro||(t.titulo+(t.dedicado||"")).toLowerCase().includes(filtro.toLowerCase());let filtrarTipoFn=(t,isOnline)=>{if(filtroTipo==='local')return !isOnline;if(filtroTipo==='online')return isOnline;return true};temas=temas.filter(filtrarTexto);online=online.filter(filtrarTexto);temasCache=temas;
-actualizarPlayQueue();
+async function render(){let temas=await obtenerTemas();temas.sort((a,b)=>(a.orden||0)-(b.orden||0));let online=await cargarOnline();temasOnlineCache=online;let filtrarTexto=t=>!filtro||(t.titulo+(t.dedicado||"")).toLowerCase().includes(filtro.toLowerCase());let filtrarTipoFn=(t,isOnline)=>{if(filtroTipo==='local')return !isOnline;if(filtroTipo==='online')return isOnline;return true};temas=temas.filter(filtrarTexto);online=online.filter(filtrarTexto);temasCache=temas;actualizarPlayQueue();
 let l=document.getElementById("lista");l.innerHTML="";let temasFiltradosLocal=temas.filter(t=>filtrarTipoFn(t,false));if(temasFiltradosLocal.length===0)l.innerHTML='<div style="opacity:.5;text-align:center;padding:12px;font-size:12px">No hay temas locales</div>';
 temasFiltradosLocal.forEach((t,idxReal)=>{let idx=temas.indexOf(t);let urlC=t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png';let btnBorrar=modoBorrado?`<button class="btn-icon" onclick="borrarTema(${t.id})" style="color:#FF4444;background:#FF444422">🗑️</button>`:"";let d=document.createElement("div");d.className="tema tema-local";let qIdx=playQueue.findIndex(x=>String(x.id)===String(t.id));if(qIdx===currentIdx && currentPlayingTema) d.classList.add("playing");d.dataset.id=t.id;d.oncontextmenu=(e)=>mostrarMenu(e,t.id);d.innerHTML=`<img src="${urlC}"><div class="tema-info" onclick="tocar(${idx})"><b>${t.titulo} <span class="badge badge-local">📱 LOCAL</span></b><span>${t.dedicado||''} • ▶️${t.repro||0}</span></div><div class="tema-actions"><button class="btn-icon" onclick="verLetra(${t.id})"><i class="fa-solid fa-file-lines"></i></button>${btnBorrar}</div>`;l.appendChild(d);});
 let lOtros=document.getElementById("listaOtros");lOtros.innerHTML="";let onlineFiltrado=online.filter(t=>filtrarTipoFn(t,true));document.getElementById("otrosCount").textContent=onlineFiltrado.length;document.getElementById("contador2").textContent=temas.length;document.getElementById("contador").textContent=temas.length+online.length;if(onlineFiltrado.length===0)lOtros.innerHTML='<div style="opacity:.5;text-align:center;padding:12px;font-size:12px">No hay temas online</div>';
@@ -372,8 +350,20 @@ async function subir(){if(!isRegistrado){alert('🔒 Debes registrarte para subi
 let check=document.getElementById('checkDerechos');if(!check.checked){alert('⚠️ Debes confirmar que tu música es IA, autoría propia o libre de derechos y NO tiene copyright mi pez');return}
 let ded=document.getElementById("dedicado").value.trim();let gen=document.getElementById("genero").value;let letra=document.getElementById("letra").value.trim();let f=document.getElementById("mp3").files[0];let c=document.getElementById("portada").files[0];if(!f){alert("Falta MP3 mi pez");return}let titulo=letra.split("\n")[0].substring(0,40).trim()||ded||f.name.replace(".mp3","")||"Mi Tema";let msg=document.getElementById("msg");msg.textContent="Subiendo online mi pez... espera";try{await guardarTema({titulo,dedicado:ded,genero:gen,letra,audioBlob:f,coverBlob:c||null,repro:0,orden:Date.now(),fav:false});let portada_url="",cancion_url="";if(c){let nombre=Date.now()+"_"+limpiarNombre(c.name);let{error}=await supabaseClient.storage.from('portadas').upload(nombre,c);if(error)throw error;let{data}=supabaseClient.storage.from('portadas').getPublicUrl(nombre);portada_url=data.publicUrl;}if(f){let nombre=Date.now()+"_"+limpiarNombre(f.name);let{error}=await supabaseClient.storage.from('canciones').upload(nombre,f);if(error)throw error;let{data}=supabaseClient.storage.from('canciones').getPublicUrl(nombre);cancion_url=data.publicUrl;}let{error:err2}=await supabaseClient.from('canciones').insert([{artista:ded||'El Don 2035',titulo,letra,portada_url,cancion_url}]);if(err2)throw err2;msg.textContent="¡Subido ONLINE para todos! ✅";document.getElementById("dedicado").value="";document.getElementById("letra").value="";document.getElementById("checkDerechos").checked=false;render();setTimeout(()=>{document.getElementById('uploadDrawer').classList.remove('open');document.getElementById('uploadOverlay').classList.remove('show')},1500)}catch(e){console.error(e);msg.textContent="Error online: "+e.message+" (guardado como LOCAL 📱)";render();}}
 abrirDB().then(()=>{
-const dot=document.getElementById('cursor-dot');const outline=document.getElementById('cursor-outline');let mx=0,my=0,ox=0,oy=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});(function anim(){ox+=(mx-ox)*0.18;oy+=(my-oy)*0.18;outline.style.left=ox+'px';outline.style.top=oy+'px';requestAnimationFrame(anim);})();document.addEventListener('mouseover',e=>{if(e.target.closest('button,input,select,textarea,a,.tema,.folder-header,.iti__flag-container,#fabUpload'))document.body.classList.add('cursor-hover');else document.body.classList.remove('cursor-hover');});
+const dot=document.getElementById('cursor-dot');const outline=document.getElementById('cursor-outline');let mx=0,my=0,ox=0,oy=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});(function anim(){ox+=(mx-ox)*0.18;oy+=(my-oy)*0.18;outline.style.left=ox+'px';outline.style.top=oy+'px';requestAnimationFrame(anim);})();document.addEventListener('mouseover',e=>{if(e.target.closest('button,input,select,textarea,a,.tema,.folder-header,.iti__flag-container,#fabUpload,#userAvatar,#buscador'))document.body.classList.add('cursor-hover');else document.body.classList.remove('cursor-hover');});
 checkRegistro();initTelefono();actualizarFechas();setInterval(actualizarFechas,1000);render();
+document.getElementById('regFoto').addEventListener('change',e=>{
+  let file=e.target.files[0];
+  if(!file) return;
+  let reader=new FileReader();
+  reader.onload=ev=>{
+    fotoBase64=ev.target.result;
+    document.getElementById('fotoPreview').src=fotoBase64;
+    document.getElementById('fotoPreview').style.display='block';
+    document.getElementById('fotoPlaceholder').style.display='none';
+  };
+  reader.readAsDataURL(file);
+});
 function openDrawer(){document.getElementById('uploadDrawer').classList.add('open');document.getElementById('uploadOverlay').classList.add('show')}
 function closeDrawer(){document.getElementById('uploadDrawer').classList.remove('open');document.getElementById('uploadOverlay').classList.remove('show')}
 document.getElementById('fabUpload').addEventListener('click',openDrawer);
@@ -389,20 +379,36 @@ document.getElementById('btnRegistrar').addEventListener('click',async()=>{
   if(!iti.isValidNumber()){alert('Número no válido mi pez');return}
   let whats = numeroCompleto;
   let pais = `${paisData.name} (+${paisData.dialCode}) ${paisData.iso2.toUpperCase()}`;
-  let user={nombre,whats,ciudad,pais,fecha:Date.now()};
+  let user={nombre,whats,ciudad,pais,fecha:Date.now(),foto:fotoBase64||''};
   localStorage.setItem('pez_usuario', JSON.stringify(user));
-  try{await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,ciudad,pais}]);}catch(e){}
+  try{await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,ciudad,pais,avatar_url:fotoBase64||''}]);}catch(e){}
   enviarAvisoTelegram(nombre,whats,ciudad,pais);
   isRegistrado=true;
   document.getElementById('userBadge').style.display='inline-block';
   document.getElementById('userBadge').textContent='👤 '+nombre+' • '+paisData.iso2.toUpperCase();
   document.getElementById('btnCerrarSesion').style.display='inline-block';
   document.getElementById('fabUpload').style.display='block';
+  if(fotoBase64){document.getElementById('userAvatar').src=fotoBase64;document.getElementById('userAvatar').style.display='block';}
   document.getElementById('registroOverlay').style.display='none';
-  document.getElementById('avisoBloqueo').innerHTML='✅ Registrado - Sube en la muesca derecha →';
+  document.getElementById('avisoBloqueo').innerHTML='✅ Registrado como '+nombre+' - Sube en la muesca derecha →';
   document.getElementById('avisoBloqueo').style.background='#1DB95411';
   document.getElementById('avisoBloqueo').style.color='#1DB954';
   render();
+});
+document.getElementById('userAvatar').addEventListener('click',()=>{document.getElementById('changeFotoInput').click();});
+document.getElementById('changeFotoInput').addEventListener('change',e=>{
+  let file=e.target.files[0];
+  if(!file) return;
+  let reader=new FileReader();
+  reader.onload=ev=>{
+    let nuevaFoto=ev.target.result;
+    let u=JSON.parse(localStorage.getItem('pez_usuario')||'{}');
+    u.foto=nuevaFoto;
+    localStorage.setItem('pez_usuario', JSON.stringify(u));
+    document.getElementById('userAvatar').src=nuevaFoto;
+    alert('¡Foto de perfil actualizada mi pez! 📸');
+  };
+  reader.readAsDataURL(file);
 });
 document.getElementById('btnInvitado').addEventListener('click',()=>{document.getElementById('registroOverlay').style.display='none';});
 document.getElementById('btnCerrarSesion').addEventListener('click',()=>{if(confirm('¿Cerrar sesión mi pez?')){localStorage.removeItem('pez_usuario');location.reload();}});
@@ -413,16 +419,7 @@ function updateProgress(){let pct=(mainA.currentTime/mainA.duration)*100;if(!isN
 mainA.addEventListener("timeupdate",updateProgress);
 mainA.addEventListener("play",()=>{document.getElementById("visualizer").classList.remove("paused");document.getElementById("playIcon").className="fa-solid fa-pause";document.getElementById("pfPlayIcon").className="fa-solid fa-pause";document.getElementById("playBtn").classList.add("playing");});
 mainA.addEventListener("pause",()=>{document.getElementById("visualizer").classList.add("paused");document.getElementById("playIcon").className="fa-solid fa-play";document.getElementById("pfPlayIcon").className="fa-solid fa-play";document.getElementById("playBtn").classList.remove("playing");});
-// BUCLE INFINITO MI PEZ - NUNCA SE DETIENE
-mainA.addEventListener("ended",()=>{
-  if(repeatMode==="one"){
-    mainA.currentTime=0;
-    mainA.play();
-    return;
-  }
-  // SIEMPRE SIGUE AL SIGUIENTE - BUCLE INFINITO ♾️
-  nextTrack();
-});
+mainA.addEventListener("ended",()=>{if(repeatMode==="one"){mainA.currentTime=0;mainA.play();return;}nextTrack();});
 function seek(e){let rect=e.currentTarget.getBoundingClientRect();let pct=(e.clientX-rect.left)/rect.width;mainA.currentTime=pct*mainA.duration;}
 document.getElementById("progressBar").addEventListener("click",seek);
 document.getElementById("playerTopProgress").addEventListener("click",seek);
@@ -436,7 +433,7 @@ document.getElementById("nextBtn").addEventListener("click",nextTrack);
 document.getElementById("pfNextBtn").addEventListener("click",nextTrack);
 document.getElementById("prevBtn").addEventListener("click",prevTrack);
 document.getElementById("pfPrevBtn").addEventListener("click",prevTrack);
-function toggleShuffle(){shuffle=!shuffle;document.getElementById("shuffleBtn").classList.toggle("active",shuffle);document.getElementById("pfShuffleBtn").classList.toggle("active",shuffle);if(shuffle){document.getElementById("shuffleBtn").innerHTML='<i class="fa-solid fa-shuffle" style="color:#FFD700"></i>';}else{document.getElementById("shuffleBtn").innerHTML='<i class="fa-solid fa-shuffle"></i>';}}
+function toggleShuffle(){shuffle=!shuffle;document.getElementById("shuffleBtn").classList.toggle("active",shuffle);document.getElementById("pfShuffleBtn").classList.toggle("active",shuffle);}
 document.getElementById("shuffleBtn").addEventListener("click",toggleShuffle);
 document.getElementById("pfShuffleBtn").addEventListener("click",toggleShuffle);
 function toggleMode(){if(repeatMode==="all"){repeatMode="one";}else{repeatMode="all";}document.getElementById("modeBtn").classList.toggle("active",true);document.getElementById("pfModeBtn").classList.toggle("active",true);}
