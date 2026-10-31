@@ -23,7 +23,6 @@ body{margin:0;padding-bottom:110px;min-height:100vh;color:#FFF8DC;font-family:'P
 .topbar{display:flex;align-items:center;gap:10px;padding:12px 18px;background:#000000F0;backdrop-filter:blur(16px);border-bottom:1px solid #FFFFFF14;position:sticky;top:0;z-index:30}
 .topbar img{width:40px;height:40px;border-radius:50%;border:2px solid #FFD700}
 .topbar h1{font-family:'Cinzel';font-weight:900;font-size:10px;margin:0;letter-spacing:1.2px;background:linear-gradient(90deg,#FFD700,#FFE9A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;flex:1}
-/* PERFIL LEGIBLE */
 #perfilHeader{display:flex;align-items:center;gap:10px;background:rgba(255,215,0,0.08);border:1px solid #FFD70033;padding:6px 12px;border-radius:30px;display:none}
 #userAvatar{width:38px;height:38px;border-radius:50%;border:2px solid #FFD700;object-fit:cover;cursor:pointer;box-shadow:0 0 10px #FFD70044}
 #userBadge{font-size:12px;background:transparent;color:#FFD700;padding:0;font-weight:700;letter-spacing:0.5px;cursor:pointer;max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -107,7 +106,8 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 #contextMenu{position:fixed;display:none;background:#282828;border-radius:8px;padding:6px;z-index:9999;min-width:220px}
 #contextMenu button{display:block;width:100%;text-align:left;padding:10px 12px;background:transparent;border:none;color:#E8E8E8;font-size:13px;border-radius:4px;cursor:pointer}
 .filtros{display:flex;gap:6px;margin:10px 0}
-#registroOverlay{position:fixed;inset:0;background:rgba(0,0,0,0.92);backdrop-filter:blur(20px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+#registroOverlay, #loginOverlay{position:fixed;inset:0;background:rgba(0,0,0,0.92);backdrop-filter:blur(20px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+#loginOverlay{display:none}
 .registroBox{background:linear-gradient(180deg,#1E1E1E,#121212);border:1px solid #FFD70033;border-radius:16px;padding:28px;max-width:420px;width:100%;box-shadow:0 20px 60px #000000AA;text-align:center;max-height:92vh;overflow-y:auto}
 .registroBox h2{font-family:'Cinzel';font-weight:900;font-size:22px;margin:0 0 8px;background:linear-gradient(90deg,#FFD700,#FFE9A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .registroBox input{margin-bottom:10px;text-align:left}
@@ -147,7 +147,22 @@ body.invitado #pfDownloadBtn, body.invitado #pfShareBtn, body.invitado #pfFavBtn
 <b style="color:#FF3B3B;font-size:13px;background:#FF3B3B22;padding:3px 8px;border-radius:6px;display:inline-block;margin-top:6px">⛔ PROHIBIDO MÚSICA CON COPYRIGHT</b>
 </div>
 <button class="btn" id="btnRegistrar"><i class="fa-solid fa-unlock"></i> REGISTRARME GRATIS</button>
-<button class="btn2" id="btnInvitado" style="margin-top:10px;border:none;color:#666">Seguir como invitado solo escuchando</button>
+<button class="btn2" id="btnShowLogin" style="margin-top:12px;width:100%;background:#1DB95422;color:#1DB954;border-color:#1DB95444"><i class="fa-solid fa-right-to-bracket"></i> ¿YA ESTÁS REGISTRADO? INICIA SESIÓN AQUÍ</button>
+<button class="btn2" id="btnInvitado" style="margin-top:8px;border:none;color:#666;width:100%">Seguir como invitado solo escuchando</button>
+</div>
+</div>
+
+<div id="loginOverlay">
+<div class="registroBox">
+<div style="font-size:40px;margin-bottom:8px">🔑</div>
+<h2>INICIAR SESIÓN</h2>
+<p>Ingresa tu WhatsApp registrado mi pez</p>
+<input id="loginWhats" type="tel" placeholder="Tu WhatsApp registrado">
+<div id="paisDetectadoLogin" style="font-size:11px;color:#FFD700;margin:-4px 0 8px;display:none;background:#FFD70011;padding:6px 10px;border-radius:20px"></div>
+<button class="btn" id="btnLogin" style="background:linear-gradient(90deg,#1DB954,#1ED760);color:#FFF"><i class="fa-solid fa-right-to-bracket"></i> ENTRAR A MI CUENTA</button>
+<p id="loginMsg" style="font-size:11px;color:#FF3B3B;margin-top:10px"></p>
+<button class="btn2" id="btnVolverRegistro" style="margin-top:10px;width:100%"><i class="fa-solid fa-arrow-left"></i> VOLVER AL REGISTRO</button>
+<button class="btn2" id="btnLoginInvitado" style="margin-top:8px;border:none;color:#666;width:100%">Seguir como invitado</button>
 </div>
 </div>
 
@@ -189,7 +204,7 @@ body.invitado #pfDownloadBtn, body.invitado #pfShareBtn, body.invitado #pfFavBtn
 <span id="userBadgeFull">Registrado</span>
 </div>
 </div>
-<button id="btnCerrarSesion" class="btn2" style="display:none;background:#FF444422;color:#FF4444;border-color:#FF444455"><i class="fa-solid fa-right-from-bracket"></i></button>
+<button id="btnCerrarSesion" class="btn2" style="display:none;background:#FF444422;color:#FF4444;border-color:#FF444455"><i class="fa-solid fa-right-from-bracket"></i> SALIR</button>
 <span id="fechaHoraTop"></span>
 <button class="btn2" id="btnFiesta"><i class="fa-solid fa-expand"></i></button>
 </div>
@@ -197,7 +212,6 @@ body.invitado #pfDownloadBtn, body.invitado #pfShareBtn, body.invitado #pfFavBtn
 <div class="layout">
 <div class="sidebar" id="sidebar">
 <div id="avisoBloqueo"></div>
-
 <div id="perfilUsuarioBox">
 <img id="perfilBoxAvatar" src="">
 <div style="flex:1;min-width:0">
@@ -207,7 +221,6 @@ body.invitado #pfDownloadBtn, body.invitado #pfShareBtn, body.invitado #pfFavBtn
 </div>
 <button class="btn2" id="btnCambiarFotoBox" style="padding:4px 8px"><i class="fa-solid fa-camera"></i></button>
 </div>
-
 <div class="filtros">
 <button class="btn2 active" id="filtroTodos" onclick="setFiltro('todos')">TODO</button>
 <button class="btn2" id="filtroLocal" onclick="setFiltro('local')"><span class="badge badge-local" style="font-size:8px">LOCAL</span></button>
@@ -283,9 +296,16 @@ body.invitado #pfDownloadBtn, body.invitado #pfShareBtn, body.invitado #pfFavBtn
 const SUPABASE_URL="https://hrvmidwtojjmhmbxxkpz.supabase.co";const SUPABASE_KEY="sb_publishable_PYd42RgJIYn2WP2CA-wz1Q_7cQ2EaRU";const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const LINK_OFICIAL="https://eldon2035.github.io/elpez/";const CLAVE="Elpez2035";
 const TELEGRAM_BOT_TOKEN="9242572538:AAEjeqPBBOLWfDNoaUE8UHF4l2unP6pOsI8";const TELEGRAM_CHAT_ID="684478704";
 function enviarAvisoTelegram(nombre,whats,ciudad,pais){try{let m=`🎉 NUEVO REGISTRO EL PEZ!\n\n👤 ${nombre}\n📱 ${whats}\n🌍 ${pais}\n🏙️ ${ciudad}\n🕐 ${new Date().toLocaleString('es-EC')}`;let url=`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(m)}`;new Image().src=url;}catch(e){}}
-let modoBorrado=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],playQueue=[],selectedTemaId=null,isRegistrado=false,iti=null,currentPlayingTema=null,fotoBase64=null;
-function exigirRegistro(){if(isRegistrado) return true;document.getElementById('registroOverlay').style.display='flex';alert('🔒 Solo registrados mi pez\n\nRegístrate gratis para:\n✅ Descargar\n✅ Compartir\n✅ Favoritos\n✅ Subir música');return false;}
-function initTelefono(){const input=document.querySelector("#regWhats");iti=window.intlTelInput(input,{initialCountry:"ec",preferredCountries:["ec","co","pe","mx","es","us","ar","cl"],separateDialCode:true,utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",geoIpLookup:function(cb){fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>cb(d.country_code)).catch(()=>cb("ec"));}});input.addEventListener('countrychange',()=>{let d=iti.getSelectedCountryData();let el=document.getElementById('paisDetectado');el.style.display='block';el.innerHTML=`🌍 ${d.name} (+${d.dialCode}) • ${d.iso2.toUpperCase()}`;});setTimeout(()=>{let d=iti.getSelectedCountryData();let el=document.getElementById('paisDetectado');el.style.display='block';el.innerHTML=`🌍 Detectado: ${d.name} (+${d.dialCode})`;},800);}
+let modoBorrado=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],playQueue=[],selectedTemaId=null,isRegistrado=false,iti=null,itiLogin=null,currentPlayingTema=null,fotoBase64=null;
+function exigirRegistro(){if(isRegistrado) return true;document.getElementById('registroOverlay').style.display='flex';alert('🔒 Solo registrados mi pez\n\nRegístrate o inicia sesión para:\n✅ Descargar\n✅ Compartir\n✅ Favoritos\n✅ Subir música');return false;}
+function initTelefono(){
+  const input=document.querySelector("#regWhats");
+  iti=window.intlTelInput(input,{initialCountry:"ec",preferredCountries:["ec","co","pe","mx","es","us","ar","cl"],separateDialCode:true,utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",geoIpLookup:function(cb){fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>cb(d.country_code)).catch(()=>cb("ec"));}});
+  input.addEventListener('countrychange',()=>{let d=iti.getSelectedCountryData();let el=document.getElementById('paisDetectado');el.style.display='block';el.innerHTML=`🌍 ${d.name} (+${d.dialCode}) • ${d.iso2.toUpperCase()}`;});
+  setTimeout(()=>{let d=iti.getSelectedCountryData();let el=document.getElementById('paisDetectado');el.style.display='block';el.innerHTML=`🌍 Detectado: ${d.name} (+${d.dialCode})`;},800);
+  const inputLogin=document.querySelector("#loginWhats");
+  itiLogin=window.intlTelInput(inputLogin,{initialCountry:"ec",preferredCountries:["ec","co","pe","mx","es","us","ar","cl"],separateDialCode:true,utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"});
+}
 function checkRegistro(){
   let urlParams=new URLSearchParams(window.location.search);
   if(urlParams.get('admin')==='Elpez2035'){
@@ -311,7 +331,6 @@ function checkRegistro(){
   let btnFav=document.getElementById('pfFavBtn');
   let btnDown=document.getElementById('pfDownloadBtn');
   let btnShare=document.getElementById('pfShareBtn');
-  
   if(u){
     isRegistrado=true;
     document.body.classList.remove('invitado');
@@ -335,7 +354,6 @@ function checkRegistro(){
       perfilBoxNombre.textContent=d.nombre;
       perfilBoxCiudad.textContent=(d.ciudad||'Sin ciudad')+' • '+ (d.pais||'');
       perfilBoxWhats.textContent=d.whats||'';
-      // MOSTRAR OPCIONES REGISTRADOS
       if(btnFav) btnFav.style.display='flex';
       if(btnDown) btnDown.style.display='flex';
       if(btnShare) btnShare.style.display='flex';
@@ -344,6 +362,7 @@ function checkRegistro(){
       hint.textContent='✅ '+d.nombre+' - Todo desbloqueado';
       hint.style.color='#1DB954';
       document.getElementById('registroOverlay').style.display='none';
+      document.getElementById('loginOverlay').style.display='none';
     }catch(e){}
   }else{
     isRegistrado=false;
@@ -353,7 +372,6 @@ function checkRegistro(){
     if(btnSalir) btnSalir.style.display='none';
     if(fab) fab.style.display='none';
     if(exportBox) exportBox.style.display='none';
-    // OCULTAR DESCARGAR, COMPARTIR, FAVORITOS PARA INVITADO
     if(btnFav) btnFav.style.display='none';
     if(btnDown) btnDown.style.display='none';
     if(btnShare) btnShare.style.display='none';
@@ -470,6 +488,11 @@ function closeDrawer(){document.getElementById('uploadDrawer').classList.remove(
 document.getElementById('fabUpload').addEventListener('click',openDrawer);
 document.getElementById('btnCerrarDrawer').addEventListener('click',closeDrawer);
 document.getElementById('uploadOverlay').addEventListener('click',closeDrawer);
+
+// LOGIN Y REGISTRO MI PEZ
+document.getElementById('btnShowLogin').addEventListener('click',()=>{document.getElementById('registroOverlay').style.display='none';document.getElementById('loginOverlay').style.display='flex';});
+document.getElementById('btnVolverRegistro').addEventListener('click',()=>{document.getElementById('loginOverlay').style.display='none';document.getElementById('registroOverlay').style.display='flex';});
+document.getElementById('btnLoginInvitado').addEventListener('click',()=>{document.getElementById('loginOverlay').style.display='none';isRegistrado=false;localStorage.removeItem('pez_usuario');checkRegistro();});
 document.getElementById('btnRegistrar').addEventListener('click',async()=>{
   let nombre=document.getElementById('regNombre').value.trim();
   let ciudad=document.getElementById('regCiudad').value.trim();
@@ -487,8 +510,43 @@ document.getElementById('btnRegistrar').addEventListener('click',async()=>{
   isRegistrado=true;
   document.body.classList.remove('invitado');
   document.getElementById('registroOverlay').style.display='none';
+  document.getElementById('loginOverlay').style.display='none';
   checkRegistro();render();
 });
+document.getElementById('btnLogin').addEventListener('click',async()=>{
+  let loginInput = itiLogin.getNumber() || document.getElementById('loginWhats').value.trim();
+  let msg=document.getElementById('loginMsg');
+  if(!loginInput){msg.textContent='Pon tu WhatsApp mi pez';return}
+  msg.style.color='#FFD700';msg.textContent='Buscando tu cuenta...';
+  try{
+    // Buscar en Supabase
+    let {data,error}=await supabaseClient.from('usuarios').select('*').eq('whatsapp',loginInput).limit(1);
+    if(error) throw error;
+    if(!data || data.length===0){
+      // Buscar con contiene
+      let {data:data2}=await supabaseClient.from('usuarios').select('*').ilike('whatsapp','%'+loginInput.replace('+','')+'%').limit(1);
+      if(!data2 || data2.length===0){
+        msg.style.color='#FF3B3B';msg.textContent='❌ No encontré cuenta con ese WhatsApp mi pez. Regístrate primero.';
+        return;
+      }
+      data=data2;
+    }
+    let u=data[0];
+    let user={nombre:u.nombre,whats:u.whatsapp,ciudad:u.ciudad||'',pais:u.pais||'',fecha:Date.now(),foto:u.avatar_url||''};
+    localStorage.setItem('pez_usuario', JSON.stringify(user));
+    msg.style.color='#1DB954';msg.textContent='✅ ¡Bienvenido de nuevo '+u.nombre+'!';
+    setTimeout(()=>{
+      isRegistrado=true;
+      document.body.classList.remove('invitado');
+      document.getElementById('loginOverlay').style.display='none';
+      document.getElementById('registroOverlay').style.display='none';
+      checkRegistro();render();
+    },800);
+  }catch(e){
+    msg.style.color='#FF3B3B';msg.textContent='Error: '+e.message;
+  }
+});
+
 document.getElementById('userAvatar').addEventListener('click',()=>{document.getElementById('changeFotoInput').click();});
 document.getElementById('perfilBoxAvatar').addEventListener('click',()=>{document.getElementById('changeFotoInput').click();});
 document.getElementById('btnCambiarFotoBox').addEventListener('click',()=>{document.getElementById('changeFotoInput').click();});
