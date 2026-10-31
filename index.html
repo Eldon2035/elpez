@@ -14,6 +14,7 @@ body{margin:0;padding-bottom:90px;min-height:100vh;color:#FFF8DC;font-family:'Po
 .topbar img{width:40px;height:40px;border-radius:50%;border:2px solid #FFD700}
 .topbar h1{font-family:'Cinzel';font-weight:900;font-size:13px;margin:0;letter-spacing:1.5px;background:linear-gradient(90deg,#FFD700,#FFE9A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;flex:1}
 #fechaHoraTop{font-size:10px;font-weight:600;color:#B3B3B3;background:rgba(255,255,255,0.08);padding:4px 10px;border-radius:20px}
+#userBadge{font-size:10px;background:#FFD70022;color:#FFD700;padding:4px 10px;border-radius:20px;display:none}
 .layout{display:flex;max-width:1400px;margin:0 auto;min-height:calc(100vh - 65px - 90px);gap:0}
 .sidebar{width:380px;min-width:380px;background:#121212;border-right:1px solid #FFFFFF0A;padding:14px;overflow-y:auto;max-height:calc(100vh - 65px - 90px);position:sticky;top:65px}
 .sidebar h3{font-size:11px;font-weight:700;color:#B3B3B3;letter-spacing:1.2px;margin:14px 0 8px;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
@@ -30,85 +31,88 @@ body{margin:0;padding-bottom:90px;min-height:100vh;color:#FFF8DC;font-family:'Po
 .bar{width:4px;background:#FFD700;border-radius:4px;animation:wave 0.8s ease-in-out infinite}
 @keyframes wave{0%,100%{transform:scaleY(0.6)}50%{transform:scaleY(1.3)}}
 .paused .bar{animation-play-state:paused;transform:scaleY(0.3)}
-.progress{width:100%;height:4px;background:rgba(255,255,255,0.15);border-radius:20px;overflow:visible;margin:12px 0;position:relative;cursor:pointer}
-.progress:hover{height:6px}
+.progress{width:100%;height:4px;background:rgba(255,255,255,0.15);border-radius:20px;margin:12px 0;cursor:pointer}
 .progress-fill{height:100%;width:0%;background:#FFF;border-radius:20px;transition:width 0.1s linear}
-.progress:hover .progress-fill{background:#FFD700}
 .time-row{display:flex;justify-content:space-between;font-size:11px;color:#B3B3B3;margin-bottom:6px}
 .controls-spotify{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:14px}
 .spt-btn{width:32px;height:32px;border:none;background:transparent;color:#B3B3B3;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.spt-btn:hover{color:#FFF;transform:scale(1.1)}
 .spt-btn.active{color:#FFD700}
 .spt-main{width:56px;height:56px;border-radius:50%;border:none;background:#FFF;color:#000;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .spt-main.playing{background:linear-gradient(135deg,#FFE9A0,#FFD700)}
-/* TEMAS DISTINGUIDOS */
 .tema{display:flex;gap:10px;padding:10px;border-radius:8px;margin-bottom:6px;align-items:center;transition:0.2s;cursor:pointer;border:1px solid transparent;position:relative}
-.tema:hover{transform:scale(1.01)}
 .tema.playing{border-color:#FFD70055;box-shadow:0 0 12px #FFD70022}
-.tema img{width:50px;height:50px;border-radius:6px;flex-shrink:0;border:1px solid #FFFFFF14}
+.tema img{width:50px;height:50px;border-radius:6px;flex-shrink:0}
 .tema-info{flex:1;min-width:0}
-.tema-info b{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;display:flex;align-items:center;gap:6px}
+.tema-info b{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tema-info span{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;margin-top:2px}
-.badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:800;padding:3px 7px;border-radius:12px;letter-spacing:0.5px}
-.badge-local{background:#FFD700;color:#000;border:1px solid #FFD700}
-.badge-online{background:#1DB954;color:#FFF;border:1px solid #1DB954}
-.tema-local{background:#1E1E1E;border-color:#FFFFFF0A}
-.tema-local .tema-info b{color:#FFF}
-.tema-local .tema-info span{color:#B3B3B3}
+.badge{font-size:9px;font-weight:800;padding:3px 7px;border-radius:12px}
+.badge-local{background:#FFD700;color:#000}
+.badge-online{background:#1DB954;color:#FFF}
+.tema-local{background:#1E1E1E}
 .tema-online{background:#0F1F15;border-color:#1DB95422}
-.tema-online .tema-info b{color:#1DB954}
-.tema-online .tema-info span{color:#A0D0A0}
-.tema-online::before{content:"🌐";position:absolute;top:6px;right:6px;font-size:10px;opacity:0.6}
-.tema-local::before{content:"📱";position:absolute;top:6px;right:6px;font-size:10px;opacity:0.6}
-.tema-actions{display:flex;gap:4px}
-.btn-icon{width:28px;height:28px;border:none;background:rgba(255,255,255,0.06);color:#B3B3B3;font-size:12px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:0.2s;cursor:pointer}
-.btn-icon:hover{background:rgba(255,255,255,0.15);color:#FFF}
+.tema-online b{color:#1DB954}
+.btn-icon{width:28px;height:28px;border:none;background:rgba(255,255,255,0.06);color:#B3B3B3;font-size:12px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer}
 .folder{border:1px solid #FFFFFF0A;border-radius:8px;margin-bottom:10px;overflow:hidden;background:#181818}
 .folder-header{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#232323;cursor:pointer}
-.folder-header:hover{background:#2A2A2A}
-.folder-header b{flex:1;font-size:13px;font-weight:700;color:#FFF}
-.folder-header .count{font-size:11px;padding:3px 8px;border-radius:12px;font-weight:700}
-.count-local{background:#FFD70022;color:#FFD700}
-.count-online{background:#1DB95422;color:#1DB954}
-.folder-content{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
-.folder.open .folder-content{max-height:3000px;overflow-y:auto}
-.folder-header i.chevron{font-size:12px;color:#B3B3B3;transition:transform 0.2s}
-.folder.open .chevron{transform:rotate(90deg)}
+.folder-header b{flex:1;font-size:13px;color:#FFF}
+.count{font-size:11px;padding:3px 8px;border-radius:12px;font-weight:700}
+.count-local{background:#FFD70022;color:#FFD700}.count-online{background:#1DB95422;color:#1DB954}
+.folder-content{max-height:0;overflow:hidden;transition:max-height 0.3s}
+.folder.open .folder-content{max-height:3000px}
 input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px solid #FFFFFF14;background:#2A2A2A;color:#FFF;font-size:13px}
 .btn{width:100%;padding:12px;background:#FFF;color:#000;font-weight:800;border:none;border-radius:20px;margin-top:10px;font-size:13px;cursor:pointer}
 .btn2{padding:6px 12px;border-radius:20px;border:1px solid #FFFFFF14;background:transparent;color:#FFF;font-weight:600;font-size:11px;cursor:pointer}
-.btn2:hover{background:#FFFFFF14}
 .btn2.active{background:#FFF;color:#000}
-.player-fino{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:1px solid #FFFFFF14;z-index:60;padding:0}
-.player-top-progress{height:4px;background:rgba(255,255,255,0.1);width:100%;cursor:pointer}
-.player-top-progress-fill{height:100%;width:0%;background:#FFF;transition:width 0.1s linear}
+.player-fino{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:1px solid #FFFFFF14;z-index:60}
+.player-top-progress{height:4px;background:rgba(255,255,255,0.1);cursor:pointer}
+.player-top-progress-fill{height:100%;width:0%;background:#FFF;transition:width 0.1s}
 .player-main{display:flex;align-items:center;gap:12px;padding:8px 14px}
 .player-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
 .player-left img{width:56px;height:56px;border-radius:4px}
-.player-info{flex:1;min-width:0}
-.player-info b{font-size:13px;font-weight:600;color:#FFF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.player-info b{font-size:13px;color:#FFF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 .player-info span{font-size:11px;color:#B3B3B3;display:block}
 .player-center{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
 .player-controls{display:flex;align-items:center;gap:14px}
-.pf-spt{width:28px;height:28px;border:none;background:transparent;color:#B3B3B3;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.pf-spt.active{color:#FFD700}
-.pf-spt-main{width:36px;height:36px;border-radius:50%;border:none;background:#FFF;color:#000;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.pf-spt{width:28px;height:28px;border:none;background:transparent;color:#B3B3B3;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.pf-spt-main{width:36px;height:36px;border-radius:50%;border:none;background:#FFF;color:#000;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .player-time{font-size:10px;color:#B3B3B3}
 #letraModal{position:fixed;inset:0;background:#000000F2;z-index:100;display:none;padding:22px;overflow:auto}
 #letraContenido{white-space:pre-wrap;line-height:1.8;margin-top:18px;font-size:16px;color:#FFF;background:#121212;padding:18px;border-radius:8px}
-#contextMenu{position:fixed;display:none;background:#282828;border:1px solid #FFFFFF14;border-radius:8px;padding:6px;z-index:9999;min-width:220px;box-shadow:0 16px 32px #000000AA}
+#contextMenu{position:fixed;display:none;background:#282828;border-radius:8px;padding:6px;z-index:9999;min-width:220px}
 #contextMenu button{display:block;width:100%;text-align:left;padding:10px 12px;background:transparent;border:none;color:#E8E8E8;font-size:13px;border-radius:4px;cursor:pointer}
-#contextMenu button:hover{background:#3E3E3E;color:#FFF}
-#contextMenu .sep{height:1px;background:#FFFFFF14;margin:4px 0}
+#contextMenu button:hover{background:#3E3E3E}
 .filtros{display:flex;gap:6px;margin:10px 0}
-@media(max-width:900px){.layout{flex-direction:column}.sidebar{width:100%;min-width:100%;max-height:none;position:static;border-right:none;order:2}.main-content{order:1}}
+/* REGISTRO OVERLAY */
+#registroOverlay{position:fixed;inset:0;background:rgba(0,0,0,0.92);backdrop-filter:blur(20px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.registroBox{background:linear-gradient(180deg,#1E1E1E,#121212);border:1px solid #FFD70033;border-radius:16px;padding:28px;max-width:380px;width:100%;box-shadow:0 20px 60px #000000AA;text-align:center}
+.registroBox h2{font-family:'Cinzel';font-weight:900;font-size:22px;margin:0 0 8px;background:linear-gradient(90deg,#FFD700,#FFE9A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.registroBox p{font-size:13px;color:#B3B3B3;margin:0 0 18px;line-height:1.5}
+.registroBox input{margin-bottom:10px;text-align:left}
+.registroBox .btn{margin-top:14px;background:linear-gradient(90deg,#FFD700,#FFE9A0);color:#000}
+.locked{filter:blur(8px);pointer-events:none;user-select:none;opacity:0.4}
+#avisoBloqueo{background:#FFD70022;border:1px dashed #FFD70055;color:#FFD700;padding:10px 14px;border-radius:8px;font-size:11px;text-align:center;margin:10px 0}
+@media(max-width:900px){.layout{flex-direction:column}.sidebar{width:100%;min-width:100%;max-height:none;position:static;order:2}.main-content{order:1}}
 </style>
 </head>
 <body>
+<div id="registroOverlay">
+<div class="registroBox">
+<div style="font-size:50px;margin-bottom:12px">🔒</div>
+<h2>EL DON 2035 EL PEZ</h2>
+<p>Estás en modo <b style="color:#FFD700">INVITADO</b> • Solo puedes escuchar música<br>Regístrate gratis para desbloquear todo: subir temas, crear listas, compartir y más.</p>
+<input id="regNombre" placeholder="Tu nombre completo">
+<input id="regWhats" placeholder="Tu WhatsApp (ej: 0991234567)">
+<input id="regCiudad" placeholder="Tu ciudad">
+<button class="btn" id="btnRegistrar"><i class="fa-solid fa-unlock"></i> REGISTRARME GRATIS Y DESBLOQUEAR</button>
+<p style="font-size:10px;margin-top:12px;color:#666">Al registrarte aceptas escuchar buena música de El Pez 🎧<br>100% gratis, sin spam</p>
+<button class="btn2" id="btnInvitado" style="margin-top:10px;border:none;color:#666">Seguir como invitado solo escuchando</button>
+</div>
+</div>
+
 <div id="contextMenu">
 <button id="ctxRetry">🔄 Reintentar subida ONLINE</button>
 <button id="ctxRetryPortada">🖼️ Reintentar solo portada</button>
-<div class="sep"></div>
+<div class="sep" style="height:1px;background:#FFFFFF14;margin:4px 0"></div>
 <button id="ctxVerLetra">📜 Ver letra</button>
 <button id="ctxCompartir">📲 Compartir</button>
 </div>
@@ -116,24 +120,22 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 <div class="topbar">
 <img id="logoBtn" src="logo.png" onerror="this.src='https://via.placeholder.com/40/FFD700/000?text=PEZ'">
 <h1>EL DON 2035 EL PEZ OFICIAL • <span id="contador">0</span> TEMAS</h1>
+<span id="userBadge"></span>
 <span id="fechaHoraTop">31 Oct 2026</span>
 <button class="btn2" id="btnFiesta"><i class="fa-solid fa-expand"></i></button>
 </div>
 
 <div class="layout">
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
+<div id="avisoBloqueo">🔒 Modo invitado - Solo escuchar • <a href="#" id="linkRegistrar" style="color:#FFD700;font-weight:800">Regístrate aquí</a></div>
 <div style="display:flex;gap:6px;margin-bottom:8px"><input id="buscador" placeholder="🔍 Buscar..." style="flex:1"><button class="btn2" id="btnExport"><i class="fa-solid fa-download"></i></button><input type="file" id="importFile" accept=".json" style="display:none"><button class="btn2" id="btnImport"><i class="fa-solid fa-upload"></i></button></div>
-
 <div class="filtros">
 <button class="btn2 active" id="filtroTodos" onclick="setFiltro('todos')">TODO</button>
 <button class="btn2" id="filtroLocal" onclick="setFiltro('local')"><span class="badge badge-local" style="font-size:8px">LOCAL</span></button>
 <button class="btn2" id="filtroOnline" onclick="setFiltro('online')"><span class="badge badge-online" style="font-size:8px">ONLINE</span></button>
 </div>
-
 <h3><span><i class="fa-solid fa-mobile-screen"></i> TUS TEMAS LOCALES</span><span class="count count-local" id="contador2">0</span></h3>
-<div style="font-size:10px;color:#FFD700;background:#FFD70014;padding:6px 10px;border-radius:6px;margin-bottom:8px;border:1px dashed #FFD70044">📱 Solo en tu celular • No se ven online hasta subirlos</div>
 <div id="lista" style="margin-bottom:16px"></div>
-
 <div class="folder open" id="folderOtros">
 <div class="folder-header" onclick="document.getElementById('folderOtros').classList.toggle('open')">
 <i class="fa-solid fa-folder" style="color:#1DB954"></i>
@@ -142,12 +144,10 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 <i class="fa-solid fa-chevron-right chevron"></i>
 </div>
 <div class="folder-content">
-<div style="font-size:10px;color:#1DB954;background:#1DB95414;padding:6px 10px;margin:8px;border-radius:6px;border:1px dashed #1DB95444">🌐 Temas de internet • De todos los usuarios</div>
 <div id="listaOtros" style="padding:0 8px 8px"></div>
 </div>
 </div>
-
-<div style="margin-top:20px;border-top:1px solid #FFFFFF0A;padding-top:16px">
+<div style="margin-top:20px;border-top:1px solid #FFFFFF0A;padding-top:16px" id="subirBox">
 <h3>Subir Tema</h3>
 <div style="display:flex;gap:6px;margin-top:8px"><input id="dedicado" placeholder="Dedicado a" style="flex:1"><select id="genero" style="flex:1"><option>Balada Romántica</option><option>Reggaeton</option><option>Salsa</option><option>Bachata</option><option>Merengue</option><option>Vallenato</option><option>Bien Sabroso</option></select></div>
 <textarea id="letra" placeholder="Letra aquí mi pez..." style="margin-top:8px;min-height:70px"></textarea>
@@ -164,7 +164,7 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 <div class="cover-overlay"></div>
 <div class="cover-title">
 <h2 id="mainTitle">Elige un tema</h2>
-<p id="mainDedicado">Local o Online</p>
+<p id="mainDedicado">Escucha gratis</p>
 <span id="sitioFecha">Sitio Oficial: eldon2035.github.io/elpez</span>
 </div>
 </div>
@@ -195,7 +195,6 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 <div class="player-info">
 <b id="pTitle">Nada sonando</b>
 <span id="pDed">EL DON 2035</span>
-<span id="pSitio" style="color:#FFD700;font-size:9px"></span>
 </div>
 </div>
 <div class="player-center">
@@ -216,35 +215,60 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 
 <div id="letraModal"><button class="btn2" onclick="document.getElementById('letraModal').style.display='none'">✖️ CERRAR</button><pre id="letraContenido"></pre></div>
 <script>
-const SUPABASE_URL="https://hrvmidwtojjmhmbxxkpz.supabase.co";const SUPABASE_KEY="sb_publishable_PYd42RgJIYn2WP2CA-wz1Q_7cQ2EaRU";const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const LINK_OFICIAL="https://eldon2035.github.io/elpez/";const SITIO_CORTO="eldon2035.github.io/elpez";const CLAVE="Elpez2035";let modoBorrado=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],selectedTemaId=null;
-function setFiltro(t){filtroTipo=t;document.querySelectorAll('.filtros .btn2').forEach(b=>b.classList.remove('active'));document.getElementById('filtro'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active');render();}
-function actualizarFechas(){let ahora=new Date();let dias=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];let meses=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];let topTxt=`${dias[ahora.getDay()]} ${ahora.getDate()} ${meses[ahora.getMonth()]} • ${String(ahora.getHours()).padStart(2,'0')}:${String(ahora.getMinutes()).padStart(2,'0')} • EC`;let elTop=document.getElementById('fechaHoraTop');if(elTop)elTop.textContent=topTxt;let portadaTxt=`Sitio Oficial: ${SITIO_CORTO} | ${ahora.getDate()} ${meses[ahora.getMonth()]} - EC`;let elPort=document.getElementById('sitioFecha');if(elPort)elPort.textContent=portadaTxt;}
+const SUPABASE_URL="https://hrvmidwtojjmhmbxxkpz.supabase.co";const SUPABASE_KEY="sb_publishable_PYd42RgJIYn2WP2CA-wz1Q_7cQ2EaRU";const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const LINK_OFICIAL="https://eldon2035.github.io/elpez/";const SITIO_CORTO="eldon2035.github.io/elpez";const CLAVE="Elpez2035";let modoBorrado=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],selectedTemaId=null,isRegistrado=false;
+function checkRegistro(){let u=localStorage.getItem('pez_usuario');if(u){isRegistrado=true;try{let d=JSON.parse(u);document.getElementById('userBadge').style.display='inline-block';document.getElementById('userBadge').textContent='👤 '+d.nombre;document.getElementById('registroOverlay').style.display='none';document.getElementById('avisoBloqueo').style.display='none';document.getElementById('sidebar').classList.remove('locked')}catch(e){}}else{isRegistrado=false;document.getElementById('sidebar').classList.add('locked');document.getElementById('avisoBloqueo').style.display='block'}}
+function setFiltro(t){if(!isRegistrado&&t!=='todos'){alert('🔒 Regístrate para usar filtros mi pez');return} filtroTipo=t;document.querySelectorAll('.filtros .btn2').forEach(b=>b.classList.remove('active'));document.getElementById('filtro'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active');render();}
+function actualizarFechas(){let ahora=new Date();let meses=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];let topTxt=`${ahora.getDate()} ${meses[ahora.getMonth()]} • ${String(ahora.getHours()).padStart(2,'0')}:${String(ahora.getMinutes()).padStart(2,'0')}`;let elTop=document.getElementById('fechaHoraTop');if(elTop)elTop.textContent=topTxt;}
 function abrirDB(){return new Promise(r=>{let q=indexedDB.open("PezDB",1);q.onupgradeneeded=e=>{e.target.result.createObjectStore("temas",{keyPath:"id",autoIncrement:true})};q.onsuccess=e=>{db=e.target.result;r()}})}
 function guardarTema(t){return new Promise(r=>{let tx=db.transaction("temas","readwrite");tx.objectStore("temas").add(t);tx.oncomplete=r})}
 function obtenerTemas(){return new Promise(r=>{let tx=db.transaction("temas","readonly");let req=tx.objectStore("temas").getAll();req.onsuccess=()=>r(req.result)})}
 function obtenerTemaPorId(id){return new Promise(r=>{let tx=db.transaction("temas","readonly");let req=tx.objectStore("temas").get(Number(id));req.onsuccess=()=>r(req.result)})}
-function borrarTema(id){if(!modoBorrado)return;if(confirm("¿Borrar local mi pez?")){let tx=db.transaction("temas","readwrite");tx.objectStore("temas").delete(id);tx.oncomplete=render}}
-async function borrarTemaOnline(id){if(!modoBorrado)return;if(confirm("¿Borrar de internet también mi pez?")){const{error}=await supabaseClient.from('canciones').delete().eq('id',id);if(error)alert("Error: "+error.message);else render();}}
-function verLetra(id){let t=[...temasCache,...temasOnlineCache].find(x=>String(x.id)===String(id));if(t){document.getElementById("letraContenido").textContent=t.letra||"Sin letra mi pez";document.getElementById("letraModal").style.display="block";return;}}
-function descargar(id){let t=[...temasCache,...temasOnlineCache].find(x=>String(x.id)===String(id));if(!t)return;if(t.audio_url||t.cancion_url){window.open(t.audio_url||t.cancion_url,'_blank');return;}let url=URL.createObjectURL(t.audioBlob);let a=document.createElement("a");a.href=url;a.download=t.titulo+".mp3";a.click()}
+function borrarTema(id){if(!isRegistrado){alert('🔒 Regístrate mi pez');return} if(!modoBorrado)return;if(confirm("¿Borrar local mi pez?")){let tx=db.transaction("temas","readwrite");tx.objectStore("temas").delete(id);tx.oncomplete=render}}
+async function borrarTemaOnline(id){if(!isRegistrado){alert('🔒 Regístrate mi pez');return} if(!modoBorrado)return;if(confirm("¿Borrar de internet también mi pez?")){const{error}=await supabaseClient.from('canciones').delete().eq('id',id);if(error)alert("Error: "+error.message);else render();}}
+function verLetra(id){let t=[...temasCache,...temasOnlineCache].find(x=>String(x.id)===String(id));if(t){document.getElementById("letraContenido").textContent=t.letra||"Sin letra mi pez";document.getElementById("letraModal").style.display="block";}}
+function descargar(id){if(!isRegistrado){alert('🔒 Regístrate para descargar mi pez');return} let t=[...temasCache,...temasOnlineCache].find(x=>String(x.id)===String(id));if(!t)return;if(t.audio_url||t.cancion_url){window.open(t.audio_url||t.cancion_url,'_blank');return;}let url=URL.createObjectURL(t.audioBlob);let a=document.createElement("a");a.href=url;a.download=t.titulo+".mp3";a.click()}
 function compartir(id,titulo){let texto=encodeURIComponent("🎧 "+titulo+" - EL DON 2035 EL PEZ OFICIAL: "+LINK_OFICIAL);window.open("https://wa.me/?text="+texto,"_blank")}
 function formatTime(s){if(isNaN(s))return"0:00";let m=Math.floor(s/60);let sec=Math.floor(s%60);return m+":"+(sec<10?"0":"")+sec}
-function tocar(idx,isOnline=false){let lista=isOnline?temasOnlineCache:temasCache;let t=lista[idx];if(!t)return;if(!isOnline)currentIdx=idx;let urlA=t.audio_url||t.cancion_url||(t.audioBlob?URL.createObjectURL(t.audioBlob):"");let urlC=t.cover_url||t.portada_url||(t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png');document.getElementById("mainCover").src=urlC;document.getElementById("bgBlur").style.backgroundImage="url('"+urlC+"')";document.getElementById("mainTitle").textContent=t.titulo||"Sin titulo";document.getElementById("mainDedicado").textContent=(t.dedicado||t.artista||"")+" • "+(t.online?"🌐 ONLINE":"📱 LOCAL - "+(t.genero||""));document.getElementById("pImg").src=urlC;document.getElementById("pTitle").textContent=t.titulo+(t.online?" 🌐":" 📱");document.getElementById("pDed").textContent=(t.dedicado||t.artista||"EL DON 2035")+(t.online?" • ONLINE":" • LOCAL");document.getElementById("favBtn").innerHTML=t.fav?"❤️ FAV":"🤍 FAV";let a=document.getElementById("mainAudio");a.src=urlA;a.volume=volumen;a.play();document.getElementById("playIcon").className="fa-solid fa-pause";document.getElementById("pfPlayIcon").className="fa-solid fa-pause";document.getElementById("playBtn").classList.add("playing");document.getElementById("nowPlaying").textContent="▶️ Sonando: "+t.titulo+" "+(t.online?"(ONLINE 🌐)":"(LOCAL 📱)");document.getElementById("visualizer").classList.remove("paused");if(!isOnline){let tx=db.transaction("temas","readwrite");let req=tx.objectStore("temas").get(t.id);req.onsuccess=()=>{let tt=req.result;if(!tt)return;tt.repro=(tt.repro||0)+1;tx.objectStore("temas").put(tt)};}render(false);}
+function tocar(idx,isOnline=false){let lista=isOnline?temasOnlineCache:temasCache;let t=lista[idx];if(!t)return;if(!isOnline)currentIdx=idx;let urlA=t.audio_url||t.cancion_url||(t.audioBlob?URL.createObjectURL(t.audioBlob):"");let urlC=t.cover_url||t.portada_url||(t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png');document.getElementById("mainCover").src=urlC;document.getElementById("bgBlur").style.backgroundImage="url('"+urlC+"')";document.getElementById("mainTitle").textContent=t.titulo||"Sin titulo";document.getElementById("mainDedicado").textContent=(t.dedicado||t.artista||"")+" • "+(t.online?"🌐 ONLINE":"📱 LOCAL");document.getElementById("pImg").src=urlC;document.getElementById("pTitle").textContent=t.titulo;document.getElementById("pDed").textContent=(t.dedicado||t.artista||"EL DON 2035");document.getElementById("favBtn").innerHTML=t.fav?"❤️ FAV":"🤍 FAV";let a=document.getElementById("mainAudio");a.src=urlA;a.volume=volumen;a.play();document.getElementById("playIcon").className="fa-solid fa-pause";document.getElementById("pfPlayIcon").className="fa-solid fa-pause";document.getElementById("playBtn").classList.add("playing");document.getElementById("nowPlaying").textContent="▶️ Sonando: "+t.titulo;document.getElementById("visualizer").classList.remove("paused");if(!isOnline){let tx=db.transaction("temas","readwrite");let req=tx.objectStore("temas").get(t.id);req.onsuccess=()=>{let tt=req.result;if(!tt)return;tt.repro=(tt.repro||0)+1;tx.objectStore("temas").put(tt)};}render(false);}
 async function cargarOnline(){const{data,error}=await supabaseClient.from('canciones').select('*').order('created_at',{ascending:false});if(error){return[];}return data.map(d=>({id:d.id,titulo:d.titulo,dedicado:d.artista||d.dedicado,genero:d.genero||'Online',letra:d.letra,portada_url:d.portada_url,cover_url:d.portada_url,cancion_url:d.cancion_url,audio_url:d.cancion_url,online:true}))}
 function limpiarNombre(n){return n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9._-]/g,'_').replace(/__+/g,'_').slice(0,70);}
-function mostrarMenu(e,id){e.preventDefault();selectedTemaId=id;const menu=document.getElementById('contextMenu');menu.style.left=e.clientX+'px';menu.style.top=e.clientY+'px';menu.style.display='block';}
+function mostrarMenu(e,id){if(!isRegistrado){e.preventDefault();return} e.preventDefault();selectedTemaId=id;const menu=document.getElementById('contextMenu');menu.style.left=e.clientX+'px';menu.style.top=e.clientY+'px';menu.style.display='block';}
 function ocultarMenu(){document.getElementById('contextMenu').style.display='none';}
-async function reintentarSubida(soloPortada=false){if(!selectedTemaId)return;ocultarMenu();let t=await obtenerTemaPorId(selectedTemaId);if(!t)return;let msg=document.getElementById('msg');msg.textContent="♻️ Reintentando '"+t.titulo+"'...";try{let portada_url="",cancion_url="";if(t.coverBlob){let nombreP=Date.now()+"_retry_portada_"+limpiarNombre(t.titulo+"_portada.jpg");let{error}=await supabaseClient.storage.from('portadas').upload(nombreP,t.coverBlob);if(!error){let{data}=supabaseClient.storage.from('portadas').getPublicUrl(nombreP);portada_url=data.publicUrl;}}if(!soloPortada&&t.audioBlob){let nombreC=Date.now()+"_retry_"+limpiarNombre(t.titulo+".mp3");let{error}=await supabaseClient.storage.from('canciones').upload(nombreC,t.audioBlob);if(error)throw error;let{data}=supabaseClient.storage.from('canciones').getPublicUrl(nombreC);cancion_url=data.publicUrl;}if(soloPortada){let{data:existe}=await supabaseClient.from('canciones').select('*').eq('titulo',t.titulo).limit(1);if(existe&&existe.length>0&&portada_url){await supabaseClient.from('canciones').update({portada_url:portada_url}).eq('id',existe[0].id);}else if(portada_url){await supabaseClient.from('canciones').insert([{artista:t.dedicado||'El Don 2035',titulo:t.titulo,letra:t.letra,portada_url,cancion_url:""}]);}}else{await supabaseClient.from('canciones').insert([{artista:t.dedicado||'El Don 2035',titulo:t.titulo,letra:t.letra,portada_url,cancion_url}]);}msg.textContent="¡Reintentado ONLINE! ✅ "+t.titulo;render();}catch(err){msg.textContent="Error al reintentar: "+err.message;}}
-async function render(showAll=true){let temas=await obtenerTemas();temas.sort((a,b)=>(a.orden||0)-(b.orden||0));let online=await cargarOnline();temasOnlineCache=online;let filtrarTexto=t=>!filtro||(t.titulo+(t.dedicado||"")).toLowerCase().includes(filtro.toLowerCase());let filtrarTipoFn=(t,isOnline)=>{if(filtroTipo==='local')return !isOnline;if(filtroTipo==='online')return isOnline;return true};temas=temas.filter(filtrarTexto);online=online.filter(filtrarTexto);temasCache=temas;
+async function reintentarSubida(soloPortada=false){if(!isRegistrado){alert('🔒 Regístrate mi pez');return} if(!selectedTemaId)return;ocultarMenu();let t=await obtenerTemaPorId(selectedTemaId);if(!t)return;let msg=document.getElementById('msg');msg.textContent="♻️ Reintentando '"+t.titulo+"'...";try{let portada_url="",cancion_url="";if(t.coverBlob){let nombreP=Date.now()+"_retry_portada_"+limpiarNombre(t.titulo+"_portada.jpg");let{error}=await supabaseClient.storage.from('portadas').upload(nombreP,t.coverBlob);if(!error){let{data}=supabaseClient.storage.from('portadas').getPublicUrl(nombreP);portada_url=data.publicUrl;}}if(!soloPortada&&t.audioBlob){let nombreC=Date.now()+"_retry_"+limpiarNombre(t.titulo+".mp3");let{error}=await supabaseClient.storage.from('canciones').upload(nombreC,t.audioBlob);if(error)throw error;let{data}=supabaseClient.storage.from('canciones').getPublicUrl(nombreC);cancion_url=data.publicUrl;}if(soloPortada){let{data:existe}=await supabaseClient.from('canciones').select('*').eq('titulo',t.titulo).limit(1);if(existe&&existe.length>0&&portada_url){await supabaseClient.from('canciones').update({portada_url:portada_url}).eq('id',existe[0].id);}else if(portada_url){await supabaseClient.from('canciones').insert([{artista:t.dedicado||'El Don 2035',titulo:t.titulo,letra:t.letra,portada_url,cancion_url:""}]);}}else{await supabaseClient.from('canciones').insert([{artista:t.dedicado||'El Don 2035',titulo:t.titulo,letra:t.letra,portada_url,cancion_url}]);}msg.textContent="¡Reintentado ONLINE! ✅ "+t.titulo;render();}catch(err){msg.textContent="Error al reintentar: "+err.message;}}
+async function render(){let temas=await obtenerTemas();temas.sort((a,b)=>(a.orden||0)-(b.orden||0));let online=await cargarOnline();temasOnlineCache=online;let filtrarTexto=t=>!filtro||(t.titulo+(t.dedicado||"")).toLowerCase().includes(filtro.toLowerCase());let filtrarTipoFn=(t,isOnline)=>{if(filtroTipo==='local')return !isOnline;if(filtroTipo==='online')return isOnline;return true};temas=temas.filter(filtrarTexto);online=online.filter(filtrarTexto);temasCache=temas;
 let l=document.getElementById("lista");l.innerHTML="";let temasFiltradosLocal=temas.filter(t=>filtrarTipoFn(t,false));if(temasFiltradosLocal.length===0)l.innerHTML='<div style="opacity:.5;text-align:center;padding:12px;font-size:12px">No hay temas locales</div>';
-temasFiltradosLocal.forEach((t,idxReal)=>{let idx=temas.indexOf(t);let urlC=t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png';let btnBorrar=modoBorrado?`<button class="btn-icon" onclick="borrarTema(${t.id})" style="color:#FF4444;background:#FF444422">🗑️</button>`:"";let d=document.createElement("div");d.className="tema tema-local";if(idx===currentIdx)d.classList.add("playing");d.dataset.id=t.id;d.draggable=true;d.oncontextmenu=(e)=>mostrarMenu(e,t.id);d.innerHTML=`<img src="${urlC}"><div class="tema-info" onclick="tocar(${idx})"><b>${t.titulo} <span class="badge badge-local">📱 LOCAL</span></b><span>${t.dedicado||''} • Solo en este celular • ▶️${t.repro||0}</span></div><div class="tema-actions"><button class="btn-icon" onclick="verLetra(${t.id})"><i class="fa-solid fa-file-lines"></i></button><button class="btn-icon" onclick="compartir(${t.id},'${t.titulo}')"><i class="fa-solid fa-share"></i></button>${btnBorrar}</div>`;l.appendChild(d);});
+temasFiltradosLocal.forEach((t,idxReal)=>{let idx=temas.indexOf(t);let urlC=t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png';let btnBorrar=modoBorrado?`<button class="btn-icon" onclick="borrarTema(${t.id})" style="color:#FF4444;background:#FF444422">🗑️</button>`:"";let d=document.createElement("div");d.className="tema tema-local";if(idx===currentIdx)d.classList.add("playing");d.dataset.id=t.id;d.oncontextmenu=(e)=>mostrarMenu(e,t.id);d.innerHTML=`<img src="${urlC}"><div class="tema-info" onclick="tocar(${idx})"><b>${t.titulo} <span class="badge badge-local">📱 LOCAL</span></b><span>${t.dedicado||''} • ▶️${t.repro||0}</span></div><div class="tema-actions"><button class="btn-icon" onclick="verLetra(${t.id})"><i class="fa-solid fa-file-lines"></i></button>${btnBorrar}</div>`;l.appendChild(d);});
 let lOtros=document.getElementById("listaOtros");lOtros.innerHTML="";let onlineFiltrado=online.filter(t=>filtrarTipoFn(t,true));document.getElementById("otrosCount").textContent=onlineFiltrado.length;document.getElementById("contador2").textContent=temas.length;document.getElementById("contador").textContent=temas.length+online.length;if(onlineFiltrado.length===0)lOtros.innerHTML='<div style="opacity:.5;text-align:center;padding:12px;font-size:12px">No hay temas online</div>';
-onlineFiltrado.forEach((t,idx)=>{let urlC=t.portada_url||'logo.png';let btnBorrar=modoBorrado?`<button class="btn-icon" onclick="borrarTemaOnline('${t.id}')" style="color:#FF4444;background:#FF444422">🗑️</button>`:"";let d=document.createElement("div");d.className="tema tema-online";d.innerHTML=`<img src="${urlC}"><div class="tema-info" onclick="tocar(${idx},true)"><b>${t.titulo} <span class="badge badge-online">🌐 ONLINE</span></b><span>${t.dedicado||''} • En internet para todos</span></div><div class="tema-actions"><button class="btn-icon" onclick="verLetra('${t.id}')"><i class="fa-solid fa-file-lines"></i></button><button class="btn-icon" onclick="descargar('${t.id}')"><i class="fa-solid fa-download"></i></button>${btnBorrar}</div>`;lOtros.appendChild(d);});
-if(filtroTipo==='local'){document.getElementById('folderOtros').style.display='none'}else{document.getElementById('folderOtros').style.display='block'}
-if(filtroTipo==='online'){document.getElementById('lista').parentElement.querySelector('h3').style.display='none';l.style.display='none';}else{document.getElementById('lista').parentElement.querySelector('h3').style.display='flex';l.style.display='block';}}
+onlineFiltrado.forEach((t,idx)=>{let urlC=t.portada_url||'logo.png';let btnBorrar=modoBorrado?`<button class="btn-icon" onclick="borrarTemaOnline('${t.id}')" style="color:#FF4444;background:#FF444422">🗑️</button>`:"";let d=document.createElement("div");d.className="tema tema-online";d.innerHTML=`<img src="${urlC}"><div class="tema-info" onclick="tocar(${idx},true)"><b>${t.titulo} <span class="badge badge-online">🌐 ONLINE</span></b><span>${t.dedicado||''}</span></div><div class="tema-actions"><button class="btn-icon" onclick="verLetra('${t.id}')"><i class="fa-solid fa-file-lines"></i></button>${btnBorrar}</div>`;lOtros.appendChild(d);});
+if(filtroTipo==='local'){document.getElementById('folderOtros').style.display='none'}else{document.getElementById('folderOtros').style.display='block'}}
 function activarClave(){let a=Date.now();if(a-tiempoClick>3000)clicksLogo=0;tiempoClick=a;clicksLogo++;if(clicksLogo>=5){clicksLogo=0;let c=prompt("Clave secreta:");if(c===CLAVE){modoBorrado=true;alert("Borrado 60s ON");render();setTimeout(()=>{modoBorrado=false;render()},60000)}else if(c!==null)alert("Clave mala mi pez")}}
-async function subir(){let ded=document.getElementById("dedicado").value.trim();let gen=document.getElementById("genero").value;let letra=document.getElementById("letra").value.trim();let f=document.getElementById("mp3").files[0];let c=document.getElementById("portada").files[0];if(!f){alert("Falta MP3 mi pez");return}let titulo=letra.split("\n")[0].substring(0,40).trim()||ded||f.name.replace(".mp3","")||"Mi Tema";let msg=document.getElementById("msg");msg.textContent="Subiendo online mi pez... espera";try{await guardarTema({titulo,dedicado:ded,genero:gen,letra,audioBlob:f,coverBlob:c||null,repro:0,orden:Date.now(),fav:false});let portada_url="",cancion_url="";if(c){let nombre=Date.now()+"_"+limpiarNombre(c.name);let{error}=await supabaseClient.storage.from('portadas').upload(nombre,c);if(error)throw error;let{data}=supabaseClient.storage.from('portadas').getPublicUrl(nombre);portada_url=data.publicUrl;}if(f){let nombre=Date.now()+"_"+limpiarNombre(f.name);let{error}=await supabaseClient.storage.from('canciones').upload(nombre,f);if(error)throw error;let{data}=supabaseClient.storage.from('canciones').getPublicUrl(nombre);cancion_url=data.publicUrl;}let{error:err2}=await supabaseClient.from('canciones').insert([{artista:ded||'El Don 2035',titulo,letra,portada_url,cancion_url}]);if(err2)throw err2;msg.textContent="¡Subido ONLINE para todos! ✅";document.getElementById("dedicado").value="";document.getElementById("letra").value="";render();}catch(e){console.error(e);msg.textContent="Error online: "+e.message+" (guardado como LOCAL 📱 - click derecho para reintentar)";render();}}
-abrirDB().then(()=>{document.getElementById('ctxRetry').addEventListener('click',()=>reintentarSubida(false));document.getElementById('ctxRetryPortada').addEventListener('click',()=>reintentarSubida(true));document.getElementById('ctxVerLetra').addEventListener('click',()=>{ocultarMenu();verLetra(selectedTemaId);});document.getElementById('ctxCompartir').addEventListener('click',()=>{ocultarMenu();let t=temasCache.find(x=>x.id==selectedTemaId);if(t)compartir(t.id,t.titulo);});document.addEventListener('click',ocultarMenu);
+async function subir(){if(!isRegistrado){alert('🔒 Debes registrarte para subir temas mi pez');document.getElementById('registroOverlay').style.display='flex';return} let ded=document.getElementById("dedicado").value.trim();let gen=document.getElementById("genero").value;let letra=document.getElementById("letra").value.trim();let f=document.getElementById("mp3").files[0];let c=document.getElementById("portada").files[0];if(!f){alert("Falta MP3 mi pez");return}let titulo=letra.split("\n")[0].substring(0,40).trim()||ded||f.name.replace(".mp3","")||"Mi Tema";let msg=document.getElementById("msg");msg.textContent="Subiendo online mi pez... espera";try{await guardarTema({titulo,dedicado:ded,genero:gen,letra,audioBlob:f,coverBlob:c||null,repro:0,orden:Date.now(),fav:false});let portada_url="",cancion_url="";if(c){let nombre=Date.now()+"_"+limpiarNombre(c.name);let{error}=await supabaseClient.storage.from('portadas').upload(nombre,c);if(error)throw error;let{data}=supabaseClient.storage.from('portadas').getPublicUrl(nombre);portada_url=data.publicUrl;}if(f){let nombre=Date.now()+"_"+limpiarNombre(f.name);let{error}=await supabaseClient.storage.from('canciones').upload(nombre,f);if(error)throw error;let{data}=supabaseClient.storage.from('canciones').getPublicUrl(nombre);cancion_url=data.publicUrl;}let{error:err2}=await supabaseClient.from('canciones').insert([{artista:ded||'El Don 2035',titulo,letra,portada_url,cancion_url}]);if(err2)throw err2;msg.textContent="¡Subido ONLINE para todos! ✅";document.getElementById("dedicado").value="";document.getElementById("letra").value="";render();}catch(e){console.error(e);msg.textContent="Error online: "+e.message+" (guardado como LOCAL 📱)";render();}}
+abrirDB().then(()=>{checkRegistro();
+document.getElementById('btnRegistrar').addEventListener('click',async()=>{
+let nombre=document.getElementById('regNombre').value.trim();
+let whats=document.getElementById('regWhats').value.trim();
+let ciudad=document.getElementById('regCiudad').value.trim();
+if(!nombre||!whats){alert('Pon tu nombre y WhatsApp mi pez');return}
+let user={nombre,whats,ciudad,fecha:Date.now()};
+localStorage.setItem('pez_usuario',JSON.stringify(user));
+try{await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,ciudad}]);}catch(e){console.log('usuarios tabla no existe aun, guardado local',e)}
+isRegistrado=true;
+document.getElementById('userBadge').style.display='inline-block';
+document.getElementById('userBadge').textContent='👤 '+nombre;
+document.getElementById('registroOverlay').style.display='none';
+document.getElementById('avisoBloqueo').style.display='none';
+document.getElementById('sidebar').classList.remove('locked');
+render();
+alert('¡Bienvenido '+nombre+' mi pez! 🎉 Ya puedes usar todo');
+});
+document.getElementById('btnInvitado').addEventListener('click',()=>{
+document.getElementById('registroOverlay').style.display='none';
+});
+document.getElementById('linkRegistrar').addEventListener('click',(e)=>{
+e.preventDefault();
+document.getElementById('registroOverlay').style.display='flex';
+});
+document.getElementById('ctxRetry').addEventListener('click',()=>reintentarSubida(false));document.getElementById('ctxRetryPortada').addEventListener('click',()=>reintentarSubida(true));document.getElementById('ctxVerLetra').addEventListener('click',()=>{ocultarMenu();verLetra(selectedTemaId);});document.getElementById('ctxCompartir').addEventListener('click',()=>{ocultarMenu();let t=temasCache.find(x=>x.id==selectedTemaId);if(t)compartir(t.id,t.titulo);});document.addEventListener('click',ocultarMenu);
 actualizarFechas();setInterval(actualizarFechas,1000);render();
 let mainA=document.getElementById("mainAudio");
 function updateProgress(){let pct=(mainA.currentTime/mainA.duration)*100;if(!isNaN(pct)){document.getElementById("progressFill").style.width=pct+"%";document.getElementById("playerTopProgressFill").style.width=pct+"%";}let cur=formatTime(mainA.currentTime);let dur=formatTime(mainA.duration);document.getElementById("curTime").textContent=cur;document.getElementById("durTime").textContent=dur;document.getElementById("pfCurTime").textContent=cur;document.getElementById("pfDurTime").textContent=dur;}
@@ -257,7 +281,7 @@ document.getElementById("progressBar").addEventListener("click",seek);
 document.getElementById("playerTopProgress").addEventListener("click",seek);
 document.getElementById("logoBtn").addEventListener("click",activarClave);
 document.getElementById("btnSubir").addEventListener("click",subir);
-document.getElementById("buscador").addEventListener("input",e=>{filtro=e.target.value;render()});
+document.getElementById("buscador").addEventListener("input",e=>{if(!isRegistrado&&e.target.value.length>0){e.target.value='';alert('🔒 Regístrate para buscar mi pez');document.getElementById('registroOverlay').style.display='flex';return} filtro=e.target.value;render()});
 function togglePlay(){if(mainA.paused){mainA.play();}else{mainA.pause();}}
 document.getElementById("playBtn").addEventListener("click",togglePlay);
 document.getElementById("pfPlayBtn").addEventListener("click",togglePlay);
@@ -267,18 +291,18 @@ document.getElementById("nextBtn").addEventListener("click",nextTrack);
 document.getElementById("pfNextBtn").addEventListener("click",nextTrack);
 document.getElementById("prevBtn").addEventListener("click",prevTrack);
 document.getElementById("pfPrevBtn").addEventListener("click",prevTrack);
-function toggleShuffle(){shuffle=!shuffle;document.getElementById("shuffleBtn").classList.toggle("active",shuffle);document.getElementById("pfShuffleBtn").classList.toggle("active",shuffle);}
+function toggleShuffle(){if(!isRegistrado){alert('🔒 Regístrate para aleatorio mi pez');return} shuffle=!shuffle;document.getElementById("shuffleBtn").classList.toggle("active",shuffle);document.getElementById("pfShuffleBtn").classList.toggle("active",shuffle);}
 document.getElementById("shuffleBtn").addEventListener("click",toggleShuffle);
 document.getElementById("pfShuffleBtn").addEventListener("click",toggleShuffle);
-function toggleMode(){repeatMode=repeatMode==="all"?"one":"all";document.getElementById("modeBtn").classList.toggle("active",repeatMode==="one");document.getElementById("pfModeBtn").classList.toggle("active",repeatMode==="one");}
+function toggleMode(){if(!isRegistrado){alert('🔒 Regístrate para repetir mi pez');return} repeatMode=repeatMode==="all"?"one":"all";document.getElementById("modeBtn").classList.toggle("active",repeatMode==="one");document.getElementById("pfModeBtn").classList.toggle("active",repeatMode==="one");}
 document.getElementById("modeBtn").addEventListener("click",toggleMode);
 document.getElementById("pfModeBtn").addEventListener("click",toggleMode);
 document.getElementById("volBtn").addEventListener("click",function(){volumen=volumen>0.5?0.3:1;mainA.volume=volumen;this.innerHTML=volumen>0.5?'<i class="fa-solid fa-volume-high"></i> 100%':'<i class="fa-solid fa-volume-low"></i> 30%';});
 document.getElementById("pfVolBtn").addEventListener("click",function(){volumen=volumen>0.5?0.3:1;mainA.volume=volumen;});
-document.getElementById("favBtn").addEventListener("click",()=>{if(temasCache.length===0)return;let t=temasCache[currentIdx];let tx=db.transaction("temas","readwrite");let req=tx.objectStore("temas").get(t.id);req.onsuccess=()=>{let tt=req.result;tt.fav=!tt.fav;tx.objectStore("temas").put(tt);document.getElementById("favBtn").innerHTML=tt.fav?"❤️ FAV":"🤍 FAV";render(false)}});
+document.getElementById("favBtn").addEventListener("click",()=>{if(!isRegistrado){alert('🔒 Regístrate para favoritos mi pez');document.getElementById('registroOverlay').style.display='flex';return} if(temasCache.length===0)return;let t=temasCache[currentIdx];let tx=db.transaction("temas","readwrite");let req=tx.objectStore("temas").get(t.id);req.onsuccess=()=>{let tt=req.result;tt.fav=!tt.fav;tx.objectStore("temas").put(tt);document.getElementById("favBtn").innerHTML=tt.fav?"❤️ FAV":"🤍 FAV";render(false)}});
 document.getElementById("btnFiesta").addEventListener("click",()=>{document.querySelector(".cover-wrap").requestFullscreen?.()});
-document.getElementById("btnExport").addEventListener("click",async()=>{let temas=await obtenerTemas();if(temas.length===0){alert("No hay temas");return}let out=[];for(let t of temas){let buf=await t.audioBlob.arrayBuffer();let b64=btoa(String.fromCharCode(...new Uint8Array(buf)));let coverB64=null;if(t.coverBlob){let b2=await t.coverBlob.arrayBuffer();coverB64=btoa(String.fromCharCode(...new Uint8Array(b2)))}out.push({titulo:t.titulo,dedicado:t.dedicado,genero:t.genero,letra:t.letra,repro:t.repro,fav:t.fav,audioB64:b64,coverB64})}let blob=new Blob([JSON.stringify(out)],{type:"application/json"});let url=URL.createObjectURL(blob);let a=document.createElement("a");a.href=url;a.download="respaldo-pez-"+Date.now()+".json";a.click()});
-document.getElementById("btnImport").addEventListener("click",()=>document.getElementById("importFile").click());
+document.getElementById("btnExport").addEventListener("click",async()=>{if(!isRegistrado){alert('🔒 Regístrate para exportar mi pez');return} let temas=await obtenerTemas();if(temas.length===0){alert("No hay temas");return}let out=[];for(let t of temas){let buf=await t.audioBlob.arrayBuffer();let b64=btoa(String.fromCharCode(...new Uint8Array(buf)));let coverB64=null;if(t.coverBlob){let b2=await t.coverBlob.arrayBuffer();coverB64=btoa(String.fromCharCode(...new Uint8Array(b2)))}out.push({titulo:t.titulo,dedicado:t.dedicado,genero:t.genero,letra:t.letra,repro:t.repro,fav:t.fav,audioB64:b64,coverB64})}let blob=new Blob([JSON.stringify(out)],{type:"application/json"});let url=URL.createObjectURL(blob);let a=document.createElement("a");a.href=url;a.download="respaldo-pez-"+Date.now()+".json";a.click()});
+document.getElementById("btnImport").addEventListener("click",()=>{if(!isRegistrado){alert('🔒 Regístrate para importar mi pez');return} document.getElementById("importFile").click()});
 document.getElementById("importFile").addEventListener("change",async e=>{let file=e.target.files[0];if(!file)return;let txt=await file.text();let arr=JSON.parse(txt);for(let o of arr){let audioBlob=new Blob([Uint8Array.from(atob(o.audioB64),c=>c.charCodeAt(0))],{type:"audio/mpeg"});let coverBlob=o.coverB64?new Blob([Uint8Array.from(atob(o.coverB64),c=>c.charCodeAt(0))],{type:"image/jpeg"}):null;await guardarTema({titulo:o.titulo,dedicado:o.dedicado,genero:o.genero,letra:o.letra,repro:o.repro||0,fav:o.fav||false,orden:Date.now(),audioBlob,coverBlob})}render();alert("Importado "+arr.length+" temas mi pez")});});
 </script>
 </body>
