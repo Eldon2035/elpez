@@ -9,10 +9,10 @@
 body{margin:0;padding-bottom:90px;min-height:100vh;color:#fff;font-family:'Poppins';overflow-x:hidden}
 #bgBlur{position:fixed;inset:0;background:#020414 url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1400') center/cover;filter:blur(22px) brightness(0.5);transform:scale(1.15);z-index:-2;transition:background-image 0.6s}
 body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at center, rgba(2,4,20,0.4) 0%, rgba(2,4,20,0.85) 85%);z-index:-1}
-.topbar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(8,10,30,0.85);backdrop-filter:blur(12px);border-bottom:1px solid #FFD70044;position:sticky;top:0;z-index:30}
-.topbar img{width:32px;height:32px;border-radius:50%;border:1px solid #FFD700;cursor:pointer}
-.topbar h1{font-family:'Cinzel';color:#FFD700;font-size:11px;margin:0;flex:1}
-.card{max-width:580px;margin:14px auto;background:rgba(20,25,60,0.78);backdrop-filter:blur(14px);border:1px solid #FFD70022;border-radius:16px;padding:14px;box-shadow:0 10px 30px #00000099}
+.topbar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(8,10,30,0.92);backdrop-filter:blur(12px);border-bottom:1px solid #FFD70044;position:sticky;top:0;z-index:30}
+.topbar img{width:32px;height:32px;border-radius:50%;border:1px solid #FFD700;cursor:pointer;box-shadow:0 0 8px #FFD70088}
+.topbar h1{font-family:'Cinzel';color:#FFD700;font-size:11px;margin:0;letter-spacing:1px;flex:1}
+.card{max-width:580px;margin:14px auto;background:rgba(20,25,60,0.84);backdrop-filter:blur(14px);border:1px solid #FFD70022;border-radius:16px;padding:14px;box-shadow:0 10px 30px #00000099}
 .cover-wrap{position:relative;width:100%;aspect-ratio:1/1;max-height:460px;border-radius:18px;overflow:hidden;box-shadow:0 0 50px #000,0 0 30px #FFD70033;border:2px solid #FFD70044}
 .cover-wrap img{width:100%;height:100%;object-fit:cover;display:block}
 .cover-overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.85) 10%, rgba(0,0,0,0.1) 55%, rgba(0,0,0,0) 80%)}
@@ -27,9 +27,8 @@ input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px soli
 .btn{width:100%;padding:12px;background:linear-gradient(90deg,#FFD700,#ffb700);color:#000;font-weight:900;border:none;border-radius:10px;cursor:pointer;margin-top:10px}
 .btn2{padding:6px 10px;border-radius:8px;border:1px solid #FFD70055;background:#FFD70022;color:#FFD700;font-weight:700;cursor:pointer;font-size:10px}
 .tema{display:flex;gap:10px;background:rgba(255,255,255,0.05);border:1px solid #ffffff0f;padding:8px;border-radius:12px;margin-bottom:8px;align-items:center}
-.tema.playing{border-color:#FFD700;background:rgba(255,215,0,0.12)}
+.tema.playing{border-color:#FFD700;background:rgba(255,215,0,0.12);box-shadow:0 0 10px #FFD70033}
 .tema img{width:48px;height:48px;border-radius:8px;object-fit:cover}
-.tema .fav{color:#ff3b6e}
 .player{position:fixed;bottom:0;left:0;right:0;background:rgba(8,10,30,0.96);backdrop-filter:blur(14px);border-top:1px solid #FFD70044;display:flex;align-items:center;gap:10px;padding:8px 12px;z-index:50}
 .player img{width:52px;height:52px;border-radius:8px;object-fit:cover}
 #letraModal{position:fixed;inset:0;background:#000000f2;z-index:100;display:none;padding:18px;overflow:auto}
@@ -68,19 +67,20 @@ input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px soli
 </div>
 
 <div class="card">
-<div style="display:flex;gap:6px"><input id="buscador" placeholder="🔍 Buscar..." style="flex:1"><button class="btn2" id="btnExport">💾</button><input type="file" id="importFile" accept=".json" style="display:none"><button class="btn2" id="btnImport">📥</button></div>
-<div style="display:flex;gap:6px;margin-top:8px"><input id="dedicado" placeholder="Dedicado a" style="flex:1"><select id="genero" style="flex:1"><option>Balada Romántica</option><option>Reggaeton</option><option>Salsa</option><option>Bachata</option><option>Merengue</option><option>Vallenato</option></select></div>
+<div style="display:flex;gap:6px"><input id="buscador" placeholder="🔍 Buscar Mi Conchita..." style="flex:1"><button class="btn2" id="btnExport">💾 RESPALDO</button><input type="file" id="importFile" accept=".json" style="display:none"><button class="btn2" id="btnImport">📥 IMPORTAR</button></div>
+<div style="display:flex;gap:6px;margin-top:8px"><input id="dedicado" placeholder="Dedicado a: Mi Negra Bella" style="flex:1"><select id="genero" style="flex:1"><option>Balada Romántica</option><option>Reggaeton</option><option>Salsa</option><option>Bachata</option><option>Merengue</option><option>Vallenato</option></select></div>
 <textarea id="letra" placeholder="Letra..."></textarea>
 <div style="display:flex;gap:6px"><input type="file" id="mp3" accept="audio/*" style="flex:1"><input type="file" id="portada" accept="image/*" style="flex:1"></div>
 <button class="btn" id="btnSubir">SUBIR DE VERDAD</button>
 <p id="msg" style="color:#00ff88;text-align:center;font-size:11px;min-height:14px;margin:6px 0 0"></p>
-<div style="margin-top:12px"><b style="color:#FFD700;font-size:11px">🎧 Tus Temas (<span id="contador2">0</span>) - Toca para sonar</b><div id="lista" style="margin-top:8px"></div></div>
+<div style="margin-top:12px"><b style="color:#FFD700;font-size:11px">🎧 Tus Temas (<span id="contador2">0</span>) - Toca para sonar | Arrastra para ordenar</b><div id="lista" style="margin-top:8px"></div></div>
 </div>
 
 <div class="player"><img id="pImg" src="logo.png"><div style="flex:1;min-width:0"><b id="pTitle" style="font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block">Nada sonando</b><span id="pDed" style="font-size:10px;opacity:.7">EL DON 2035</span></div><button class="btn2" onclick="document.getElementById('mainAudio').play()">▶️</button><button class="btn2" onclick="document.getElementById('mainAudio').pause()">⏸️</button></div>
 <div id="letraModal"><button class="btn2" onclick="document.getElementById('letraModal').style.display='none'">✖️ CERRAR</button><pre id="letraContenido" style="white-space:pre-wrap;line-height:1.7;margin-top:14px"></pre></div>
 
 <script>
+const LINK_OFICIAL="https://eldon2035.github.io/elpez/";
 localStorage.removeItem("temas_pez_full");localStorage.removeItem("temas_pez");
 const CLAVE="Elpez2035";let modoBorrado=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",currentIdx=0,temasCache=[];
 function abrirDB(){return new Promise(r=>{let q=indexedDB.open("PezDB",1);q.onupgradeneeded=e=>{e.target.result.createObjectStore("temas",{keyPath:"id",autoIncrement:true})};q.onsuccess=e=>{db=e.target.result;r()}})}
@@ -89,7 +89,7 @@ function obtenerTemas(){return new Promise(r=>{let tx=db.transaction("temas","re
 function borrarTema(id){if(!modoBorrado)return;if(confirm("¿Borrar mi pez?")){let tx=db.transaction("temas","readwrite");tx.objectStore("temas").delete(id);tx.oncomplete=render}}
 function verLetra(id){let tx=db.transaction("temas","readonly");let req=tx.objectStore("temas").get(id);req.onsuccess=()=>{document.getElementById("letraContenido").textContent=req.result.letra||"Sin letra mi pez";document.getElementById("letraModal").style.display="block"}}
 function descargar(id){let tx=db.transaction("temas","readonly");let req=tx.objectStore("temas").get(id);req.onsuccess=()=>{let t=req.result;let url=URL.createObjectURL(t.audioBlob);let a=document.createElement("a");a.href=url;a.download=t.titulo+".mp3";a.click()}}
-function compartir(id,titulo){let texto=encodeURIComponent("🎧 "+titulo+" - EL DON 2035: https://eldon2035.github.io");window.open("https://wa.me/?text="+texto,"_blank")}
+function compartir(id,titulo){let texto=encodeURIComponent("🎧 "+titulo+" - EL DON 2035 EL PEZ OFICIAL: "+LINK_OFICIAL);window.open("https://wa.me/?text="+texto,"_blank")}
 function formatTime(s){if(isNaN(s))return"0:00";let m=Math.floor(s/60);let sec=Math.floor(s%60);return m+":"+(sec<10?"0":"")+sec}
 function tocar(idx){
  let temas=temasCache;if(!temas[idx])return;currentIdx=idx;let t=temas[idx];
@@ -97,7 +97,7 @@ function tocar(idx){
  document.getElementById("mainCover").src=urlC;
  document.getElementById("bgBlur").style.backgroundImage="url('"+urlC+"')";
  document.getElementById("mainTitle").textContent=t.titulo;
- document.getElementById("mainDedicado").textContent=(t.dedicado||"Mi Conchita")+" • "+(t.genero||"Balada Romántica");
+ document.getElementById("mainDedicado").textContent=(t.dedicado||"Mi Negra Bella")+" • "+(t.genero||"Balada Romántica");
  document.getElementById("pImg").src=urlC;document.getElementById("pTitle").textContent=t.titulo;document.getElementById("pDed").textContent=t.dedicado||"EL DON 2035";
  document.getElementById("favBtn").textContent=t.fav?"❤️":"🤍";
  let a=document.getElementById("mainAudio");a.src=urlA;a.volume=volumen;a.play();document.getElementById("playBtn").textContent="⏸️ PAUSA";
@@ -107,17 +107,20 @@ function tocar(idx){
 }
 async function render(){
  let temas=await obtenerTemas();temas.sort((a,b)=>(a.orden||0)-(b.orden||0));if(filtro)temas=temas.filter(t=>(t.titulo+t.dedicado).toLowerCase().includes(filtro.toLowerCase()));temasCache=temas;
- let l=document.getElementById("lista");l.innerHTML="";if(temas.length===0)l.innerHTML='<div style="opacity:.5;text-align:center;padding:12px;font-size:11px">No hay temas mi pez</div>';
+ let l=document.getElementById("lista");l.innerHTML="";if(temas.length===0)l.innerHTML='<div style="opacity:.5;text-align:center;padding:12px;font-size:11px">No hay temas mi pez - Sube tu primera canción</div>';
  temas.forEach((t,idx)=>{
   let urlC=t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png';let btnBorrar=modoBorrado?`<button onclick="borrarTema(${t.id})" style="background:#ff444422;border:1px solid #ff4444;color:#ff5555;border-radius:6px;padding:4px 6px">🗑️</button>`:"";
-  let d=document.createElement("div");d.className="tema";if(idx===currentIdx)d.classList.add("playing");d.dataset.id=t.id;
+  let d=document.createElement("div");d.className="tema";if(idx===currentIdx)d.classList.add("playing");d.dataset.id=t.id;d.draggable=true;
   d.innerHTML=`<img src="${urlC}" onclick="tocar(${idx})" style="cursor:pointer"><div style="flex:1;min-width:0" onclick="tocar(${idx})"><b style="color:#FFD700;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block">${t.fav?"❤️ ":""}${t.titulo} <span style="font-size:9px;opacity:.5">▶️${t.repro||0}</span></b><div style="font-size:10px;opacity:.6">${t.dedicado||''} • ${t.genero||''}</div></div><button class="btn2" onclick="verLetra(${t.id})">📜</button><button class="btn2" onclick="descargar(${t.id})">⬇️</button><button class="btn2" onclick="compartir(${t.id},'${t.titulo}')">📲</button>${btnBorrar}`;
   l.appendChild(d);
  });
  document.getElementById("contador").textContent=(await obtenerTemas()).length;document.getElementById("contador2").textContent=temas.length;
+ let dragEl=null;l.querySelectorAll(".tema").forEach(el=>{
+  el.addEventListener("dragstart",()=>{dragEl=el});el.addEventListener("dragover",e=>e.preventDefault());el.addEventListener("drop",e=>{e.preventDefault();if(dragEl&&dragEl!==el){let list=Array.from(l.children);let from=list.indexOf(dragEl);let to=list.indexOf(el);if(from<to)el.after(dragEl);else el.before(dragEl);let ids=Array.from(document.querySelectorAll(".tema")).map((el,i)=>parseInt(el.dataset.id));let tx=db.transaction("temas","readwrite");let store=tx.objectStore("temas");ids.forEach((id,orden)=>{let req=store.get(id);req.onsuccess=()=>{let t=req.result;if(t){t.orden=orden;store.put(t)}}})}});
+ });
 }
-function activarClave(){let a=Date.now();if(a-tiempoClick>3000)clicksLogo=0;tiempoClick=a;clicksLogo++;if(clicksLogo>=5){clicksLogo=0;let c=prompt("Clave:");if(c===CLAVE){modoBorrado=true;alert("Borrado 60s ON");render();setTimeout(()=>{modoBorrado=false;render()},60000)}else if(c!==null)alert("Mala")}}
-async function subir(){let ded=document.getElementById("dedicado").value.trim();let gen=document.getElementById("genero").value;let letra=document.getElementById("letra").value.trim();let f=document.getElementById("mp3").files[0];let c=document.getElementById("portada").files[0];if(!f){alert("Falta MP3");return}let titulo=letra.split("\n")[0].substring(0,40).trim()||ded||f.name.replace(".mp3","")||"Mi Tema";document.getElementById("msg").textContent="Subiendo...";await guardarTema({titulo,dedicado:ded,genero:gen,letra,audioBlob:f,coverBlob:c||null,repro:0,orden:Date.now(),fav:false});document.getElementById("msg").textContent="¡Subido mi pez!";render()}
+function activarClave(){let a=Date.now();if(a-tiempoClick>3000)clicksLogo=0;tiempoClick=a;clicksLogo++;if(clicksLogo>=5){clicksLogo=0;let c=prompt("Clave secreta:");if(c===CLAVE){modoBorrado=true;alert("Borrado 60s ON - Ahora aparece 🗑️");render();setTimeout(()=>{modoBorrado=false;render()},60000)}else if(c!==null)alert("Clave mala mi pez")}}
+async function subir(){let ded=document.getElementById("dedicado").value.trim();let gen=document.getElementById("genero").value;let letra=document.getElementById("letra").value.trim();let f=document.getElementById("mp3").files[0];let c=document.getElementById("portada").files[0];if(!f){alert("Falta MP3 mi pez");return}let titulo=letra.split("\n")[0].substring(0,40).trim()||ded||f.name.replace(".mp3","")||"Mi Tema";document.getElementById("msg").textContent="Subiendo...";await guardarTema({titulo,dedicado:ded,genero:gen,letra,audioBlob:f,coverBlob:c||null,repro:0,orden:Date.now(),fav:false});document.getElementById("msg").textContent="¡Subido mi pez!";document.getElementById("dedicado").value="";document.getElementById("letra").value="";render()}
 abrirDB().then(()=>{
  render();
  let mainA=document.getElementById("mainAudio");
@@ -135,9 +138,9 @@ abrirDB().then(()=>{
  document.getElementById("prevBtn").addEventListener("click",()=>{let p=currentIdx-1;if(p<0)p=temasCache.length-1;tocar(p)});
  document.getElementById("favBtn").addEventListener("click",()=>{if(temasCache.length===0)return;let t=temasCache[currentIdx];let tx=db.transaction("temas","readwrite");let req=tx.objectStore("temas").get(t.id);req.onsuccess=()=>{let tt=req.result;tt.fav=!tt.fav;tx.objectStore("temas").put(tt);document.getElementById("favBtn").textContent=tt.fav?"❤️":"🤍";render(false)}});
  document.getElementById("btnFiesta").addEventListener("click",()=>{document.querySelector(".cover-wrap").requestFullscreen?.()});
- document.getElementById("btnExport").addEventListener("click",async()=>{let temas=await obtenerTemas();if(temas.length===0)return;let out=[];for(let t of temas){let buf=await t.audioBlob.arrayBuffer();let b64=btoa(String.fromCharCode(...new Uint8Array(buf)));let coverB64=null;if(t.coverBlob){let b2=await t.coverBlob.arrayBuffer();coverB64=btoa(String.fromCharCode(...new Uint8Array(b2)))}out.push({titulo:t.titulo,dedicado:t.dedicado,genero:t.genero,letra:t.letra,repro:t.repro,fav:t.fav,audioB64:b64,coverB64})}let blob=new Blob([JSON.stringify(out)],{type:"application/json"});let url=URL.createObjectURL(blob);let a=document.createElement("a");a.href=url;a.download="respaldo-pez.json";a.click()});
+ document.getElementById("btnExport").addEventListener("click",async()=>{let temas=await obtenerTemas();if(temas.length===0){alert("No hay temas");return}let out=[];for(let t of temas){let buf=await t.audioBlob.arrayBuffer();let b64=btoa(String.fromCharCode(...new Uint8Array(buf)));let coverB64=null;if(t.coverBlob){let b2=await t.coverBlob.arrayBuffer();coverB64=btoa(String.fromCharCode(...new Uint8Array(b2)))}out.push({titulo:t.titulo,dedicado:t.dedicado,genero:t.genero,letra:t.letra,repro:t.repro,fav:t.fav,audioB64:b64,coverB64})}let blob=new Blob([JSON.stringify(out)],{type:"application/json"});let url=URL.createObjectURL(blob);let a=document.createElement("a");a.href=url;a.download="respaldo-pez-"+Date.now()+".json";a.click()});
  document.getElementById("btnImport").addEventListener("click",()=>document.getElementById("importFile").click());
- document.getElementById("importFile").addEventListener("change",async e=>{let file=e.target.files[0];if(!file)return;let txt=await file.text();let arr=JSON.parse(txt);for(let o of arr){let audioBlob=new Blob([Uint8Array.from(atob(o.audioB64),c=>c.charCodeAt(0))],{type:"audio/mpeg"});let coverBlob=o.coverB64?new Blob([Uint8Array.from(atob(o.coverB64),c=>c.charCodeAt(0))],{type:"image/jpeg"}):null;await guardarTema({titulo:o.titulo,dedicado:o.dedicado,genero:o.genero,letra:o.letra,repro:o.repro||0,fav:o.fav||false,orden:Date.now(),audioBlob,coverBlob})}render();alert("Importado "+arr.length)});
+ document.getElementById("importFile").addEventListener("change",async e=>{let file=e.target.files[0];if(!file)return;let txt=await file.text();let arr=JSON.parse(txt);for(let o of arr){let audioBlob=new Blob([Uint8Array.from(atob(o.audioB64),c=>c.charCodeAt(0))],{type:"audio/mpeg"});let coverBlob=o.coverB64?new Blob([Uint8Array.from(atob(o.coverB64),c=>c.charCodeAt(0))],{type:"image/jpeg"}):null;await guardarTema({titulo:o.titulo,dedicado:o.dedicado,genero:o.genero,letra:o.letra,repro:o.repro||0,fav:o.fav||false,orden:Date.now(),audioBlob,coverBlob})}render();alert("Importado "+arr.length+" temas mi pez")});
 });
 </script>
 </body>
