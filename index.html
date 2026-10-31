@@ -8,7 +8,14 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box}
-body{margin:0;padding-bottom:90px;min-height:100vh;color:#FFF8DC;font-family:'Poppins';overflow-x:hidden;background:#000}
+body{margin:0;padding-bottom:90px;min-height:100vh;color:#FFF8DC;font-family:'Poppins';overflow-x:hidden;background:#000;cursor:none !important}
+* {cursor:none !important}
+/* PUNTERO EL DON 2035 - ACORDE ESTILO DORADO */
+.cursor-dot{width:10px;height:10px;background:#FFD700;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 12px #FFD700, 0 0 25px #FFD700;transition:width 0.2s,height 0.2s}
+.cursor-outline{width:38px;height:38px;border:2px solid #FFD700;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;border-radius:50%;transform:translate(-50%,-50%);transition:all 0.15s ease-out;display:flex;align-items:center;justify-content:center;font-size:16px;background:rgba(255,215,0,0.08)}
+.cursor-outline::after{content:'🐟';}
+.cursor-hover .cursor-dot{width:20px;height:20px;background:#FFE9A0}
+.cursor-hover .cursor-outline{width:62px;height:62px;background:rgba(255,215,0,0.22);border-color:#FFE9A0;transform:translate(-50%,-50%) scale(1.15)}
 #bgBlur{position:fixed;inset:0;background:#050300 url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1400') center/cover;filter:blur(28px) brightness(0.25);transform:scale(1.15);z-index:-3}
 .topbar{display:flex;align-items:center;gap:16px;padding:12px 18px;background:#000000F0;backdrop-filter:blur(16px);border-bottom:1px solid #FFFFFF14;position:sticky;top:0;z-index:30}
 .topbar img{width:40px;height:40px;border-radius:50%;border:2px solid #FFD700}
@@ -82,7 +89,6 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 #contextMenu button{display:block;width:100%;text-align:left;padding:10px 12px;background:transparent;border:none;color:#E8E8E8;font-size:13px;border-radius:4px;cursor:pointer}
 #contextMenu button:hover{background:#3E3E3E}
 .filtros{display:flex;gap:6px;margin:10px 0}
-/* REGISTRO OVERLAY */
 #registroOverlay{position:fixed;inset:0;background:rgba(0,0,0,0.92);backdrop-filter:blur(20px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
 .registroBox{background:linear-gradient(180deg,#1E1E1E,#121212);border:1px solid #FFD70033;border-radius:16px;padding:28px;max-width:380px;width:100%;box-shadow:0 20px 60px #000000AA;text-align:center}
 .registroBox h2{font-family:'Cinzel';font-weight:900;font-size:22px;margin:0 0 8px;background:linear-gradient(90deg,#FFD700,#FFE9A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -95,6 +101,9 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 </style>
 </head>
 <body>
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-outline" id="cursor-outline"></div>
+
 <div id="registroOverlay">
 <div class="registroBox">
 <div style="font-size:50px;margin-bottom:12px">🔒</div>
@@ -215,7 +224,12 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 
 <div id="letraModal"><button class="btn2" onclick="document.getElementById('letraModal').style.display='none'">✖️ CERRAR</button><pre id="letraContenido"></pre></div>
 <script>
-const SUPABASE_URL="https://hrvmidwtojjmhmbxxkpz.supabase.co";const SUPABASE_KEY="sb_publishable_PYd42RgJIYn2WP2CA-wz1Q_7cQ2EaRU";const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const LINK_OFICIAL="https://eldon2035.github.io/elpez/";const SITIO_CORTO="eldon2035.github.io/elpez";const CLAVE="Elpez2035";let modoBorrado=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],selectedTemaId=null,isRegistrado=false;
+const SUPABASE_URL="https://hrvmidwtojjmhmbxxkpz.supabase.co";const SUPABASE_KEY="sb_publishable_PYd42RgJIYn2WP2CA-wz1Q_7cQ2EaRU";const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const LINK_OFICIAL="https://eldon2035.github.io/elpez/";const SITIO_CORTO="eldon2035.github.io/elpez";const CLAVE="Elpez2035";
+// TELEGRAM CONFIG - YA PROBADO MI PEZ FABIAN
+const TELEGRAM_BOT_TOKEN="9242572538:AAEjeqPBBOLWfDNoaUE8UHF4l2unP6pOsI8";const TELEGRAM_CHAT_ID="684478704";
+function enviarAvisoTelegram(nombre,whats,ciudad){try{let mensaje=`🎉 NUEVO REGISTRO EL PEZ!\n\n👤 Nombre: ${nombre}\n📱 WhatsApp: ${whats}\n🏙️ Ciudad: ${ciudad||'No puso'}\n🕐 ${new Date().toLocaleString('es-EC')}\n\nAdmin: eldon2035.github.io/elpez/admin.html`;let url=`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(mensaje)}`;let img=new Image();img.src=url;console.log('✅ Aviso Telegram enviado')}catch(e){console.log('Error Telegram',e)}}
+
+let modoBorrado=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],selectedTemaId=null,isRegistrado=false;
 function checkRegistro(){let u=localStorage.getItem('pez_usuario');if(u){isRegistrado=true;try{let d=JSON.parse(u);document.getElementById('userBadge').style.display='inline-block';document.getElementById('userBadge').textContent='👤 '+d.nombre;document.getElementById('registroOverlay').style.display='none';document.getElementById('avisoBloqueo').style.display='none';document.getElementById('sidebar').classList.remove('locked')}catch(e){}}else{isRegistrado=false;document.getElementById('sidebar').classList.add('locked');document.getElementById('avisoBloqueo').style.display='block'}}
 function setFiltro(t){if(!isRegistrado&&t!=='todos'){alert('🔒 Regístrate para usar filtros mi pez');return} filtroTipo=t;document.querySelectorAll('.filtros .btn2').forEach(b=>b.classList.remove('active'));document.getElementById('filtro'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active');render();}
 function actualizarFechas(){let ahora=new Date();let meses=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];let topTxt=`${ahora.getDate()} ${meses[ahora.getMonth()]} • ${String(ahora.getHours()).padStart(2,'0')}:${String(ahora.getMinutes()).padStart(2,'0')}`;let elTop=document.getElementById('fechaHoraTop');if(elTop)elTop.textContent=topTxt;}
@@ -243,7 +257,11 @@ onlineFiltrado.forEach((t,idx)=>{let urlC=t.portada_url||'logo.png';let btnBorra
 if(filtroTipo==='local'){document.getElementById('folderOtros').style.display='none'}else{document.getElementById('folderOtros').style.display='block'}}
 function activarClave(){let a=Date.now();if(a-tiempoClick>3000)clicksLogo=0;tiempoClick=a;clicksLogo++;if(clicksLogo>=5){clicksLogo=0;let c=prompt("Clave secreta:");if(c===CLAVE){modoBorrado=true;alert("Borrado 60s ON");render();setTimeout(()=>{modoBorrado=false;render()},60000)}else if(c!==null)alert("Clave mala mi pez")}}
 async function subir(){if(!isRegistrado){alert('🔒 Debes registrarte para subir temas mi pez');document.getElementById('registroOverlay').style.display='flex';return} let ded=document.getElementById("dedicado").value.trim();let gen=document.getElementById("genero").value;let letra=document.getElementById("letra").value.trim();let f=document.getElementById("mp3").files[0];let c=document.getElementById("portada").files[0];if(!f){alert("Falta MP3 mi pez");return}let titulo=letra.split("\n")[0].substring(0,40).trim()||ded||f.name.replace(".mp3","")||"Mi Tema";let msg=document.getElementById("msg");msg.textContent="Subiendo online mi pez... espera";try{await guardarTema({titulo,dedicado:ded,genero:gen,letra,audioBlob:f,coverBlob:c||null,repro:0,orden:Date.now(),fav:false});let portada_url="",cancion_url="";if(c){let nombre=Date.now()+"_"+limpiarNombre(c.name);let{error}=await supabaseClient.storage.from('portadas').upload(nombre,c);if(error)throw error;let{data}=supabaseClient.storage.from('portadas').getPublicUrl(nombre);portada_url=data.publicUrl;}if(f){let nombre=Date.now()+"_"+limpiarNombre(f.name);let{error}=await supabaseClient.storage.from('canciones').upload(nombre,f);if(error)throw error;let{data}=supabaseClient.storage.from('canciones').getPublicUrl(nombre);cancion_url=data.publicUrl;}let{error:err2}=await supabaseClient.from('canciones').insert([{artista:ded||'El Don 2035',titulo,letra,portada_url,cancion_url}]);if(err2)throw err2;msg.textContent="¡Subido ONLINE para todos! ✅";document.getElementById("dedicado").value="";document.getElementById("letra").value="";render();}catch(e){console.error(e);msg.textContent="Error online: "+e.message+" (guardado como LOCAL 📱)";render();}}
-abrirDB().then(()=>{checkRegistro();
+abrirDB().then(()=>{
+// PUNTERO INIT
+const dot=document.getElementById('cursor-dot');const outline=document.getElementById('cursor-outline');let mx=0,my=0,ox=0,oy=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});(function anim(){ox+=(mx-ox)*0.18;oy+=(my-oy)*0.18;outline.style.left=ox+'px';outline.style.top=oy+'px';requestAnimationFrame(anim);})();document.addEventListener('mouseover',e=>{if(e.target.closest('button,input,select,textarea,a,.tema,.folder-header'))document.body.classList.add('cursor-hover');else document.body.classList.remove('cursor-hover');});
+
+checkRegistro();
 document.getElementById('btnRegistrar').addEventListener('click',async()=>{
 let nombre=document.getElementById('regNombre').value.trim();
 let whats=document.getElementById('regWhats').value.trim();
@@ -251,7 +269,10 @@ let ciudad=document.getElementById('regCiudad').value.trim();
 if(!nombre||!whats){alert('Pon tu nombre y WhatsApp mi pez');return}
 let user={nombre,whats,ciudad,fecha:Date.now()};
 localStorage.setItem('pez_usuario',JSON.stringify(user));
-try{await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,ciudad}]);}catch(e){console.log('usuarios tabla no existe aun, guardado local',e)}
+try{await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,ciudad}]);}catch(e){console.log('usuarios tabla error',e)}
+// AVISO TELEGRAM INSTANTANEO - ESTO ES LO NUEVO MI PEZ
+enviarAvisoTelegram(nombre,whats,ciudad);
+
 isRegistrado=true;
 document.getElementById('userBadge').style.display='inline-block';
 document.getElementById('userBadge').textContent='👤 '+nombre;
@@ -261,13 +282,8 @@ document.getElementById('sidebar').classList.remove('locked');
 render();
 alert('¡Bienvenido '+nombre+' mi pez! 🎉 Ya puedes usar todo');
 });
-document.getElementById('btnInvitado').addEventListener('click',()=>{
-document.getElementById('registroOverlay').style.display='none';
-});
-document.getElementById('linkRegistrar').addEventListener('click',(e)=>{
-e.preventDefault();
-document.getElementById('registroOverlay').style.display='flex';
-});
+document.getElementById('btnInvitado').addEventListener('click',()=>{document.getElementById('registroOverlay').style.display='none';});
+document.getElementById('linkRegistrar').addEventListener('click',(e)=>{e.preventDefault();document.getElementById('registroOverlay').style.display='flex';});
 document.getElementById('ctxRetry').addEventListener('click',()=>reintentarSubida(false));document.getElementById('ctxRetryPortada').addEventListener('click',()=>reintentarSubida(true));document.getElementById('ctxVerLetra').addEventListener('click',()=>{ocultarMenu();verLetra(selectedTemaId);});document.getElementById('ctxCompartir').addEventListener('click',()=>{ocultarMenu();let t=temasCache.find(x=>x.id==selectedTemaId);if(t)compartir(t.id,t.titulo);});document.addEventListener('click',ocultarMenu);
 actualizarFechas();setInterval(actualizarFechas,1000);render();
 let mainA=document.getElementById("mainAudio");
