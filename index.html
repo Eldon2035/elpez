@@ -31,7 +31,7 @@ body{margin:0;padding-bottom:56px;min-height:100vh;color:#FFF8DC;font-family:'Po
 .sidebar h3{font-size:11px;font-weight:700;color:#B3B3B3;margin:14px 0 8px;text-transform:uppercase;display:flex;justify-content:space-between}
 .main-content{flex:1;padding:18px;overflow-y:auto}
 .card{background:linear-gradient(180deg, rgba(24,18,10,0.9), rgba(10,8,4,0.85));border:1px solid #FFFFFF0A;border-radius:12px;padding:18px;margin-bottom:16px}
-.cover-wrap{position:relative;width:100%;aspect-ratio:1/1;max-height:480px;border-radius:8px;overflow:hidden;cursor:pointer}
+.cover-wrap{position:relative;width:100%;aspect-ratio:1/1;max-height:480px;border-radius:8px;overflow:hidden}
 .cover-wrap img{width:100%;height:100%;object-fit:cover}
 .cover-overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.9) 15%, transparent 60%)}
 .cover-title{position:absolute;bottom:0;left:0;right:0;padding:18px}
@@ -48,7 +48,7 @@ body{margin:0;padding-bottom:56px;min-height:100vh;color:#FFF8DC;font-family:'Po
 .spt-btn{width:32px;height:32px;border:none;background:transparent;color:#B3B3B3;font-size:16px;cursor:pointer}
 .spt-main{width:56px;height:56px;border-radius:50%;border:none;background:#FFF;color:#000;font-size:20px;cursor:pointer}
 .tema{display:flex;gap:10px;padding:10px;border-radius:8px;margin-bottom:6px;align-items:center;cursor:pointer;border:1px solid transparent;position:relative}
-.tema img{width:50px;height:50px;border-radius:6px;transition:0.2s}
+.tema img{width:50px;height:50px;border-radius:6px}
 .tema-info{flex:1;min-width:0}
 .tema-info b{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 .tema-local{background:#1E1E1E}
@@ -71,6 +71,7 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 .player-left{display:flex;align-items:center;gap:8px;flex:1.2;min-width:0}
 .player-left img{width:34px;height:34px;border-radius:4px}
 .player-info b{font-size:11px;color:#FFF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:120px}
+.player-info span{font-size:8.5px;color:#B3B3B3}
 .player-search-wrap{position:relative;display:flex;align-items:center;margin-left:8px}
 .player-search-wrap i{position:absolute;left:8px;color:var(--color-main);font-size:9px}
 #buscador{width:190px;height:26px;padding:5px 10px 5px 24px;border-radius:16px !important;border:1px solid #FFD70033 !important;background:#1E1E1E !important;color:#FFF !important;font-size:10.5px}
@@ -96,8 +97,10 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 #perfilUsuarioBox{background:linear-gradient(180deg,#1E1E1E,#121212);border:1px solid #FFD70033;border-radius:12px;padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:12px;display:none}
 #perfilUsuarioBox img{width:56px;height:56px;border-radius:50%;border:2px solid var(--color-main);object-fit:cover}
 .modo-admin .tema{border:1px dashed #FF3B3B55 !important}
-.modo-admin .tema img:hover{transform:scale(1.1);border:2px dashed #FF3B3B}
-.modo-admin .tema-info b:hover{color:#FFD700;text-decoration:underline dashed #FF3B3B}
+.modo-admin .tema-info b{cursor:text;border-bottom:1px dashed transparent}
+.modo-admin .tema-info b:hover{border-bottom-color:#FF3B3B;color:#FFD700}
+.modo-admin .folder-header b{cursor:text;border-bottom:1px dashed transparent}
+.modo-admin .folder-header b:hover{border-bottom-color:#FF3B3B}
 .editable-hint{position:absolute;right:38px;top:4px;font-size:8px;background:#FF3B3B;color:#FFF;padding:2px 5px;border-radius:10px;display:none}
 .modo-admin .editable-hint{display:block}
 @media (max-width:900px){.layout{flex-direction:column}.sidebar{width:100%;min-width:100%;position:static;order:2}.main-content{order:1}.player-search-wrap{display:none}#adminPanel{width:95vw;right:2.5vw}}
@@ -113,18 +116,17 @@ body.modo-admin #fabUpload{display:block !important}
 <div class="admin-row"><label>Formato lista:</label><select id="adminFormato"><option value="lista">Lista clásica</option><option value="grid">Cuadrícula</option><option value="compact">Compacto</option></select></div>
 <div class="admin-row"><label>Tamaño letra:</label><select id="adminFontSize"><option value="13px">Normal 13px</option><option value="15px">Grande 15px</option><option value="11px">Pequeño 11px</option><option value="17px">Muy grande 17px</option></select></div>
 <button class="btn" id="btnAplicarAdmin" style="background:#FF3B3B;color:#FFF">APLICAR CAMBIOS</button>
-<button class="btn2" id="btnEditarTodo" style="width:100%;margin-top:8px;background:#FFD700;color:#000;font-weight:800">✏️ ACTIVAR EDICIÓN DE NOMBRES Y PORTADAS</button>
+<button class="btn2" id="btnEditarTodo" style="width:100%;margin-top:8px;background:#FFD700;color:#000;font-weight:800">✏️ ACTIVAR EDICIÓN DE NOMBRES (CLICK EN CUALQUIER TÍTULO)</button>
 <div style="background:#1E1E1E;padding:8px;border-radius:8px;margin-top:10px;font-size:10px;color:#FFE9A0;line-height:1.4">
 <b style="color:#FF3B3B">MODO ADMIN ACTIVO:</b><br>
-- Click en título para renombrar<br>
-- Click en portada/imagen para cambiar portada<br>
-- Click en carpeta/usuario para renombrar<br>
-- Click en título de arriba para cambiar sitio
+• Haz click en cualquier canción para renombrar<br>
+• Haz click en carpeta/usuario para renombrar<br>
+• Click en título de arriba para cambiar<br>
+• Todo se guarda automático
 </div>
 <button class="btn2" id="btnCerrarAdmin" style="width:100%;margin-top:10px">CERRAR PANEL</button>
 <button class="btn2" id="btnResetAdmin" style="width:100%;margin-top:6px;background:#FF3B3B22;color:#FFB3B3">RESET FORMATOS</button>
 </div>
-<input type="file" id="adminPortadaInput" accept="image/*" style="display:none">
 
 <div id="registroOverlay"><div class="registroBox"><div style="font-size:40px">🔒</div><h2>EL DON 2035 EL PEZ</h2><p>Modo <b style="color:#FFD700">INVITADO</b></p><div class="foto-placeholder" id="fotoPlaceholder"><i class="fa-solid fa-camera"></i></div><img id="fotoPreview" class="foto-preview"><input type="file" id="regFoto" accept="image/*"><input id="regNombre" placeholder="Tu nombre completo"><input id="regWhats" type="tel" placeholder="Tu WhatsApp"><input id="regCiudad" placeholder="Tu ciudad"><button class="btn" id="btnRegistrar">REGISTRARME GRATIS</button><button class="btn2" id="btnShowLogin" style="margin-top:12px;width:100%;background:#1DB95422;color:#1DB954">¿YA ESTÁS REGISTRADO? INICIA SESIÓN</button><button class="btn2" id="btnInvitado" style="margin-top:8px;border:none;color:#666;width:100%">Seguir como invitado</button></div></div>
 <div id="loginOverlay"><div class="registroBox"><div style="font-size:40px">🔑</div><h2>INICIAR SESIÓN</h2><input id="loginWhats" type="tel" placeholder="Tu WhatsApp"><button class="btn" id="btnLogin" style="background:linear-gradient(90deg,#1DB954,#1ED760);color:#FFF">ENTRAR</button><p id="loginMsg" style="font-size:11px;color:#FF3B3B;margin-top:10px"></p><button class="btn2" id="btnVolverRegistro" style="margin-top:10px;width:100%">VOLVER</button></div></div>
@@ -134,28 +136,30 @@ body.modo-admin #fabUpload{display:block !important}
 <div id="contextMenu"><button id="ctxRetry">🔄 Reintentar subida</button><button id="ctxVerLetra">📜 Ver letra</button><button id="ctxMoverCarpeta">📁 Mover a carpeta</button><button id="ctxCompartir">📲 Compartir</button></div>
 <div id="bgBlur"></div>
 <div class="topbar"><img id="logoBtn" src="logo.png" onerror="this.src='https://via.placeholder.com/44/FFD700/000?text=PEZ'"><h1 id="siteTitleEl">EL DON 2035 EL PEZ OFICIAL • <span id="contador">0</span> TEMAS • ♾️</h1><div id="perfilHeader"><img id="userAvatar"><div><span id="userBadge">Usuario</span><span id="userBadgeFull">Registrado</span></div></div><button id="btnCerrarSesion" class="btn2" style="display:none;background:#FF444422;color:#FF4444">SALIR</button><span id="fechaHoraTop"></span><button class="btn2" id="btnFiesta"><i class="fa-solid fa-expand"></i></button><button class="btn2" id="btnAdminPanel" style="display:none;background:#FF3B3B;color:#FFF">ADMIN</button></div>
-<div class="layout"><div class="sidebar"><div id="avisoBloqueo"></div><div id="perfilUsuarioBox"><img id="perfilBoxAvatar"><div style="flex:1"><b id="perfilBoxNombre"></b><span id="perfilBoxCiudad"></span></div></div><div style="display:flex;gap:6px;margin:10px 0"><input id="inputNuevaCarpeta" placeholder="Nombre nueva carpeta" style="flex:1"><button class="btn2" id="btnCrearCarpeta" style="background:#FFD700;color:#000;font-weight:800">CREAR</button></div><div class="filtros"><button class="btn2 active" id="filtroTodos" onclick="setFiltro('todos')">TODO</button><button class="btn2" id="filtroLocal" onclick="setFiltro('local')">LOCAL</button><button class="btn2" id="filtroOnline" onclick="setFiltro('online')">ONLINE</button></div><div class="folder" id="folderOtros"><div class="folder-header" onclick="this.parentElement.classList.toggle('open')"><b>👥 OTROS USUARIOS ONLINE</b><span class="count count-online" id="otrosCount">0</span></div><div class="folder-content"><div id="listaOtros" style="padding:8px"></div></div></div>
-<h3><span>📁 MIS CARPETAS</span><span class="count count-folder" id="carpetasCount">0</span></h3><div id="listaCarpetas"></div><h3><span>🎵 TUS TEMAS - LISTA</span><span class="count count-local" id="contador2">0</span></h3><div id="lista"></div>
-</div><div class="main-content"><div class="card"><div class="cover-wrap" id="coverWrap"><img id="mainCover" src="logo.png"><div class="cover-overlay"></div><div class="cover-title"><h2 id="mainTitle">Elige un tema</h2><p id="mainDedicado">Escucha gratis • ♾️ Bucle</p></div></div><div class="visualizer paused" id="visualizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div><div class="progress" id="progressBar"><div class="progress-fill" id="progressFill"></div></div><div class="time-row"><span id="curTime">0:00</span><span id="durTime">0:00</span></div><audio id="mainAudio"></audio><div class="controls-spotify"><button class="spt-btn" id="shuffleBtn"><i class="fa-solid fa-shuffle"></i></button><button class="spt-btn" id="prevBtn"><i class="fa-solid fa-backward-step"></i></button><button class="spt-main" id="playBtn"><i class="fa-solid fa-play" id="playIcon"></i></button><button class="spt-btn" id="nextBtn"><i class="fa-solid fa-forward-step"></i></button><button class="spt-btn active" id="modeBtn"><i class="fa-solid fa-repeat"></i></button></div><p id="nowPlaying" style="text-align:center;font-size:12px;color:#B3B3B3;margin-top:14px"></p></div></div></div>
+<div class="layout"><div class="sidebar"><div id="avisoBloqueo"></div><div id="perfilUsuarioBox"><img id="perfilBoxAvatar"><div style="flex:1"><b id="perfilBoxNombre"></b><span id="perfilBoxCiudad"></span></div></div><div style="display:flex;gap:6px;margin:10px 0"><input id="inputNuevaCarpeta" placeholder="Nombre nueva carpeta" style="flex:1"><button class="btn2" id="btnCrearCarpeta" style="background:#FFD700;color:#000;font-weight:800">CREAR</button></div><div class="filtros"><button class="btn2 active" id="filtroTodos" onclick="setFiltro('todos')">TODO</button><button class="btn2" id="filtroLocal" onclick="setFiltro('local')">LOCAL</button><button class="btn2" id="filtroOnline" onclick="setFiltro('online')">ONLINE</button></div><div style="display:flex;gap:6px;margin-bottom:12px" id="exportImportBox"><button class="btn2" id="btnExport">Exportar</button><button class="btn2" id="btnImport">Importar</button></div><h3><span>📁 MIS CARPETAS</span><span class="count count-folder" id="carpetasCount">0</span></h3><div id="listaCarpetas"></div><h3><span>🎵 TUS TEMAS - LISTA</span><span class="count count-local" id="contador2">0</span></h3><div id="lista"></div>
+<div class="folder" id="folderOtros"><div class="folder-header" onclick="this.parentElement.classList.toggle('open')"><b>👥 OTROS USUARIOS ONLINE</b><span class="count count-online" id="otrosCount">0</span></div><div class="folder-content"><div id="listaOtros" style="padding:8px"></div></div></div>
+</div><div class="main-content"><div class="card"><div class="cover-wrap"><img id="mainCover" src="logo.png"><div class="cover-overlay"></div><div class="cover-title"><h2 id="mainTitle">Elige un tema</h2><p id="mainDedicado">Escucha gratis • ♾️ Bucle</p></div></div><div class="visualizer paused" id="visualizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div><div class="progress" id="progressBar"><div class="progress-fill" id="progressFill"></div></div><div class="time-row"><span id="curTime">0:00</span><span id="durTime">0:00</span></div><audio id="mainAudio"></audio><div class="controls-spotify"><button class="spt-btn" id="shuffleBtn"><i class="fa-solid fa-shuffle"></i></button><button class="spt-btn" id="prevBtn"><i class="fa-solid fa-backward-step"></i></button><button class="spt-main" id="playBtn"><i class="fa-solid fa-play" id="playIcon"></i></button><button class="spt-btn" id="nextBtn"><i class="fa-solid fa-forward-step"></i></button><button class="spt-btn active" id="modeBtn"><i class="fa-solid fa-repeat"></i></button></div><p id="nowPlaying" style="text-align:center;font-size:12px;color:#B3B3B3;margin-top:14px"></p></div></div></div>
 <div class="player-fino"><div class="player-top-progress" id="playerTopProgress"><div class="player-top-progress-fill" id="playerTopProgressFill"></div></div><div class="player-main"><div class="player-left"><img id="pImg" src="logo.png"><div class="player-info"><b id="pTitle">Nada sonando</b><span id="pDed">EL DON 2035</span></div><div class="player-search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input id="buscador" placeholder="🔍 Buscar tu música aquí mi pez..."></div></div><div class="player-center"><div class="player-controls"><button class="pf-spt" id="pfShuffleBtn"><i class="fa-solid fa-shuffle"></i></button><button class="pf-spt" id="pfPrevBtn"><i class="fa-solid fa-backward-step"></i></button><button class="pf-spt-main" id="pfPlayBtn"><i class="fa-solid fa-play" id="pfPlayIcon"></i></button><button class="pf-spt" id="pfNextBtn"><i class="fa-solid fa-forward-step"></i></button><button class="pf-spt active" id="pfModeBtn"><i class="fa-solid fa-repeat"></i> ♾️</button></div><div class="player-time"><span id="pfCurTime">0:00</span> / <span id="pfDurTime">0:00</span></div></div><div class="player-right"><button class="pf-spt" id="pfLetraBtn"><i class="fa-solid fa-file-lines"></i></button><button class="pf-spt" id="pfDownloadBtn"><i class="fa-solid fa-download"></i></button><button class="pf-spt" id="pfShareBtn"><i class="fa-solid fa-share-nodes"></i></button><button class="pf-spt" id="pfVolBtn"><i class="fa-solid fa-volume-high"></i></button></div></div></div>
 <div id="letraModal"><button class="btn2" onclick="document.getElementById('letraModal').style.display='none'">✖️ CERRAR</button><pre id="letraContenido"></pre></div>
 <script>
 const SUPABASE_URL="https://hrvmidwtojjmhmbxxkpz.supabase.co";const SUPABASE_KEY="sb_publishable_PYd42RgJIYn2WP2CA-wz1Q_7cQ2EaRU";let supabaseClient;try{supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}catch(e){}
-const CLAVE="Elpez2035";
-let modoBorrado=false,isAdmin=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],playQueue=[],selectedTemaId=null,isRegistrado=false,currentPlayingTema=null,fotoBase64=null,carpetasCache=[],edicionActiva=false,adminPortadaTarget=null;
+const LINK_OFICIAL="https://eldon2035.github.io/elpez/";const CLAVE="Elpez2035";
+let modoBorrado=false,isAdmin=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],playQueue=[],selectedTemaId=null,isRegistrado=false,iti=null,itiLogin=null,currentPlayingTema=null,fotoBase64=null,carpetasCache=[],edicionActiva=false;
+
 function exigirRegistro(){if(isAdmin || isRegistrado) return true;document.getElementById('registroOverlay').style.display='flex';return false;}
-function checkRegistro(){try{let u=localStorage.getItem('pez_usuario');let ph=document.getElementById('perfilHeader');let b=document.getElementById('userBadge');let bf=document.getElementById('userBadgeFull');let bs=document.getElementById('btnCerrarSesion');let fab=document.getElementById('fabUpload');let av=document.getElementById('userAvatar');let bl=document.getElementById('avisoBloqueo');let pb=document.getElementById('perfilUsuarioBox');let pba=document.getElementById('perfilBoxAvatar');let pbn=document.getElementById('perfilBoxNombre');let pbc=document.getElementById('perfilBoxCiudad');let btnAdmin=document.getElementById('btnAdminPanel');if(u){isRegistrado=true;if(!isAdmin) document.body.classList.remove('invitado');try{let d=JSON.parse(u);ph.style.display='flex';b.textContent=d.nombre;bf.textContent=(d.ciudad||'')+' • '+(d.pais||'Registrado');if(bs) bs.style.display='inline-block';if(fab) fab.style.display='block';if(d.foto){av.src=d.foto;pba.src=d.foto;}else{av.src='https://via.placeholder.com/100/FFD700/000?text='+encodeURIComponent(d.nombre.charAt(0));pba.src=av.src;}pb.style.display='flex';pbn.textContent=d.nombre;pbc.textContent=(d.ciudad||'')+' • '+(d.pais||'');bl.innerHTML='✅ Registrado como <b>'+d.nombre+'</b>';bl.className='registrado';document.getElementById('registroOverlay').style.display='none';document.getElementById('loginOverlay').style.display='none';}catch(e){}}else{if(!isAdmin){isRegistrado=false;document.body.classList.add('invitado');ph.style.display='none';pb.style.display='none';if(bs) bs.style.display='none';if(fab) fab.style.display='none';bl.innerHTML='🔒 INVITADO - Solo escuchas.';bl.className='';}}if(isAdmin && btnAdmin) btnAdmin.style.display='inline-block';}catch(e){}}
+function checkRegistro(){try{let u=localStorage.getItem('pez_usuario');let ph=document.getElementById('perfilHeader');let b=document.getElementById('userBadge');let bf=document.getElementById('userBadgeFull');let bs=document.getElementById('btnCerrarSesion');let fab=document.getElementById('fabUpload');let av=document.getElementById('userAvatar');let eb=document.getElementById('exportImportBox');let bl=document.getElementById('avisoBloqueo');let pb=document.getElementById('perfilUsuarioBox');let pba=document.getElementById('perfilBoxAvatar');let pbn=document.getElementById('perfilBoxNombre');let pbc=document.getElementById('perfilBoxCiudad');let btnAdmin=document.getElementById('btnAdminPanel');if(u){isRegistrado=true;if(!isAdmin) document.body.classList.remove('invitado');try{let d=JSON.parse(u);ph.style.display='flex';b.textContent=d.nombre;bf.textContent=(d.ciudad||'')+' • '+(d.pais||'Registrado');if(bs) bs.style.display='inline-block';if(fab) fab.style.display='block';if(eb) eb.style.display='flex';if(d.foto){av.src=d.foto;pba.src=d.foto;}else{av.src='https://via.placeholder.com/100/FFD700/000?text='+encodeURIComponent(d.nombre.charAt(0));pba.src=av.src;}pb.style.display='flex';pbn.textContent=d.nombre;pbc.textContent=(d.ciudad||'')+' • '+(d.pais||'');bl.innerHTML='✅ Registrado como <b>'+d.nombre+'</b>';bl.className='registrado';document.getElementById('registroOverlay').style.display='none';document.getElementById('loginOverlay').style.display='none';}catch(e){}}else{if(!isAdmin){isRegistrado=false;document.body.classList.add('invitado');ph.style.display='none';pb.style.display='none';if(bs) bs.style.display='none';if(fab) fab.style.display='none';if(eb) eb.style.display='none';bl.innerHTML='🔒 INVITADO - Solo escuchas.';bl.className='';}}if(isAdmin && btnAdmin) btnAdmin.style.display='inline-block';}catch(e){}}
 function setFiltro(t){filtroTipo=t;document.querySelectorAll('.filtros .btn2').forEach(b=>b.classList.remove('active'));let el=document.getElementById('filtro'+t.charAt(0).toUpperCase()+t.slice(1));if(el) el.classList.add('active');render();}
 function abrirDB(){return new Promise(r=>{try{let q=indexedDB.open("PezDB",2);q.onupgradeneeded=e=>{let db=e.target.result;if(!db.objectStoreNames.contains("temas")) db.createObjectStore("temas",{keyPath:"id",autoIncrement:true});if(!db.objectStoreNames.contains("carpetas")) db.createObjectStore("carpetas",{keyPath:"id",autoIncrement:true});};q.onsuccess=e=>{db=e.target.result;r()};q.onerror=()=>r();}catch(e){r();}})}
 function guardarTema(t){return new Promise(r=>{try{let tx=db.transaction("temas","readwrite");tx.objectStore("temas").add(t);tx.oncomplete=r;tx.onerror=()=>r();}catch(e){r();}})}
 function obtenerTemas(){return new Promise(r=>{try{let tx=db.transaction("temas","readonly");let req=tx.objectStore("temas").getAll();req.onsuccess=()=>r(req.result||[]);req.onerror=()=>r([]);}catch(e){r([]);}})}
+function obtenerTemaPorId(id){return new Promise(r=>{try{let tx=db.transaction("temas","readonly");let req=tx.objectStore("temas").get(Number(id));req.onsuccess=()=>r(req.result);req.onerror=()=>r(null);}catch(e){r(null);}})}
 function actualizarTema(id,c){return new Promise(r=>{try{let tx=db.transaction("temas","readwrite");let s=tx.objectStore("temas");let req=s.get(Number(id));req.onsuccess=()=>{let t=req.result;if(!t){r();return;}Object.assign(t,c);s.put(t);tx.oncomplete=()=>r()};req.onerror=()=>r();}catch(e){r();}})}
 function guardarCarpeta(n){return new Promise(r=>{try{let tx=db.transaction("carpetas","readwrite");tx.objectStore("carpetas").add({nombre:n,fecha:Date.now()});tx.oncomplete=r;tx.onerror=()=>r();}catch(e){r();}})}
 function obtenerCarpetas(){return new Promise(r=>{try{let tx=db.transaction("carpetas","readonly");let req=tx.objectStore("carpetas").getAll();req.onsuccess=()=>r(req.result||[]);req.onerror=()=>r([]);}catch(e){r([]);}})}
 function editarCarpeta(id,nn){return new Promise(r=>{try{let tx=db.transaction("carpetas","readwrite");let s=tx.objectStore("carpetas");let req=s.get(Number(id));req.onsuccess=()=>{let c=req.result;if(!c){r();return;}c.nombre=nn;s.put(c);tx.oncomplete=()=>r()};req.onerror=()=>r();}catch(e){r();}})}
 function borrarCarpetaDB(id){return new Promise(r=>{try{let tx=db.transaction("carpetas","readwrite");tx.objectStore("carpetas").delete(Number(id));tx.oncomplete=async()=>{try{let tx2=db.transaction("temas","readwrite");let s2=tx2.objectStore("temas");let req2=s2.getAll();req2.onsuccess=()=>{let ts=req2.result||[];ts.forEach(t=>{if(t.carpetaId==id){t.carpetaId=null;s2.put(t)}});tx2.oncomplete=()=>r()};req2.onerror=()=>r();}catch(e){r()}};tx.onerror=()=>r();}catch(e){r();}})}
-function borrarTema(id){if(!isAdmin)return;if(confirm("¿Borrar local mi pez?")){try{let tx=db.transaction("temas","readwrite");tx.objectStore("temas").delete(id);tx.oncomplete=render;}catch(e){}}}
-async function borrarTemaOnline(id){if(!isAdmin)return;if(confirm("¿Borrar de internet también mi pez?")){try{const{error}=await supabaseClient.from('canciones').delete().eq('id',id);if(error)alert("Error: "+error.message);else render();}catch(e){}}}
+function borrarTema(id){if(!modoBorrado && !isAdmin)return;if(confirm("¿Borrar local mi pez?")){try{let tx=db.transaction("temas","readwrite");tx.objectStore("temas").delete(id);tx.oncomplete=render;}catch(e){}}}
+async function borrarTemaOnline(id){if(!modoBorrado && !isAdmin)return;if(confirm("¿Borrar de internet también mi pez?")){try{const{error}=await supabaseClient.from('canciones').delete().eq('id',id);if(error)alert("Error: "+error.message);else render();}catch(e){}}}
 function verLetra(id){let idB=id||currentPlayingTema?.id;let t=[...temasCache,...temasOnlineCache].find(x=>String(x.id)===String(idB))||currentPlayingTema;if(t){document.getElementById("letraContenido").textContent=t.letra||"Sin letra mi pez";document.getElementById("letraModal").style.display="block";}}
 function formatTime(s){if(isNaN(s))return"0:00";let m=Math.floor(s/60);let sec=Math.floor(s%60);return m+":"+(sec<10?"0":"")+sec}
 function actualizarPlayQueue(){if(filtroTipo==='local') playQueue=[...temasCache];else if(filtroTipo==='online') playQueue=[...temasOnlineCache];else playQueue=[...temasCache,...temasOnlineCache];if(filtro) playQueue=playQueue.filter(t=>(t.titulo+(t.dedicado||"")).toLowerCase().includes(filtro.toLowerCase()));}
@@ -166,6 +170,8 @@ async function cargarOnline(){try{if(!supabaseClient) return[];const{data,error}
 async function cargarUsuariosRegistrados(){try{if(!supabaseClient) return[];const{data,error}=await supabaseClient.from('usuarios').select('*').order('created_at',{ascending:false});if(error) return [];return data;}catch(e){return [];}}
 function limpiarNombre(n){try{return n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9._-]/g,'_').replace(/__+/g,'_').slice(0,70);}catch(e){return 'tema';}}
 function ocultarMenu(){document.getElementById('contextMenu').style.display='none';}
+
+// FUNCIONES ADMIN TOTAL MI PEZ - CONTROL TOTAL
 function editarNombreCancionAdmin(id, esOnline, tituloActual){
   if(!isAdmin) return;
   let nuevo=prompt("Nuevo nombre de la canción mi pez:", tituloActual);
@@ -183,7 +189,7 @@ function editarNombreCancionAdmin(id, esOnline, tituloActual){
 function editarNombreCarpetaAdmin(id, nombreActual){
   if(!isAdmin) return;
   let nuevo=prompt("Nuevo nombre de carpeta mi pez:", nombreActual);
-  if(!nuevo || nuevo.trim()==="") return;
+  if(!nuevo || nuevo.trim()==="" ) return;
   editarCarpeta(id, nuevo.trim()).then(()=>render());
 }
 function editarNombreUsuarioAdmin(nombreActual){
@@ -194,35 +200,8 @@ function editarNombreUsuarioAdmin(nombreActual){
     if(error) alert(error.message);
     else {alert("✅ Usuario renombrado"); render();}
   });
+  // Tambien actualiza canciones de ese usuario
   supabaseClient.from('canciones').update({artista:nuevo.trim()}).eq('artista',nombreActual).then(()=>render());
-}
-function editarPortadaAdmin(id, esOnline, e){
-  if(!isAdmin) return;
-  if(e) e.stopPropagation();
-  adminPortadaTarget = {id, esOnline};
-  document.getElementById('adminPortadaInput').click();
-}
-async function aplicarNuevaPortadaAdmin(file){
-  if(!adminPortadaTarget || !file) return;
-  let {id, esOnline} = adminPortadaTarget;
-  try{
-    if(esOnline){
-      let nombre = Date.now()+"_admin_portada_"+limpiarNombre(file.name);
-      let {error} = await supabaseClient.storage.from('portadas').upload(nombre, file);
-      if(error) throw error;
-      let {data} = supabaseClient.storage.from('portadas').getPublicUrl(nombre);
-      let portada_url = data.publicUrl;
-      let {error:err2} = await supabaseClient.from('canciones').update({portada_url}).eq('id', id);
-      if(err2) throw err2;
-      alert("✅ Portada cambiada mi pez");
-      render();
-    }else{
-      await actualizarTema(Number(id), {coverBlob: file});
-      alert("✅ Portada local cambiada mi pez");
-      render();
-    }
-  }catch(err){ alert("Error portada: "+err.message); }
-  adminPortadaTarget = null;
 }
 function aplicarCambiosAdmin(){
   let titulo=document.getElementById('adminSiteTitle').value;
@@ -234,13 +213,14 @@ function aplicarCambiosAdmin(){
   if(formato){
     let lista=document.getElementById('lista');
     if(formato==='grid'){lista.style.display='grid'; lista.style.gridTemplateColumns='1fr 1fr'; lista.style.gap='8px';}
-    else if(formato==='compact'){lista.style.display='block'; document.querySelectorAll('.tema').forEach(el=>{el.style.padding='6px'; if(el.querySelector('img')){el.querySelector('img').style.width='36px'; el.querySelector('img').style.height='36px';}});}
+    else if(formato==='compact'){lista.style.display='block'; document.querySelectorAll('.tema').forEach(el=>{el.style.padding='6px'; el.querySelector('img').style.width='36px'; el.querySelector('img').style.height='36px';});}
     else {lista.style.display='block'; lista.style.gridTemplateColumns='';}
     localStorage.setItem('pez_formato',formato);
   }
   if(fontSize){document.querySelectorAll('.tema-info b').forEach(b=>b.style.fontSize=fontSize); localStorage.setItem('pez_fontsize',fontSize);}
   alert("✅ Formatos aplicados mi pez");
 }
+
 async function render(){try{
 let temas=await obtenerTemas();temas.sort((a,b)=>(a.orden||0)-(b.orden||0));
 let carpetas=await obtenerCarpetas();carpetasCache=carpetas;
@@ -261,7 +241,7 @@ carpetas.forEach(c=>{
   let temasDeCarpeta=temasCache.filter(t=>String(t.carpetaId)===String(c.id));
   let div=document.createElement("div");div.className="folder open";
   let nombreCarpetaEsc=c.nombre.replace(/'/g,"\\'");
-  div.innerHTML=`<div class="folder-header" onclick="if(isAdmin && edicionActiva){editarNombreCarpetaAdmin(${c.id},'${nombreCarpetaEsc}')}else{this.parentElement.classList.toggle('open')}"><i class="fa-solid fa-folder" style="color:var(--color-main)"></i><b>${c.nombre}</b><span class="count count-folder">${temasDeCarpeta.length}</span></div><div class="folder-content"><div style="padding:0 8px 8px" id="carpeta-${c.id}"></div></div>`;
+  div.innerHTML=`<div class="folder-header" onclick="if(isAdmin && edicionActiva){editarNombreCarpetaAdmin(${c.id},'${nombreCarpetaEsc}')}else{this.parentElement.classList.toggle('open')}"><i class="fa-solid fa-folder" style="color:var(--color-main)"></i><b>${c.nombre}</b><span class="count count-folder">${temasDeCarpeta.length}</span><div class="folder-actions"><button class="btn-icon" onclick="event.stopPropagation(); editarCarpetaUI(${c.id})"><i class="fa-solid fa-pen"></i></button><button class="btn-icon" onclick="event.stopPropagation(); borrarCarpetaUI(${c.id})" style="color:#FF4444"><i class="fa-solid fa-trash"></i></button></div></div><div class="folder-content"><div style="padding:0 8px 8px" id="carpeta-${c.id}"></div></div>`;
   listaCarpetas.appendChild(div);
   let cont=document.getElementById(`carpeta-${c.id}`);
   if(temasDeCarpeta.length===0) cont.innerHTML='<div style="opacity:.5;text-align:center;padding:8px;font-size:11px">Vacía</div>';
@@ -269,7 +249,7 @@ carpetas.forEach(c=>{
     let idx=temas.indexOf(t);let urlC=t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png';
     let tituloEsc=t.titulo.replace(/'/g,"\\'");
     let d=document.createElement("div");d.className="tema tema-local";
-    d.innerHTML=`<img src="${urlC}" onclick="if(isAdmin && edicionActiva){event.stopPropagation(); editarPortadaAdmin(${t.id},false,event)}" style="${isAdmin && edicionActiva ? 'cursor:pointer;border:2px dashed #FF3B3B' : ''}"><div class="tema-info" onclick="if(isAdmin && edicionActiva){editarNombreCancionAdmin(${t.id},false,'${tituloEsc}')}else{tocar(${idx})}"><b>${t.titulo}</b><span class="editable-hint">✏️</span></div>`;
+    d.innerHTML=`<img src="${urlC}"><div class="tema-info" onclick="if(isAdmin && edicionActiva){editarNombreCancionAdmin(${t.id},false,'${tituloEsc}')}else{tocar(${idx})}"><b>${t.titulo}</b><span class="editable-hint">✏️ EDITAR</span></div>`;
     cont.appendChild(d);
   });
 });
@@ -284,7 +264,7 @@ temasPropiosFiltrados.forEach(t=>{
   let btnBorrar=(modoBorrado||isAdmin)?`<button class="btn-icon" onclick="${esOnlinePropio?`borrarTemaOnline('${t.id}')`:`borrarTema(${t.id})`}" style="color:#FF4444">🗑️</button>`:"";
   let tituloEsc=t.titulo.replace(/'/g,"\\'").replace(/"/g,'&quot;');
   let d=document.createElement("div");d.className=esOnlinePropio?"tema tema-online":"tema tema-local";
-  d.innerHTML=`<img src="${urlC}" onclick="if(isAdmin && edicionActiva){event.stopPropagation(); editarPortadaAdmin('${t.id}',${esOnlinePropio},event)}" style="${isAdmin && edicionActiva ? 'cursor:pointer;border:2px dashed #FF3B3B' : ''}" title="${isAdmin && edicionActiva ? 'Click para cambiar portada mi pez' : ''}"><div class="tema-info" onclick="if(isAdmin && edicionActiva){editarNombreCancionAdmin('${t.id}',${esOnlinePropio},'${tituloEsc}')}else{tocar(${idx},${esOnlinePropio})}"><b>${t.titulo}</b><span class="editable-hint">✏️ EDITAR</span></div><div class="tema-actions"><button class="btn-icon" onclick="verLetra('${t.id}')"><i class="fa-solid fa-file-lines"></i></button>${btnBorrar}</div>`;
+  d.innerHTML=`<img src="${urlC}"><div class="tema-info" onclick="if(isAdmin && edicionActiva){editarNombreCancionAdmin('${t.id}',${esOnlinePropio},'${tituloEsc}')}else{tocar(${idx},${esOnlinePropio})}"><b>${t.titulo}</b><span class="editable-hint">✏️ EDITAR</span></div><div class="tema-actions"><button class="btn-icon" onclick="verLetra('${t.id}')"><i class="fa-solid fa-file-lines"></i></button>${btnBorrar}</div>`;
   l.appendChild(d);
 });
 let lOtros=document.getElementById("listaOtros");lOtros.innerHTML="";
@@ -311,7 +291,7 @@ if(cantidadUsuarios===0 && otrosOnline.length===0){
         let idxOnline=temasOnlineCache.indexOf(t);let urlC=t.portada_url||'logo.png';
         let tituloEsc=t.titulo.replace(/'/g,"\\'");
         let d=document.createElement("div");d.className="tema tema-online";
-        d.innerHTML=`<img src="${urlC}" onclick="if(isAdmin && edicionActiva){event.stopPropagation(); editarPortadaAdmin('${t.id}',true,event)}" style="${isAdmin && edicionActiva ? 'cursor:pointer;border:2px dashed #FF3B3B' : ''}"><div class="tema-info" onclick="if(isAdmin && edicionActiva){editarNombreCancionAdmin('${t.id}',true,'${tituloEsc}')}else{tocar(${idxOnline},true)}"><b>${t.titulo}</b><span class="editable-hint">✏️</span></div><div class="tema-actions"><button class="btn-icon" onclick="verLetra('${t.id}')"><i class="fa-solid fa-file-lines"></i></button></div>`;
+        d.innerHTML=`<img src="${urlC}"><div class="tema-info" onclick="if(isAdmin && edicionActiva){editarNombreCancionAdmin('${t.id}',true,'${tituloEsc}')}else{tocar(${idxOnline},true)}"><b>${t.titulo}</b><span class="editable-hint">✏️</span></div><div class="tema-actions"><button class="btn-icon" onclick="verLetra('${t.id}')"><i class="fa-solid fa-file-lines"></i></button></div>`;
         contUser.appendChild(d);
       });
     }
@@ -331,7 +311,7 @@ if(cantidadUsuarios===0 && otrosOnline.length===0){
       let idxOnline=temasOnlineCache.indexOf(t);let urlC=t.portada_url||'logo.png';
       let tituloEsc=t.titulo.replace(/'/g,"\\'");
       let d=document.createElement("div");d.className="tema tema-online";
-      d.innerHTML=`<img src="${urlC}" onclick="if(isAdmin && edicionActiva){event.stopPropagation(); editarPortadaAdmin('${t.id}',true,event)}"><div class="tema-info" onclick="if(isAdmin && edicionActiva){editarNombreCancionAdmin('${t.id}',true,'${tituloEsc}')}else{tocar(${idxOnline},true)}"><b>${t.titulo}</b></div>`;
+      d.innerHTML=`<img src="${urlC}"><div class="tema-info" onclick="if(isAdmin && edicionActiva){editarNombreCancionAdmin('${t.id}',true,'${tituloEsc}')}else{tocar(${idxOnline},true)}"><b>${t.titulo}</b></div>`;
       contUser.appendChild(d);
     });
   });
@@ -339,7 +319,8 @@ if(cantidadUsuarios===0 && otrosOnline.length===0){
 }catch(e){console.log(e)}}
 async function editarCarpetaUI(id){let c=carpetasCache.find(x=>x.id==id);if(!c) return;let n=prompt("Editar nombre:", c.nombre);if(n && n.trim()!=""){await editarCarpeta(id, n.trim());render();}}
 async function borrarCarpetaUI(id){if(confirm("¿Borrar carpeta mi pez?")){await borrarCarpetaDB(id);render();}}
-function activarClave(){let a=Date.now();if(a-tiempoClick>3000)clicksLogo=0;tiempoClick=a;clicksLogo++;if(clicksLogo>=5){clicksLogo=0;let c=prompt("Clave secreta de admin mi pez:");if(c===CLAVE){if(modoBorrado){modoBorrado=false;isAdmin=false;localStorage.removeItem('pez_admin');document.body.classList.remove('modo-admin');document.getElementById('adminPanel').style.display='none';document.getElementById('btnAdminPanel').style.display='none';alert("🔒 ADMIN DESACTIVADO");}else{modoBorrado=true;isAdmin=true;isRegistrado=true;localStorage.setItem('pez_admin','1');document.body.classList.add('modo-admin');document.body.classList.remove('invitado');document.getElementById('adminPanel').style.display='block';document.getElementById('btnAdminPanel').style.display='inline-block';let tituloGuardado=localStorage.getItem('pez_site_title');if(tituloGuardado) document.getElementById('adminSiteTitle').value=tituloGuardado;let colorGuardado=localStorage.getItem('pez_color');if(colorGuardado){document.getElementById('adminColor').value=colorGuardado;document.getElementById('adminColorHex').value=colorGuardado;document.documentElement.style.setProperty('--color-main',colorGuardado);}alert("✅ CONTROL TOTAL ACTIVADO MI PEZ - Click en títulos para renombrar, click en portadas para cambiar portada");}render();checkRegistro();}else if(c!==null) alert("Clave mala mi pez")}}
+async function moverA(cid, tid){let id=tid||selectedTemaId;if(!id) return;await actualizarTema(id, {carpetaId: cid||null});ocultarMenu();render();}
+function activarClave(){let a=Date.now();if(a-tiempoClick>3000)clicksLogo=0;tiempoClick=a;clicksLogo++;if(clicksLogo>=5){clicksLogo=0;let c=prompt("Clave secreta de admin mi pez:");if(c===CLAVE){if(modoBorrado){modoBorrado=false;isAdmin=false;localStorage.removeItem('pez_admin');document.body.classList.remove('modo-admin');document.getElementById('adminPanel').style.display='none';document.getElementById('btnAdminPanel').style.display='none';alert("🔒 ADMIN DESACTIVADO");}else{modoBorrado=true;isAdmin=true;isRegistrado=true;localStorage.setItem('pez_admin','1');document.body.classList.add('modo-admin');document.body.classList.remove('invitado');document.getElementById('adminPanel').style.display='block';document.getElementById('btnAdminPanel').style.display='inline-block';let tituloGuardado=localStorage.getItem('pez_site_title');if(tituloGuardado) document.getElementById('adminSiteTitle').value=tituloGuardado;let colorGuardado=localStorage.getItem('pez_color');if(colorGuardado){document.getElementById('adminColor').value=colorGuardado;document.getElementById('adminColorHex').value=colorGuardado;document.documentElement.style.setProperty('--color-main',colorGuardado);}alert("✅ CONTROL TOTAL ACTIVADO MI PEZ - Ahora puedes cambiar nombres a placer haciendo click en cualquier título");}render();checkRegistro();}else if(c!==null) alert("Clave mala mi pez")}}
 async function subir(){let ch=document.getElementById('checkDerechos');if(!ch.checked){alert('Confirma que es IA/propio y NO copyright mi pez');return}let ded=document.getElementById("dedicado").value.trim();let gen=document.getElementById("genero").value;let cid=document.getElementById("carpetaSelect").value||null;let letra=document.getElementById("letra").value.trim();let f=document.getElementById("mp3").files[0];let c=document.getElementById("portada").files[0];if(!f){alert("Falta MP3 mi pez");return}let titulo=letra.split("\n")[0].substring(0,40).trim()||ded||f.name.replace(".mp3","")||"Mi Tema";let msg=document.getElementById("msg");msg.textContent="Subiendo online mi pez...";try{await guardarTema({titulo,dedicado:ded,genero:gen,carpetaId:cid?Number(cid):null,letra,audioBlob:f,coverBlob:c||null,repro:0,orden:Date.now(),fav:false});let portada_url="",cancion_url="";if(supabaseClient){if(c){let n=Date.now()+"_"+limpiarNombre(c.name);let{error}=await supabaseClient.storage.from('portadas').upload(n,c);if(!error){let{data}=supabaseClient.storage.from('portadas').getPublicUrl(n);portada_url=data.publicUrl;}}if(f){let n=Date.now()+"_"+limpiarNombre(f.name);let{error}=await supabaseClient.storage.from('canciones').upload(n,f);if(!error){let{data}=supabaseClient.storage.from('canciones').getPublicUrl(n);cancion_url=data.publicUrl;}}let{error:err2}=await supabaseClient.from('canciones').insert([{artista:ded||'El Don 2035',titulo,letra,portada_url,cancion_url}]);if(err2)throw err2;}msg.textContent="¡Subido ONLINE! ✅";document.getElementById("dedicado").value="";document.getElementById("letra").value="";document.getElementById("checkDerechos").checked=false;render();setTimeout(()=>{document.getElementById('uploadDrawer').classList.remove('open');document.getElementById('uploadOverlay').classList.remove('show')},1500)}catch(e){msg.textContent="Error: "+e.message+" (LOCAL)";render();}}
 abrirDB().then(()=>{
 if(localStorage.getItem('pez_admin')==='1'){modoBorrado=true;isAdmin=true;isRegistrado=true;document.body.classList.add('modo-admin');document.body.classList.remove('invitado');setTimeout(()=>{document.getElementById('adminPanel').style.display='block';document.getElementById('btnAdminPanel').style.display='inline-block';let cg=localStorage.getItem('pez_color');if(cg) document.documentElement.style.setProperty('--color-main',cg);let tg=localStorage.getItem('pez_site_title');if(tg) document.getElementById('siteTitleEl').innerHTML=tg+' • <span id="contador">'+document.getElementById('contador').textContent+'</span> TEMAS • ♾️';},500);}
@@ -378,22 +359,11 @@ document.getElementById("pfPrevBtn")?.addEventListener("click",prevTrack);
 document.getElementById("btnAdminPanel")?.addEventListener("click",()=>{let p=document.getElementById('adminPanel');p.style.display=p.style.display==='none'?'block':'none';});
 document.getElementById("btnCerrarAdmin")?.addEventListener("click",()=>{document.getElementById('adminPanel').style.display='none';});
 document.getElementById("btnAplicarAdmin")?.addEventListener("click",aplicarCambiosAdmin);
-document.getElementById("btnEditarTodo")?.addEventListener("click",()=>{edicionActiva=!edicionActiva;let b=document.getElementById('btnEditarTodo');if(edicionActiva){b.textContent='✅ EDICIÓN ACTIVA - CLICK EN TÍTULO O PORTADA PARA CAMBIAR';b.style.background='#1DB954';}else{b.textContent='✏️ ACTIVAR EDICIÓN DE NOMBRES Y PORTADAS';b.style.background='#FFD700';}});
+document.getElementById("btnEditarTodo")?.addEventListener("click",()=>{edicionActiva=!edicionActiva;let b=document.getElementById('btnEditarTodo');if(edicionActiva){b.textContent='✅ EDICIÓN ACTIVA - CLICK EN CUALQUIER NOMBRE PARA CAMBIAR';b.style.background='#1DB954';}else{b.textContent='✏️ ACTIVAR EDICIÓN DE NOMBRES';b.style.background='#FFD700';}});
 document.getElementById("btnResetAdmin")?.addEventListener("click",()=>{localStorage.removeItem('pez_color');localStorage.removeItem('pez_site_title');localStorage.removeItem('pez_formato');localStorage.removeItem('pez_fontsize');location.reload();});
 document.getElementById("adminColor")?.addEventListener("input",e=>{document.getElementById('adminColorHex').value=e.target.value;});
 document.getElementById("adminColorHex")?.addEventListener("input",e=>{document.getElementById('adminColor').value=e.target.value;});
 document.getElementById('siteTitleEl')?.addEventListener('click',()=>{if(isAdmin){let n=prompt("Nuevo título del sitio mi pez:", document.getElementById('adminSiteTitle').value);if(n){document.getElementById('adminSiteTitle').value=n; aplicarCambiosAdmin();}}});
-document.getElementById('adminPortadaInput')?.addEventListener('change', e=>{
-  let file = e.target.files[0];
-  if(file) aplicarNuevaPortadaAdmin(file);
-  e.target.value = '';
-});
-document.getElementById('coverWrap')?.addEventListener('click', ()=>{
-  if(isAdmin && edicionActiva && currentPlayingTema){
-    editarPortadaAdmin(currentPlayingTema.id, !!currentPlayingTema.online);
-  }
-});
-document.getElementById('regFoto')?.addEventListener('change',e=>{let file=e.target.files[0];if(!file) return;let r=new FileReader();r.onload=ev=>{fotoBase64=ev.target.result;document.getElementById('fotoPreview').src=fotoBase64;document.getElementById('fotoPreview').style.display='block';document.getElementById('fotoPlaceholder').style.display='none';};r.readAsDataURL(file);});
 });
 </script>
 </body>
