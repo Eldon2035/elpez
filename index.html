@@ -1,91 +1,78 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EL DON 2035 - EL PEZ OFICIAL</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.48.0/dist/umd/supabase.min.js"></script>
 <style>
 body{background:#0a0a0a;color:#fff;font-family:Arial;margin:0;padding:15px}
-.header{text-align:center;border:2px solid #d4a017;border-radius:15px;padding:15px;background:#111}
-.header img{width:90px;border-radius:50%;border:2px solid #d4a017}
-h1{color:#ffb700;margin:5px 0;font-size:22px} h2{color:#00e5ff;font-size:14px;letter-spacing:3px;margin:0}
 .card{background:#151515;border:1px solid #333;border-radius:15px;padding:15px;margin-top:15px}
 label{color:#d4a017;font-weight:bold;display:block;margin:10px 0 5px}
 input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#222;color:#fff;box-sizing:border-box}
 button.main{width:100%;padding:15px;background:#ffcc00;border:none;border-radius:12px;color:#000;font-weight:bold;font-size:18px;margin-top:15px;cursor:pointer}
-.song{background:#1a1a1a;border:1px solid #333;border-radius:15px;padding:12px;margin-top:12px;display:flex;gap:12px;align-items:center}
-.song img{width:70px;height:70px;border-radius:10px;object-fit:cover;border:1px solid #d4a017}
-.song-info{flex:1} .song-title{color:#ffb700;font-weight:bold;font-size:16px}
-.song-meta{font-size:12px;color:#aaa}
-.actions button{padding:6px 10px;border-radius:8px;border:none;margin:2px;font-weight:bold;cursor:pointer}
-.btn-share{background:#25D366;color:#fff} .btn-del{background:#ff3b3b;color:#fff}
-#status{margin-top:10px;text-align:center;font-weight:bold}
+#status{text-align:center;margin-top:10px;font-weight:bold}
+.song{background:#1a1a1a;border:1px solid #333;border-radius:15px;padding:12px;margin-top:12px;display:flex;gap:10px}
 </style>
 </head>
 <body>
-<div class="header">
-<img src="logo.png" onerror="this.src='https://i.ibb.co/3mJ5z6Q5/logo-pez.png'">
-<h1>EL DON 2035</h1><h2>EL PEZ OFICIAL</h2>
+<div style="text-align:center;border:2px solid #d4a017;border-radius:15px;padding:15px;background:#111">
+<h1 style="color:#ffb700">EL DON 2035 - EL PEZ OFICIAL</h1>
+<p>SUBIR TU MUSICA REAL</p>
 </div>
 <div class="card">
-<label>Dedicado a</label><select id="dedicated"><option>Negra Bella, Conchita</option><option>El Pez</option><option>Mi Familia</option><option>Mi Conchita</option></select>
-<label>Título</label><input id="title" placeholder="Ej: Hijo Amado">
-<label>Género</label><select id="genre"><option>Balada Romántica</option><option>Reggaeton</option><option>Salsa</option><option>Bachata</option></select>
+<label>Título</label><input id="title" value="Mi conchita">
+<label>Artista</label><input id="artist" value="El Pez">
+<label>Dedicado a</label><input id="dedicated" value="Mi hija">
+<label>Género</label><select id="genre"><option>Balada Romántica</option><option>Reggaeton</option></select>
 <label>Letra</label><textarea id="lyrics" rows="3" placeholder="Pega aqui la letra mi pez..."></textarea>
 <label>Archivo MP3</label><input type="file" id="mp3" accept=".mp3,audio/*">
 <label>Portada</label><input type="file" id="cover" accept="image/*">
 <button class="main" onclick="subir()">🚀 SUBIR DE VERDAD</button>
 <div id="status"></div>
 </div>
-<div class="card" style="display:flex;justify-content:space-between;align-items:center">
-<span style="color:#ffb700;font-weight:bold">🎧 Tus Temas (<span id="count">0</span>)</span>
-<input id="search" placeholder="Buscar..." oninput="cargar()" style="width:100px">
-</div>
-<div id="lista"></div>
+<div class="card">🎧 Tus Temas (<span id="count">0</span>)<div id="lista" style="margin-top:10px"></div></div>
 <script>
-const SUPABASE_URL = "https://tjsvoufyqiqtogklqeqyf.supabase.co";
-const SUPABASE_KEY = "sb_publishable_SfXj31r9TeqJu--BroldTw_WAEPpl4s";
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const URL = "https://tjsvoufyqiqtogklqeqyf.supabase.co";
+const KEY = "sb_publishable_SfXj31r9TeqJu--BroldTw_WAEPpl4s";
+const supabaseClient = supabase.createClient(URL, KEY);
+
 async function subir(){
-  const title=document.getElementById('title').value.trim();
-  const mp3=document.getElementById('mp3').files[0];
+ const title=document.getElementById('title').value.trim();
+ const mp3=document.getElementById('mp3').files[0];
+ const status=document.getElementById('status');
+ if(!mp3){status.innerHTML="❌ Selecciona MP3";return;}
+ status.innerHTML="⏳ Subiendo Mi Conchita...";
+ try{
+  const name=Date.now()+"_"+mp3.name.replace(/[^a-z0-9.]/gi,'_');
+  const {error:upErr}=await supabaseClient.storage.from('tracks').upload(name, mp3);
+  if(upErr) throw upErr;
+  const audio_url=supabaseClient.storage.from('tracks').getPublicUrl(name).data.publicUrl;
+  let cover_url="";
   const cover=document.getElementById('cover').files[0];
-  const status=document.getElementById('status');
-  if(!title||!mp3){status.innerHTML="❌ Pon título y MP3 mi pez";return;}
-  status.innerHTML="⏳ Subiendo...";
-  try{
-    let audio_url=""; let cover_url="";
-    const name=Date.now()+"_"+mp3.name.replace(/[^a-z0-9.]/gi,'_');
-    const {error}=await supabaseClient.storage.from('tracks').upload(name, mp3);
-    if(error) throw error;
-    audio_url=supabaseClient.storage.from('tracks').getPublicUrl(name).data.publicUrl;
-    if(cover){
-      const cname=Date.now()+"_"+cover.name.replace(/[^a-z0-9.]/gi,'_');
-      await supabaseClient.storage.from('covers').upload(cname, cover);
-      cover_url=supabaseClient.storage.from('covers').getPublicUrl(cname).data.publicUrl;
-    }
-    const {error:dbErr}=await supabaseClient.from('songs').insert([{title, artist:"EL DON 2035", dedicated_to:document.getElementById('dedicated').value, genre:document.getElementById('genre').value, lyrics:document.getElementById('lyrics').value, audio_url, cover_url}]);
-    if(dbErr) throw dbErr;
-    status.innerHTML="✅ ¡Subido mi pez!";
-    cargar();
-  }catch(e){ status.innerHTML="❌ Error: "+e.message; }
+  if(cover){
+   const cname=Date.now()+"_c_"+cover.name.replace(/[^a-z0-9.]/gi,'_');
+   await supabaseClient.storage.from('covers').upload(cname, cover);
+   cover_url=supabaseClient.storage.from('covers').getPublicUrl(cname).data.publicUrl;
+  }
+  const {error:dbErr}=await supabaseClient.from('songs').insert([{title, artist:document.getElementById('artist').value, dedicated_to:document.getElementById('dedicated').value, genre:document.getElementById('genre').value, lyrics:document.getElementById('lyrics').value, audio_url, cover_url}]);
+  if(dbErr) throw dbErr;
+  status.innerHTML="✅ ¡Subido con éxito mi pez!";
+  cargar();
+ }catch(e){status.innerHTML="❌ "+e.message; console.error(e);}
 }
+
 async function cargar(){
-  try{
-    const {data,error}=await supabaseClient.from('songs').select('*').order('created_at',{ascending:false});
-    if(error) throw error;
-    const q=document.getElementById('search').value.toLowerCase();
-    const filtro=data.filter(s=>s.title.toLowerCase().includes(q));
-    document.getElementById('count').innerText=filtro.length;
-    const lista=document.getElementById('lista'); lista.innerHTML="";
-    filtro.forEach(s=>{
-      const waText=encodeURIComponent(`🎵 Escucha "${s.title}" de EL DON 2035 🔥 ${s.audio_url}`);
-      lista.innerHTML+=`<div class="song"><img src="${s.cover_url||'logo.png'}"><div class="song-info"><div class="song-title">${s.title}</div><div class="song-meta">${s.dedicated_to||''} | ${s.genre||''}</div><audio controls src="${s.audio_url}" style="width:100%;height:30px;margin-top:5px"></audio><div class="actions"><a target="_blank" href="https://wa.me/?text=${waText}"><button class="btn-share">📲 Compartir por WhatsApp</button></a> <button class="btn-del" onclick="borrar('${s.id}')">Borrar</button></div></div></div>`;
-    });
-  }catch(e){document.getElementById('lista').innerHTML="Error: "+e.message}
+ try{
+  const {data,error}=await supabaseClient.from('songs').select('*').order('created_at',{ascending:false});
+  if(error) throw error;
+  document.getElementById('count').innerText=data.length;
+  const lista=document.getElementById('lista'); lista.innerHTML="";
+  data.forEach(s=>{
+   const wa=encodeURIComponent(`🎵 ${s.title} - EL DON 2035 🔥 ${s.audio_url}`);
+   lista.innerHTML+=`<div class="song"><div><b style="color:#ffcc00">${s.title}</b><br><audio controls src="${s.audio_url}" style="width:250px"></audio><br><a target="_blank" href="https://wa.me/?text=${wa}" style="color:#25D366">📲 Compartir por WhatsApp</a></div></div>`;
+  });
+ }catch(e){document.getElementById('lista').innerHTML="Error: "+e.message}
 }
-async function borrar(id){ if(!confirm("¿Borrar mi pez?")) return; await supabaseClient.from('songs').delete().eq('id',id); cargar(); }
 cargar();
 </script>
 </body>
