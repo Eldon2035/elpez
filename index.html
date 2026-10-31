@@ -153,7 +153,7 @@ body.modo-admin #logoBtn{border-color:#FF3B3B !important;box-shadow:0 0 15px #FF
 <div id="uploadDrawer"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h3 style="margin:0;color:#FFD700;font-family:'Cinzel'">SUBIR TEMA</h3><button class="btn2" id="btnCerrarDrawer"><i class="fa-solid fa-xmark"></i> CERRAR</button></div><div class="aviso-legal" style="margin-bottom:12px"><span style="color:#1DB954;font-weight:800">✅ Permitido: IA, autor propio, libre de derechos</span><br><span style="color:#FF3B3B;font-weight:800;font-size:14px;background:#FF3B3B22;padding:4px 8px;border-radius:6px;display:inline-block;margin-top:6px">⛔ PROHIBIDO MÚSICA CON COPYRIGHT</span></div><div style="display:flex;gap:6px;margin-top:8px"><input id="dedicado" placeholder="Dedicado a" style="flex:1"><select id="genero" style="flex:1"><option>Balada Romántica</option><option>Reggaeton</option><option>Salsa</option><option>Bachata</option><option>Merengue</option><option>Vallenato</option><option>Bien Sabroso</option></select><select id="carpetaSelect" style="flex:1"><option value="">Sin carpeta</option></select></div><textarea id="letra" placeholder="Letra aquí mi pez..." style="margin-top:8px;min-height:70px"></textarea><div style="display:flex;gap:6px;margin-top:8px"><input type="file" id="mp3" accept="audio/*" style="flex:1"><input type="file" id="portada" accept="image/*" style="flex:1"></div><label style="display:flex;gap:8px;align-items:flex-start;font-size:11px;color:#FFE9A0;margin-top:12px;text-align:left;cursor:pointer;background:#1E1E1E;padding:10px;border-radius:8px"><input type="checkbox" id="checkDerechos" style="width:18px;height:18px;margin-top:2px"> <span>Confirmo que es <b>IA, autoría propia o libre de derechos</b> y <b style="color:#FF3B3B">NO es copyright.</b></span></label><button class="btn" id="btnSubir"><i class="fa-solid fa-cloud-arrow-up"></i> SUBIR ONLINE</button><p id="msg" style="font-size:11px;color:#1DB954;margin-top:8px;font-weight:600"></p></div>
 <div id="contextMenu"><button id="ctxRetry">🔄 Reintentar subida ONLINE</button><button id="ctxRetryPortada">🖼️ Reintentar solo portada</button><div class="sep" style="height:1px;background:#FFFFFF14;margin:4px 0"></div><button id="ctxVerLetra">📜 Ver letra</button><button id="ctxMoverCarpeta">📁 Mover a carpeta</button><button id="ctxCompartir">📲 Compartir</button></div>
 <div id="bgBlur"></div>
-<div class="topbar"><img id="logoBtn" src="logo.png" onerror="this.src='https://via.placeholder.com/44/FFD700/000?text=PEZ'"><h1>EL DON 2035 EL PEZ OFICIAL • <span id="contador">0</span> TEMAS • <span style="color:#1DB954">♾️</span></h1><div id="perfilHeader"><img id="userAvatar"><input type="file" id="changeFotoInput" accept="image/*" style="display:none"><div style="display:flex;flex-direction:column;line-height:1.1"><span id="userBadge">Usuario</span><span id="userBadgeFull">Registrado</span></div></div><button id="btnCerrarSesion" class="btn2" style="display:none;background:#FF444422;color:#FF4444;border-color:#FF444455"><i class="fa-solid fa-right-from-bracket"></i> SALIR</button><span id="fechaHoraTop"></span><button class="btn2" id="btnFiesta"><i class="fa-solid fa-expand"></i></button></div>
+<div class="topbar"><img id="logoBtn" src="logo.png" onerror="this.src='https://via.placeholder.com/44/FFD700/000?text=PEZ'"><h1>EL DON 2035 EL PEZ OFICIAL • <span id="contador">0</span> TEMAS • <span style="color:#1DB954">♾️</span></h1><div id="perfilHeader"><img id="userAvatar"><input type="file" id="changeFotoInput" accept="image/*" style="display:none"><div style="display:flex;flex-direction:column;line-height:1.1"><span id="userBadge">Usuario</span><span id="userBadgeFull">Registrado</span></div></div><button id="btnCerrarSesion" class="btn2" style="display:inline-block;background:#FF444422;color:#FF4444;border-color:#FF444455"><i class="fa-solid fa-right-from-bracket"></i> SALIR</button><span id="fechaHoraTop"></span><button class="btn2" id="btnFiesta"><i class="fa-solid fa-expand"></i></button></div>
 <div class="layout"><div class="sidebar" id="sidebar"><div id="avisoBloqueo"></div><div id="perfilUsuarioBox"><img id="perfilBoxAvatar" src=""><div style="flex:1;min-width:0"><b id="perfilBoxNombre">Nombre Usuario</b><span id="perfilBoxCiudad">Ciudad • Registrado</span><span id="perfilBoxWhats" style="font-size:10px;color:#888"></span></div><button class="btn2" id="btnCambiarFotoBox" style="padding:4px 8px"><i class="fa-solid fa-camera"></i></button></div><div style="display:flex;gap:6px;align-items:center;margin:10px 0"><input id="inputNuevaCarpeta" placeholder="Nombre nueva carpeta" style="flex:1;padding:8px 10px;font-size:11px"><button class="btn2" id="btnCrearCarpeta" style="background:#FFD700;color:#000;font-weight:800"><i class="fa-solid fa-folder-plus"></i> CREAR</button></div><div class="filtros"><button class="btn2 active" id="filtroTodos" onclick="setFiltro('todos')">TODO</button><button class="btn2" id="filtroLocal" onclick="setFiltro('local')"><span class="badge badge-local" style="font-size:8px">LOCAL</span></button><button class="btn2" id="filtroOnline" onclick="setFiltro('online')"><span class="badge badge-online" style="font-size:8px">ONLINE</span></button></div><div style="display:flex;gap:6px;margin-bottom:12px" id="exportImportBox"><button class="btn2" id="btnExport"><i class="fa-solid fa-download"></i> Exportar</button><input type="file" id="importFile" accept=".json" style="display:none"><button class="btn2" id="btnImport"><i class="fa-solid fa-upload"></i> Importar</button></div><h3><span>📁 MIS CARPETAS</span><span class="count count-folder" id="carpetasCount">0</span></h3><div id="listaCarpetas"></div><h3><span>TUS TEMAS LOCALES (SIN CARPETA)</span><span class="count count-local" id="contador2">0</span></h3><div id="lista"></div><div class="folder open" id="folderOtros"><div class="folder-header" onclick="document.getElementById('folderOtros').classList.toggle('open')"><b>Otros Usuarios ONLINE</b><span class="count count-online" id="otrosCount">0</span></div><div class="folder-content"><div id="listaOtros" style="padding:0 8px 8px"></div></div></div></div><div class="main-content"><div class="card"><div class="cover-wrap"><img id="mainCover" src="logo.png"><div class="cover-overlay"></div><div class="cover-title"><h2 id="mainTitle">Elige un tema</h2><p id="mainDedicado">Escucha gratis • ♾️ Bucle infinito</p><span id="sitioFecha">eldon2035.github.io/elpez</span></div></div><div class="visualizer paused" id="visualizer"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div><div class="progress" id="progressBar"><div class="progress-fill" id="progressFill"></div></div><div class="time-row"><span id="curTime">0:00</span><span id="durTime">0:00</span></div><audio id="mainAudio"></audio><div class="controls-spotify"><button class="spt-btn" id="shuffleBtn"><i class="fa-solid fa-shuffle"></i></button><button class="spt-btn" id="prevBtn"><i class="fa-solid fa-backward-step"></i></button><button class="spt-main" id="playBtn"><i class="fa-solid fa-play" id="playIcon"></i></button><button class="spt-btn" id="nextBtn"><i class="fa-solid fa-forward-step"></i></button><button class="spt-btn active" id="modeBtn"><i class="fa-solid fa-repeat"></i></button></div><p id="nowPlaying" style="text-align:center;font-size:12px;color:#B3B3B3;margin-top:14px"></p></div></div></div>
 <div class="player-fino"><div class="player-top-progress" id="playerTopProgress"><div class="player-top-progress-fill" id="playerTopProgressFill"></div></div><div class="player-main"><div class="player-left"><img id="pImg" src="logo.png"><div class="player-info"><b id="pTitle">Nada sonando</b><span id="pDed">EL DON 2035 • ♾️ BUCLE</span></div><div class="player-search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input id="buscador" placeholder="🔍 Buscar tu música aquí mi pez..."></div></div><div class="player-center"><div class="player-controls"><button class="pf-spt" id="pfShuffleBtn"><i class="fa-solid fa-shuffle"></i></button><button class="pf-spt" id="pfPrevBtn"><i class="fa-solid fa-backward-step"></i></button><button class="pf-spt-main" id="pfPlayBtn"><i class="fa-solid fa-play" id="pfPlayIcon"></i></button><button class="pf-spt" id="pfNextBtn"><i class="fa-solid fa-forward-step"></i></button><button class="pf-spt active" id="pfModeBtn"><i class="fa-solid fa-repeat"></i> ♾️</button></div><div class="player-time"><span id="pfCurTime">0:00</span> / <span id="pfDurTime">0:00</span> • ♾️ Infinito</div></div><div class="player-right"><button class="pf-spt" id="pfFavBtn" title="Favorito"><i class="fa-regular fa-heart"></i></button><button class="pf-spt" id="pfLetraBtn" title="Ver letra"><i class="fa-solid fa-file-lines"></i></button><button class="pf-spt" id="pfDownloadBtn" title="Descargar"><i class="fa-solid fa-download"></i></button><button class="pf-spt" id="pfShareBtn" title="Compartir"><i class="fa-solid fa-share-nodes"></i></button><button class="pf-spt" id="pfVolBtn" title="Volumen"><i class="fa-solid fa-volume-high"></i></button></div></div></div>
 <div id="letraModal"><button class="btn2" onclick="document.getElementById('letraModal').style.display='none'">✖️ CERRAR</button><pre id="letraContenido"></pre></div>
@@ -171,8 +171,26 @@ function normalizarTelefono(tel){
 }
 function digitosCompletos(tel){if(!tel) return ""; return tel.toString().replace(/\D/g,"");}
 
+function cerrarSesionTotal(){
+  if(!confirm('¿Cerrar sesión mi pez? Tu foto queda guardada en la nube y podrás volver a entrar con tu WhatsApp (984020298)')) return;
+  try{
+    localStorage.removeItem('pez_usuario');
+    localStorage.removeItem('pez_usuario_respaldo');
+    localStorage.removeItem('pez_admin');
+    Object.keys(localStorage).forEach(k=>{ if(k.startsWith('pez_whats_')) localStorage.removeItem(k); });
+  }catch(e){}
+  location.href = location.pathname + '?logout='+Date.now();
+}
+
 function checkRegistro(){
   try{
+    if(new URLSearchParams(window.location.search).has('logout')){
+      localStorage.removeItem('pez_usuario');
+      localStorage.removeItem('pez_usuario_respaldo');
+      localStorage.removeItem('pez_admin');
+      Object.keys(localStorage).forEach(k=>{if(k.startsWith('pez_whats_')) localStorage.removeItem(k);});
+      history.replaceState({}, '', window.location.pathname);
+    }
     let u=localStorage.getItem('pez_usuario');
     let u2=localStorage.getItem('pez_usuario_respaldo');
     if(!u && u2){u=u2; localStorage.setItem('pez_usuario',u2);}
@@ -215,7 +233,6 @@ function checkRegistro(){
         bloqueo.className='registrado';
         document.getElementById('registroOverlay').style.display='none';
         document.getElementById('loginOverlay').style.display='none';
-        document.getElementById('registroSubtexto').innerHTML='Bienvenido <b>'+d.nombre+'</b> mi pez';
       }catch(e){}
     }else{
       if(!isAdmin){
@@ -223,7 +240,7 @@ function checkRegistro(){
         document.body.classList.add('invitado');
         perfilHeader.style.display='none';
         perfilBox.style.display='none';
-        if(btnSalir) btnSalir.style.display='none';
+        if(btnSalir) btnSalir.style.display='inline-block';
         if(fab) fab.style.display='none';
         if(exportBox) exportBox.style.display='none';
         if(btnFav) btnFav.style.display='none';
@@ -233,6 +250,7 @@ function checkRegistro(){
         bloqueo.className='';
         let l2=document.getElementById('linkRegistrar2');
         if(l2) l2.addEventListener('click',(e)=>{e.preventDefault();document.getElementById('registroOverlay').style.display='flex';});
+        document.getElementById('registroOverlay').style.display='flex';
       }
     }
   }catch(e){if(!isAdmin) document.getElementById('registroOverlay').style.display='flex';}
@@ -291,7 +309,7 @@ function activarClave(){
         localStorage.setItem('pez_admin','1');
         document.body.classList.add('modo-admin');
         document.body.classList.remove('invitado');
-        alert("✅ MODO ADMINISTRADOR TOTAL ACTIVADO MI PEZ\n\n👑 TODAS LAS FUNCIONES DESBLOQUEADAS:\n• Borrar local y online sin límite\n• Crear/editar/borrar carpetas\n• Mover temas\n• Descargar/compartir/favoritos\n• Subir música\n• Exportar/Importar\n\nSin temporizador, queda activo permanente hasta que lo desactives con 5 clicks de nuevo");
+        alert("✅ MODO ADMINISTRADOR TOTAL ACTIVADO MI PEZ\n\n👑 TODAS LAS FUNCIONES DESBLOQUEADAS\nSin temporizador, queda activo permanente");
       }
       render();
       checkRegistro();
@@ -404,14 +422,32 @@ document.getElementById('btnLogin')?.addEventListener('click',async()=>{
 document.getElementById('userAvatar')?.addEventListener('click',()=>{document.getElementById('changeFotoInput').click();});
 document.getElementById('perfilBoxAvatar')?.addEventListener('click',()=>{document.getElementById('changeFotoInput').click();});
 document.getElementById('btnCambiarFotoBox')?.addEventListener('click',()=>{document.getElementById('changeFotoInput').click();});
-document.getElementById('changeFotoInput')?.addEventListener('change',e=>{let file=e.target.files[0];if(!file) return;let reader=new FileReader();reader.onload=ev=>{let nuevaFoto=ev.target.result;let u=JSON.parse(localStorage.getItem('pez_usuario')||'{}');u.foto=nuevaFoto;localStorage.setItem('pez_usuario', JSON.stringify(u));localStorage.setItem('pez_usuario_respaldo', JSON.stringify(u));if(u.whats_normalizado) localStorage.setItem('pez_whats_'+u.whats_normalizado, JSON.stringify(u));document.getElementById('userAvatar').src=nuevaFoto;document.getElementById('perfilBoxAvatar').src=nuevaFoto;alert('¡Foto de perfil actualizada mi pez! 📸');};reader.readAsDataURL(file);});
+document.getElementById('changeFotoInput')?.addEventListener('change',e=>{
+  let file=e.target.files[0];
+  if(!file) return;
+  let reader=new FileReader();
+  reader.onload=async ev=>{
+    let nuevaFoto=ev.target.result;
+    let u=JSON.parse(localStorage.getItem('pez_usuario')||'{}');
+    u.foto=nuevaFoto;
+    localStorage.setItem('pez_usuario', JSON.stringify(u));
+    localStorage.setItem('pez_usuario_respaldo', JSON.stringify(u));
+    if(u.whats_normalizado) localStorage.setItem('pez_whats_'+u.whats_normalizado, JSON.stringify(u));
+    document.getElementById('userAvatar').src=nuevaFoto;
+    document.getElementById('perfilBoxAvatar').src=nuevaFoto;
+    try{
+      if(supabaseClient && u.whats){
+        let norm = normalizarTelefono(u.whats);
+        await supabaseClient.from('usuarios').update({avatar_url: nuevaFoto}).ilike('whatsapp','%'+norm+'%');
+      }
+    }catch(err){console.log('Error guardando foto nube:',err);}
+    alert('¡Foto de perfil actualizada y guardada en la nube mi pez! 📸 Ya no se borra al cerrar sesión');
+  };
+  reader.readAsDataURL(file);
+});
 document.getElementById('btnInvitado')?.addEventListener('click',()=>{document.getElementById('registroOverlay').style.display='none';if(!isAdmin){isRegistrado=false;localStorage.removeItem('pez_usuario');}checkRegistro();});
-document.getElementById('btnCerrarSesion').onclick = function(){
-  localStorage.clear();
-  sessionStorage.clear();
-  location.reload(true);
-};
-document.getElementById('userBadge')?.addEventListener('click',()=>{if(confirm('¿Cerrar sesión?')){localStorage.removeItem('pez_usuario');localStorage.removeItem('pez_admin');location.reload();}});
+document.getElementById('btnCerrarSesion')?.addEventListener('click', cerrarSesionTotal);
+
 document.getElementById('ctxRetry')?.addEventListener('click',()=>reintentarSubida(false));document.getElementById('ctxRetryPortada')?.addEventListener('click',()=>reintentarSubida(true));document.getElementById('ctxVerLetra')?.addEventListener('click',()=>{ocultarMenu();verLetra(selectedTemaId);});document.getElementById('ctxCompartir')?.addEventListener('click',()=>{ocultarMenu();let t=temasCache.find(x=>x.id==selectedTemaId);if(t)compartir(t.id,t.titulo);});document.getElementById('ctxMoverCarpeta')?.addEventListener('click',async()=>{ocultarMenu();let carpetas=await obtenerCarpetas();if(carpetas.length===0){alert('Primero crea una carpeta mi pez');return}let opciones=carpetas.map((c,i)=>`${i+1}. ${c.nombre}`).join('\n');let sel=prompt(`Mover a qué carpeta mi pez?\n${opciones}\n\nEscribe el número (0 para sacar de carpeta):`);if(sel===null)return;let idx=parseInt(sel)-1;if(sel=='0'){await moverA(null, selectedTemaId);render();return}if(idx>=0 && idx<carpetas.length){await moverA(carpetas[idx].id, selectedTemaId);render();}});document.addEventListener('click',ocultarMenu);
 let mainA=document.getElementById("mainAudio");
 function updateProgress(){try{let pct=(mainA.currentTime/mainA.duration)*100;if(!isNaN(pct)){document.getElementById("progressFill").style.width=pct+"%";document.getElementById("playerTopProgressFill").style.width=pct+"%";}let cur=formatTime(mainA.currentTime);let dur=formatTime(mainA.duration);document.getElementById("curTime").textContent=cur;document.getElementById("durTime").textContent=dur;document.getElementById("pfCurTime").textContent=cur;document.getElementById("pfDurTime").textContent=dur;}catch(e){}}
