@@ -5,67 +5,106 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EL DON 2035 - EL PEZ OFICIAL</title>
 <style>
-  body{background:#0a0a2a;color:#fff;font-family:Arial;text-align:center;margin:0;padding:20px}
-  h1{color:#FFD700;cursor:pointer}
-  .upload{border:2px dashed #FFD700;padding:15px;border-radius:15px;margin:20px auto;max-width:500px;background:#1a1a3a}
-  input{margin:8px;width:90%;padding:10px;border-radius:10px;border:none;background:#2a2a4a;color:#fff}
-  button{background:#FFD700;color:#000;font-weight:bold;padding:12px 20px;border:none;border-radius:30px;cursor:pointer;margin:5px}
-  .tema{background:#1e1e3e;padding:15px;border-radius:15px;margin:15px auto;max-width:500px;display:flex;gap:15px;align-items:center;text-align:left}
-  .tema img{width:80px;height:80px;border-radius:10px;object-fit:cover;background:#333}
-  audio{width:100%;margin-top:8px}
-  .del{background:#ff3b3b;color:#fff;display:none}
-  .admin-on .del{display:inline-block}
+body{background:#0a0a2a;color:#fff;font-family:Arial;text-align:center;margin:0;padding:20px}
+h1{color:#FFD700;cursor:pointer}
+.upload{border:2px dashed #FFD700;padding:15px;border-radius:15px;margin:20px auto;max-width:500px;background:#1a1a3a}
+input{margin:8px;width:90%;padding:10px;border-radius:10px;border:none;background:#2a2a4a;color:#fff}
+button{background:#FFD700;color:#000;font-weight:bold;padding:10px 18px;border:none;border-radius:20px;cursor:pointer;margin:4px}
+.tema{background:#1e1e3e;padding:15px;border-radius:15px;margin:15px auto;max-width:500px;display:flex;gap:15px;align-items:center;text-align:left}
+.tema img{width:80px;height:80px;border-radius:10px;object-fit:cover;background:#333}
+audio{width:100%;margin-top:8px}
+.del{background:#ff3b3b;color:#fff;display:none}
+.admin-on .del{display:inline-block}
 </style>
 </head>
 <body id="body">
-<h1 id="logo">EL DON 2035 EL PEZ OFICIAL 🐟</h1>
+<h1 id="logo">EL DON 2035 EL PEZ OFICIAL</h1>
 <p>Tus Temas (<span id="contador">0</span>)</p>
 <div class="upload">
-  <h3 style="color:#FFD700">SUBIR TU MÚSICA REAL</h3>
-  <input type="text" id="titulo" placeholder="Título">
-  <input type="file" id="mp3" accept="audio/*">
-  <input type="file" id="portada" accept="image/*"><br>
-  <button onclick="subirTema()">SUBIR DE VERDAD</button>
-  <p id="msg" style="color:#00ff88"></p>
+<h3 style="color:#FFD700">SUBIR TU MUSICA REAL</h3>
+<input type="text" id="titulo" placeholder="Titulo Ej La Chaparrita">
+<input type="file" id="mp3" accept="audio/*">
+<input type="file" id="portada" accept="image/*"><br>
+<button id="btnSubir">SUBIR DE VERDAD</button>
+<p id="msg" style="color:#00ff88"></p>
 </div>
 <div id="lista"></div>
 <script>
-let temas = JSON.parse(localStorage.getItem('temas_pez') || '[]');
+var temas = JSON.parse(localStorage.getItem("temas_pez") || "[]");
+var listaDiv = document.getElementById("lista");
+var contador = document.getElementById("contador");
 function render(){
-  const listaDiv = document.getElementById('lista');
   listaDiv.innerHTML="";
-  temas.forEach((t,i)=>{
-    listaDiv.innerHTML+=`<div class="tema"><img src="${t.cover || 'https://via.placeholder.com/80/FFD700/000?text=PEZ'}"><div style="flex:1"><b style="color:#FFD700">${t.titulo}</b><audio controls src="${t.audio}"></audio><br><button onclick="window.open('https://wa.me/?text=Escucha ${t.titulo} https://eldon2035.github.io/elpez/')">WhatsApp</button> <button class='del' onclick='borrar(${i})'>Borrar</button></div></div>`;
-  });
-  document.getElementById('contador').textContent=temas.length;
-  const audios=document.querySelectorAll('audio');
-  audios.forEach((a,idx)=>{
-    a.onended=()=>{const s=audios[idx+1]; if(s){s.play(); s.scrollIntoView({behavior:'smooth',block:'center'});}};
-    a.onplay=()=>{audios.forEach(o=>{if(o!==a) o.pause();});};
+  for(var i=0;i<temas.length;i++){
+    var t = temas[i];
+    var imgSrc = t.cover ? t.cover : "https://via.placeholder.com/80/FFD700/000?text=PEZ";
+    var div = document.createElement("div");
+    div.className="tema";
+    div.innerHTML='<img src="'+imgSrc+'"><div style="flex:1"><b style="color:#FFD700">'+t.titulo+'</b><audio controls src="'+t.audio+'"></audio><br><button class="btnW" data-i="'+i+'">WhatsApp</button> <button class="del btnB" data-i="'+i+'">Borrar</button></div>';
+    listaDiv.appendChild(div);
+  }
+  contador.textContent = temas.length;
+  var audios = document.querySelectorAll("audio");
+  audios.forEach(function(audio, idx){
+    audio.addEventListener("ended", function(){
+      var sig = audios[idx+1];
+      if(sig){ sig.play(); }
+    });
+    audio.addEventListener("play", function(){
+      audios.forEach(function(otro){ if(otro!==audio) otro.pause(); });
+    });
   });
 }
 function subirTema(){
-  const titulo=document.getElementById('titulo').value.trim();
-  const fMp3=document.getElementById('mp3').files[0];
-  const fCover=document.getElementById('portada').files[0];
-  if(!titulo||!fMp3){alert("Pon título y mp3");return;}
-  const rMp3=new FileReader();
-  rMp3.onload=eMp3=>{
-    if(fCover){
-      const rC=new FileReader();
-      rC.onload=eC=>{temas.push({titulo,audio:eMp3.target.result,cover:eC.target.result});localStorage.setItem('temas_pez',JSON.stringify(temas));render();};
-      rC.readAsDataURL(fCover);
-    }else{temas.push({titulo,audio:eMp3.target.result,cover:""});localStorage.setItem('temas_pez',JSON.stringify(temas));render();}
+  var titulo = document.getElementById("titulo").value.trim();
+  var fileMp3 = document.getElementById("mp3").files[0];
+  var fileCover = document.getElementById("portada").files[0];
+  if(!titulo || !fileMp3){ alert("Pon titulo y mp3 mi pez"); return; }
+  var readerMp3 = new FileReader();
+  readerMp3.onload = function(eMp3){
+    if(fileCover){
+      var readerCover = new FileReader();
+      readerCover.onload = function(eCover){
+        temas.push({titulo:titulo, audio:eMp3.target.result, cover:eCover.target.result});
+        localStorage.setItem("temas_pez", JSON.stringify(temas));
+        document.getElementById("msg").textContent="Subido mi pez! ✅";
+        document.getElementById("titulo").value=""; document.getElementById("mp3").value=""; document.getElementById("portada").value="";
+        render();
+      };
+      readerCover.readAsDataURL(fileCover);
+    } else {
+      temas.push({titulo:titulo, audio:eMp3.target.result, cover:""});
+      localStorage.setItem("temas_pez", JSON.stringify(temas));
+      document.getElementById("msg").textContent="Subido mi pez! ✅";
+      document.getElementById("titulo").value=""; document.getElementById("mp3").value=""; document.getElementById("portada").value="";
+      render();
+    }
   };
-  rMp3.readAsDataURL(fMp3);
+  readerMp3.readAsDataURL(fileMp3);
 }
-function borrar(i){if(!document.body.classList.contains('admin-on'))return;temas.splice(i,1);localStorage.setItem('temas_pez',JSON.stringify(temas));render();}
-let toques=0;
-document.getElementById('logo').addEventListener('click',()=>{
-  toques++;if(toques>=5){const p=prompt("Clave:");if(p==="Elpez2035"){document.body.classList.add('admin-on');localStorage.setItem('pez_admin','1');alert("Admin ON");render();}toques=0;}
-  setTimeout(()=>toques=0,3000);
+document.getElementById("btnSubir").addEventListener("click", subirTema);
+function borrar(i){
+  if(!document.body.classList.contains("admin-on")){ alert("Solo admin mi pez"); return; }
+  temas.splice(i,1);
+  localStorage.setItem("temas_pez", JSON.stringify(temas));
+  render();
+}
+var toques=0;
+document.getElementById("logo").addEventListener("click", function(){
+  toques++;
+  if(toques>=5){
+    var p=prompt("Clave admin:");
+    if(p==="Elpez2035"){
+      document.body.classList.add("admin-on");
+      localStorage.setItem("pez_admin","1");
+      alert("Admin ON mi pez");
+      render();
+    }
+    toques=0;
+  }
+  setTimeout(function(){toques=0;},3000);
 });
-if(localStorage.getItem('pez_admin')==="1")document.body.classList.add('admin-on');
+if(localStorage.getItem("pez_admin")==="1"){ document.body.classList.add("admin-on"); }
 render();
 </script>
 </body>
