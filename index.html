@@ -166,8 +166,7 @@ let modoBorrado=false,isAdmin=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,
 function normalizarTelefono(tel){
   if(!tel) return "";
   let soloDigitos = tel.toString().replace(/\D/g,"");
-  if(soloDigitos.length>10) soloDigitos = soloDigitos.slice(-10);
-  if(soloDigitos.length==10 && soloDigitos.startsWith("0")) soloDigitos = soloDigitos.slice(-9);
+  if(soloDigitos.length>9) soloDigitos = soloDigitos.slice(-9);
   return soloDigitos;
 }
 function digitosCompletos(tel){if(!tel) return ""; return tel.toString().replace(/\D/g,"");}
@@ -327,16 +326,13 @@ document.getElementById('btnForzar')?.addEventListener('click',()=>{document.get
 document.getElementById('btnCrearCarpeta')?.addEventListener('click',async()=>{let input=document.getElementById('inputNuevaCarpeta');let nombre=input.value.trim();if(!nombre){alert('Pon nombre a la carpeta mi pez');return}await guardarCarpeta(nombre);input.value='';render();});
 document.getElementById('inputNuevaCarpeta')?.addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('btnCrearCarpeta').click()});
 
-// REGISTRO CORREGIDO - GUARDA RESPALDO Y NORMALIZADO
 document.getElementById('btnRegistrar')?.addEventListener('click',async()=>{
   try{
     let nombre=document.getElementById('regNombre').value.trim();
     let ciudad=document.getElementById('regCiudad').value.trim();
     if(!nombre){alert('Pon tu nombre mi pez');return}
     let whats="";let pais="";
-    try{
-      if(iti){whats=iti.getNumber();let paisData=iti.getSelectedCountryData();pais=`${paisData.name} (+${paisData.dialCode})`;}
-    }catch(e){whats=document.getElementById('regWhats').value.trim();}
+    try{if(iti){whats=iti.getNumber();let paisData=iti.getSelectedCountryData();pais=`${paisData.name} (+${paisData.dialCode})`;}}catch(e){whats=document.getElementById('regWhats').value.trim();}
     if(!whats) whats=document.getElementById('regWhats').value.trim();
     if(!whats){alert('Pon tu WhatsApp mi pez');return}
     let whatsNorm = normalizarTelefono(whats);
@@ -345,18 +341,12 @@ document.getElementById('btnRegistrar')?.addEventListener('click',async()=>{
     localStorage.setItem('pez_usuario', JSON.stringify(user));
     localStorage.setItem('pez_usuario_respaldo', JSON.stringify(user));
     localStorage.setItem('pez_whats_'+whatsNorm, JSON.stringify(user));
-    try{if(supabaseClient) await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,whatsapp_normalizado:whatsNorm,ciudad,pais,avatar_url:fotoBase64||''}]);}catch(e){console.log(e)}
-    isRegistrado=true;
-    document.body.classList.remove('invitado');
-    document.getElementById('registroOverlay').style.display='none';
-    document.getElementById('loginOverlay').style.display='none';
-    checkRegistro();
-    render();
-    alert("✅ Registrado mi pez "+nombre+" - Ahora entras automático al volver");
+    try{if(supabaseClient) await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,whatsapp_normalizado:whatsNorm,ciudad,pais,avatar_url:fotoBase64||''}]);}catch(e){}
+    isRegistrado=true;document.body.classList.remove('invitado');document.getElementById('registroOverlay').style.display='none';document.getElementById('loginOverlay').style.display='none';checkRegistro();render();
+    alert("✅ Registrado mi pez "+nombre+" - Guardado como "+whatsNorm);
   }catch(e){alert('Error registro: '+e.message);}
 });
 
-// LOGIN CORREGIDO - BUSCA INTELIGENTE POR ULTIMOS DIGITOS
 document.getElementById('btnLogin')?.addEventListener('click',async()=>{
   try{
     let loginInput="";try{loginInput=itiLogin?itiLogin.getNumber():document.getElementById('loginWhats').value.trim();}catch(e){loginInput=document.getElementById('loginWhats').value.trim();}
@@ -364,9 +354,8 @@ document.getElementById('btnLogin')?.addEventListener('click',async()=>{
     let msg=document.getElementById('loginMsg');
     if(!loginInput){msg.textContent='Pon tu WhatsApp mi pez';return}
     let loginNorm = normalizarTelefono(loginInput);
-    let loginDig = digitosCompletos(loginInput);
     msg.style.color='#FFD700';
-    msg.textContent='Buscando '+loginNorm+'...';
+    msg.textContent='Buscando '+loginNorm+'... mi pez';
     let localKey = localStorage.getItem('pez_whats_'+loginNorm);
     if(localKey){
       localStorage.setItem('pez_usuario', localKey);
@@ -377,32 +366,19 @@ document.getElementById('btnLogin')?.addEventListener('click',async()=>{
       setTimeout(()=>{isRegistrado=true;document.body.classList.remove('invitado');document.getElementById('loginOverlay').style.display='none';document.getElementById('registroOverlay').style.display='none';checkRegistro();render();},800);
       return;
     }
-    if(!supabaseClient){
-      let user={nombre:loginInput,whats:loginInput,whats_normalizado:loginNorm,ciudad:'',pais:'',fecha:Date.now(),foto:''};
-      localStorage.setItem('pez_usuario', JSON.stringify(user));
-      localStorage.setItem('pez_usuario_respaldo', JSON.stringify(user));
-      setTimeout(()=>{isRegistrado=true;document.body.classList.remove('invitado');document.getElementById('loginOverlay').style.display='none';document.getElementById('registroOverlay').style.display='none';checkRegistro();render();},500);
-      return;
-    }
     let encontrado=null;
     try{
-      let {data} = await supabaseClient.from('usuarios').select('*').eq('whatsapp',loginInput).limit(1);
-      if(data && data.length>0) encontrado=data[0];
+      let {data:d1} = await supabaseClient.from('usuarios').select('*').ilike('whatsapp','%'+loginNorm+'%').limit(1);
+      if(d1 && d1.length>0) encontrado=d1[0];
       if(!encontrado){
-        let {data:d2} = await supabaseClient.from('usuarios').select('*').eq('whatsapp_normalizado',loginNorm).limit(1);
+        let {data:d2} = await supabaseClient.from('usuarios').select('*').ilike('whatsapp_normalizado','%'+loginNorm+'%').limit(1);
         if(d2 && d2.length>0) encontrado=d2[0];
       }
       if(!encontrado){
-        let {data:d3} = await supabaseClient.from('usuarios').select('*').ilike('whatsapp','%'+loginNorm+'%').limit(1);
-        if(d3 && d3.length>0) encontrado=d3[0];
-      }
-      if(!encontrado){
-        let {data:d4} = await supabaseClient.from('usuarios').select('*').limit(100);
-        if(d4){
-          for(let u of d4){
-            let normU = normalizarTelefono(u.whatsapp||"");
-            let normU2 = normalizarTelefono(u.whatsapp_normalizado||"");
-            if(normU===loginNorm || normU2===loginNorm || (u.whatsapp && digitosCompletos(u.whatsapp).endsWith(loginNorm))){
+        let {data:d3} = await supabaseClient.from('usuarios').select('*').limit(150);
+        if(d3){
+          for(let u of d3){
+            if(normalizarTelefono(u.whatsapp||"")===loginNorm || normalizarTelefono(u.whatsapp_normalizado||"")===loginNorm){
               encontrado=u; break;
             }
           }
@@ -411,7 +387,7 @@ document.getElementById('btnLogin')?.addEventListener('click',async()=>{
     }catch(e){console.log(e)}
     if(!encontrado){
       msg.style.color='#FF3B3B';
-      msg.textContent='❌ No encontré cuenta con '+loginInput+' (busqué '+loginNorm+'). Si ya te registraste prueba con 984020298 mi pez';
+      msg.textContent='❌ No encontré cuenta con '+loginNorm+' mi pez. Regístrate primero.';
       return;
     }
     let u=encontrado;
