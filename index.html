@@ -4,6 +4,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EL DON 2035 EL PEZ OFICIAL</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:wght@700;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box}
@@ -24,51 +25,69 @@ body::after{content:"";position:fixed;inset:0;background-image:radial-gradient(r
 .cover-title h2{font-family:'Playfair Display';font-weight:900;font-size:33px;margin:0;background:linear-gradient(180deg,#FFF8DC,#FFE9A0,#FFD700,#FFC400);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 3px 8px #000)}
 .cover-title p{margin:10px 0 0;font-size:13px;font-weight:700;color:#FFE9A0;background:rgba(0,0,0,0.5);padding:5px 12px;border-radius:20px;display:inline-block;border:1px solid #FFD7001A}
 #sitioFecha{display:block;margin-top:10px;font-size:11px;font-weight:700;color:#FFD700;background:linear-gradient(90deg, rgba(255,215,0,0.14), rgba(0,0,0,0.55));padding:6px 12px;border-radius:20px;border:1px solid #FFD70024}
-.visualizer{display:flex;align-items:end;justify-content:center;gap:3px;height:38px;margin:14px 0 8px;filter:drop-shadow(0 0 6px #FFD70066)}
-.bar{width:5px;background:linear-gradient(180deg,#FFE9A0,#FFD700,#FFA500);border-radius:4px;animation:wave 0.8s ease-in-out infinite}
-.bar:nth-child(1){height:12px;animation-delay:0s}.bar:nth-child(2){height:24px;animation-delay:0.1s}.bar:nth-child(3){height:18px;animation-delay:0.2s}.bar:nth-child(4){height:32px;animation-delay:0.15s}.bar:nth-child(5){height:20px;animation-delay:0.3s}.bar:nth-child(6){height:28px;animation-delay:0.05s}.bar:nth-child(7){height:14px;animation-delay:0.25s}.bar:nth-child(8){height:22px;animation-delay:0.12s}
+/* SPOTIFY STYLE CONTROLS */
+.visualizer{display:flex;align-items:end;justify-content:center;gap:3px;height:30px;margin:12px 0 6px;filter:drop-shadow(0 0 6px #FFD70066)}
+.bar{width:4px;background:linear-gradient(180deg,#FFE9A0,#FFD700);border-radius:4px;animation:wave 0.8s ease-in-out infinite}
+.bar:nth-child(1){height:10px;animation-delay:0s}.bar:nth-child(2){height:20px;animation-delay:0.1s}.bar:nth-child(3){height:15px;animation-delay:0.2s}.bar:nth-child(4){height:26px;animation-delay:0.15s}.bar:nth-child(5){height:18px;animation-delay:0.3s}.bar:nth-child(6){height:22px;animation-delay:0.05s}.bar:nth-child(7){height:12px;animation-delay:0.25s}.bar:nth-child(8){height:18px;animation-delay:0.12s}
 @keyframes wave{0%,100%{transform:scaleY(0.6)}50%{transform:scaleY(1.3)}}
 .paused .bar{animation-play-state:paused;transform:scaleY(0.3)}
-.progress{width:100%;height:8px;background:rgba(255,215,0,0.12);border-radius:20px;overflow:hidden;margin:10px 0;border:1px solid #FFD70020;position:relative;box-shadow:inset 0 1px 4px #00000088}
-.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#FFD700,#FFE9A0,#FFC400,#FFD700);box-shadow:0 0 14px #FFD700CC;position:relative;transition:width 0.15s linear}
-.progress-fill::after{content:"";position:absolute;right:-6px;top:50%;transform:translateY(-50%);width:14px;height:14px;background:#FFE9A0;border-radius:50%;box-shadow:0 0 12px #FFD700;border:2px solid #FFD700}
-.time-row{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:#FFE9A0;margin-bottom:6px}
-.controls{display:flex;gap:10px;justify-content:center;margin-top:12px}
-.ctrl-main{width:64px;height:64px;border-radius:50%;border:2px solid #FFD700;background:radial-gradient(circle at 35% 35%, #FFE9A0, #FFD700 40%, #FFB700);color:#1A1000;font-size:26px;font-weight:900;box-shadow:0 0 25px #FFD70088, 0 6px 20px #000000AA, inset 0 2px 0 #FFF8;display:flex;align-items:center;justify-content:center}
-.ctrl{width:48px;height:48px;border-radius:50%;border:1px solid #FFD70044;background:linear-gradient(180deg, rgba(255,215,0,0.18), rgba(0,0,0,0.4));color:#FFD700;font-size:16px;box-shadow:0 4px 14px #00000088;display:flex;align-items:center;justify-content:center}
-.ctrl.active{background:linear-gradient(180deg,#FFD700,#FFB700);color:#000}
+/* PROGRESS SPOTIFY */
+.progress{width:100%;height:4px;background:rgba(255,255,255,0.15);border-radius:20px;overflow:visible;margin:14px 0;border:none;position:relative;cursor:pointer;transition:height 0.2s}
+.progress:hover{height:6px}
+.progress-fill{height:100%;width:0%;background:#FFF;border-radius:20px;position:relative;transition:width 0.1s linear}
+.progress:hover .progress-fill{background:linear-gradient(90deg,#FFD700,#FFE9A0)}
+.progress-fill::after{content:"";position:absolute;right:-6px;top:50%;transform:translateY(-50%) scale(0);width:12px;height:12px;background:#FFF;border-radius:50%;box-shadow:0 2px 8px #00000088;transition:transform 0.2s;opacity:0}
+.progress:hover .progress-fill::after{transform:translateY(-50%) scale(1);opacity:1;background:#FFD700}
+.time-row{display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#B3B3B3;margin-bottom:6px;letter-spacing:0.5px}
+.controls-spotify{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:14px}
+.spt-btn{width:32px;height:32px;border:none;background:transparent;color:#B3B3B3;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;cursor:pointer}
+.spt-btn:hover{color:#FFF;transform:scale(1.1)}
+.spt-btn.active{color:#FFD700}
+.spt-btn.active::after{content:"";position:absolute;bottom:-4px;width:4px;height:4px;background:#FFD700;border-radius:50%}
+.spt-main{width:56px;height:56px;border-radius:50%;border:none;background:#FFF;color:#000;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px #00000066;transition:all 0.2s;cursor:pointer}
+.spt-main:hover{transform:scale(1.06);background:#F0F0F0;box-shadow:0 6px 20px #00000088}
+.spt-main:active{transform:scale(0.98)}
+.spt-main.playing{background:linear-gradient(135deg,#FFE9A0,#FFD700);color:#000;box-shadow:0 0 20px #FFD70066}
 input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #FFD70020;background:rgba(0,0,0,0.6);color:#FFF8DC;font-size:14px}
 .btn{width:100%;padding:15px;background:linear-gradient(90deg,#FFD700,#FFC400,#FFB700);color:#1A1200;font-weight:900;border:none;border-radius:14px;margin-top:12px;font-size:15px;letter-spacing:1.2px;font-family:'Cinzel'}
-.btn2{padding:8px 13px;border-radius:11px;border:1px solid #FFD70044;background:linear-gradient(180deg, rgba(255,215,0,0.16), rgba(0,0,0,0.3));color:#FFD700;font-weight:800;font-size:12px}
-.tema{display:flex;gap:12px;background:linear-gradient(90deg, rgba(255,255,255,0.04), rgba(0,0,0,0.2));border:1px solid #FFD70014;padding:11px 12px;border-radius:14px;margin-bottom:10px;align-items:center}
-.tema.playing{border-color:#FFD70066;background:linear-gradient(90deg, rgba(255,215,0,0.16), rgba(0,0,0,0.3));box-shadow:0 0 20px #FFD70024}
-.tema img{width:56px;height:56px;border-radius:11px;border:1px solid #FFD70022}
-/* PLAYER FINO ABAJO */
-.player-fino{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg, rgba(18,14,8,0.98) 0%, rgba(8,6,2,0.98) 100%);border-top:1px solid #FFD70044;z-index:60;box-shadow:0 -10px 40px #000000EE, 0 0 30px #FFD70014;backdrop-filter:blur(18px)}
-.player-top-progress{height:3px;background:rgba(255,215,0,0.15);width:100%;position:relative;cursor:pointer}
-.player-top-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#FFD700,#FFE9A0,#FFD700);box-shadow:0 0 10px #FFD700;transition:width 0.1s linear}
+.btn2{padding:8px 13px;border-radius:20px;border:1px solid #FFD70044;background:rgba(255,215,0,0.14);color:#FFD700;font-weight:700;font-size:12px}
+.tema{display:flex;gap:12px;background:rgba(255,255,255,0.04);border:1px solid #FFD70014;padding:11px 12px;border-radius:12px;margin-bottom:8px;align-items:center;transition:0.2s}
+.tema:hover{background:rgba(255,255,255,0.07)}
+.tema.playing{border-color:#FFD70044;background:rgba(255,215,0,0.12)}
+.tema img{width:52px;height:52px;border-radius:6px;border:1px solid #FFD70022}
+/* PLAYER FINO SPOTIFY */
+.player-fino{position:fixed;bottom:0;left:0;right:0;background:#000000F8;border-top:1px solid #FFFFFF14;z-index:60;backdrop-filter:blur(20px);padding:0}
+.player-top-progress{height:4px;background:rgba(255,255,255,0.1);width:100%;position:relative;cursor:pointer}
+.player-top-progress:hover{height:6px}
+.player-top-progress-fill{height:100%;width:0%;background:#FFF;transition:width 0.1s linear;position:relative}
+.player-top-progress:hover .player-top-progress-fill{background:linear-gradient(90deg,#FFD700,#FFE9A0)}
+.player-top-progress-fill::after{content:"";position:absolute;right:-6px;top:50%;transform:translateY(-50%) scale(0);width:12px;height:12px;background:#FFF;border-radius:50%;transition:0.2s}
+.player-top-progress:hover .player-top-progress-fill::after{transform:translateY(-50%) scale(1)}
 .player-main{display:flex;align-items:center;gap:12px;padding:10px 14px}
 .player-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
-.player-left img{width:56px;height:56px;border-radius:10px;border:1px solid #FFD70044;box-shadow:0 0 12px #FFD70022}
+.player-left img{width:56px;height:56px;border-radius:4px;box-shadow:0 4px 12px #00000066}
 .player-info{flex:1;min-width:0}
-.player-info b{font-family:'Cinzel';font-size:13px;font-weight:900;background:linear-gradient(90deg,#FFD700,#FFE9A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
-.player-info span{font-size:10px;color:#FFE9A0AA;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
-.player-center{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1.2}
-.player-controls{display:flex;align-items:center;gap:8px}
-.pf-ctrl{width:36px;height:36px;border-radius:50%;border:1px solid #FFD70033;background:rgba(255,215,0,0.12);color:#FFD700;font-size:14px;display:flex;align-items:center;justify-content:center}
-.pf-ctrl.active{background:#FFD700;color:#000}
-.pf-main{width:46px;height:46px;border-radius:50%;border:2px solid #FFD700;background:radial-gradient(circle at 35% 35%, #FFE9A0, #FFD700, #FFB700);color:#1A1000;font-size:18px;box-shadow:0 0 18px #FFD70077, inset 0 1px 0 #FFF8;display:flex;align-items:center;justify-content:center}
-.player-time{display:flex;gap:8px;font-size:10px;font-weight:800;color:#FFE9A0;letter-spacing:0.5px}
-.player-right{display:flex;align-items:center;gap:6px}
-.player-visual-mini{display:flex;gap:2px;align-items:end;height:18px;margin-right:4px}
-.player-visual-mini .pv{width:2.5px;background:linear-gradient(180deg,#FFE9A0,#FFD700);border-radius:2px;animation:wave 0.6s infinite}
+.player-info b{font-family:'Poppins';font-size:13px;font-weight:700;color:#FFF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.player-info span{font-size:11px;color:#B3B3B3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.player-center{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1.2}
+.player-controls{display:flex;align-items:center;gap:14px}
+.pf-spt{width:28px;height:28px;border:none;background:transparent;color:#B3B3B3;font-size:14px;display:flex;align-items:center;justify-content:center;transition:0.2s;cursor:pointer}
+.pf-spt:hover{color:#FFF;transform:scale(1.1)}
+.pf-spt.active{color:#FFD700}
+.pf-spt-main{width:40px;height:40px;border-radius:50%;border:none;background:#FFF;color:#000;font-size:16px;display:flex;align-items:center;justify-content:center;transition:0.2s;box-shadow:0 2px 8px #00000066;cursor:pointer}
+.pf-spt-main:hover{transform:scale(1.06);background:#F0F0F0}
+.pf-spt-main:active{transform:scale(0.96)}
+.player-time{display:flex;gap:6px;font-size:10px;font-weight:500;color:#B3B3B3;letter-spacing:0.3px}
+.player-right{display:flex;align-items:center;gap:8px}
+.player-visual-mini{display:flex;gap:2px;align-items:end;height:16px}
+.player-visual-mini .pv{width:2px;background:#FFD700;border-radius:2px;animation:wave 0.6s infinite}
 .paused .pv{animation-play-state:paused}
 #letraModal{position:fixed;inset:0;background:#000000F2;z-index:100;display:none;padding:22px;overflow:auto}
 #letraContenido{white-space:pre-wrap;line-height:1.9;margin-top:18px;font-size:17px;color:#FFF8DC;background:rgba(255,215,0,0.04);padding:18px;border-radius:14px;border:1px solid #FFD70020}
-#contextMenu{position:fixed;display:none;background:rgba(12,10,5,0.98);border:1px solid #FFD70055;border-radius:14px;padding:6px;z-index:9999;min-width:230px}
-#contextMenu button{display:block;width:100%;text-align:left;padding:12px 14px;background:transparent;border:none;color:#FFD700;font-weight:700;font-size:13px;border-radius:10px}
-#contextMenu button:hover{background:rgba(255,215,0,0.14);color:#FFF8DC}
-#contextMenu .sep{height:1px;background:#FFD70018;margin:4px 0}
+#contextMenu{position:fixed;display:none;background:#121212;border:1px solid #FFFFFF14;border-radius:8px;padding:6px;z-index:9999;min-width:220px;box-shadow:0 16px 32px #000000AA}
+#contextMenu button{display:block;width:100%;text-align:left;padding:12px 14px;background:transparent;border:none;color:#E8E8E8;font-weight:500;font-size:13px;border-radius:6px}
+#contextMenu button:hover{background:#2A2A2A;color:#FFF}
+#contextMenu .sep{height:1px;background:#FFFFFF14;margin:4px 0}
 </style>
 </head>
 <body>
@@ -86,7 +105,7 @@ input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px
 <h1>EL DON 2035 EL PEZ OFICIAL • <span id="contador">0</span> TEMAS</h1>
 <span id="fechaHoraTop">Sábado 31 Oct 2026 • 12:31:41 • Santo Domingo EC</span>
 </div>
-<button class="btn2" id="btnFiesta">🌙 FIESTA</button>
+<button class="btn2" id="btnFiesta"><i class="fa-solid fa-expand"></i> FIESTA</button>
 </div>
 <div class="card">
 <div class="cover-wrap">
@@ -102,29 +121,30 @@ input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px
 <div class="progress" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
 <div class="time-row"><span id="curTime">0:00</span><span id="durTime">0:00</span></div>
 <audio id="mainAudio"></audio>
-<div class="controls">
-<button class="ctrl" id="shuffleBtn">🔀</button>
-<button class="ctrl" id="prevBtn">⏮️</button>
-<button class="ctrl-main" id="playBtn">▶️</button>
-<button class="ctrl" id="nextBtn">⏭️</button>
-<button class="ctrl" id="modeBtn">♾️</button>
+<!-- CONTROLES ESTILO SPOTIFY -->
+<div class="controls-spotify">
+<button class="spt-btn" id="shuffleBtn" title="Aleatorio"><i class="fa-solid fa-shuffle"></i></button>
+<button class="spt-btn" id="prevBtn" title="Anterior"><i class="fa-solid fa-backward-step"></i></button>
+<button class="spt-main" id="playBtn" title="Play/Pausa"><i class="fa-solid fa-play" id="playIcon"></i></button>
+<button class="spt-btn" id="nextBtn" title="Siguiente"><i class="fa-solid fa-forward-step"></i></button>
+<button class="spt-btn" id="modeBtn" title="Repetir"><i class="fa-solid fa-repeat"></i></button>
 </div>
-<div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap">
-<button class="btn2" id="favBtn">🤍 FAV</button><button class="btn2" id="volBtn">🔊 100%</button>
+<div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+<button class="btn2" id="favBtn">🤍 FAV</button><button class="btn2" id="volBtn"><i class="fa-solid fa-volume-high"></i> 100%</button>
 </div>
-<p id="nowPlaying" style="color:#FFE9A0;font-weight:800;margin-top:14px;text-align:center"></p>
+<p id="nowPlaying" style="color:#B3B3B3;font-weight:600;margin-top:14px;text-align:center;font-size:13px"></p>
 </div>
 <div class="card">
-<div style="display:flex;gap:8px"><input id="buscador" placeholder="🔍 Buscar..." style="flex:1"><button class="btn2" id="btnExport">💾 RESPALDO</button><input type="file" id="importFile" accept=".json" style="display:none"><button class="btn2" id="btnImport">📥 IMPORTAR</button></div>
+<div style="display:flex;gap:8px"><input id="buscador" placeholder="🔍 Buscar..." style="flex:1"><button class="btn2" id="btnExport">💾</button><input type="file" id="importFile" accept=".json" style="display:none"><button class="btn2" id="btnImport">📥</button></div>
 <div style="display:flex;gap:8px;margin-top:10px"><input id="dedicado" placeholder="Dedicado a: Mi Negra Bella" style="flex:1"><select id="genero" style="flex:1"><option>Balada Romántica</option><option>Reggaeton</option><option>Salsa</option><option>Bachata</option><option>Merengue</option><option>Vallenato</option><option>Bien Sabroso</option></select></div>
 <textarea id="letra" placeholder="Escribe la letra aquí mi pez..."></textarea>
 <div style="display:flex;gap:8px"><input type="file" id="mp3" accept="audio/*" style="flex:1"><input type="file" id="portada" accept="image/*" style="flex:1"></div>
 <button class="btn" id="btnSubir">SUBIR DE VERDAD (ONLINE)</button>
 <p id="msg" style="font-weight:700;color:#FFE9A0"></p>
-<div style="margin-top:16px"><b style="background:linear-gradient(90deg,#FFD700,#FFE9A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:13px;font-weight:900">🎧 TUS TEMAS (<span id="contador2">0</span>) • Click derecho para reintentar</b><div id="lista" style="margin-top:12px"></div></div>
+<div style="margin-top:16px"><b style="color:#FFF;font-size:13px;font-weight:700">🎧 TUS TEMAS (<span id="contador2">0</span>) • Click derecho para reintentar</b><div id="lista" style="margin-top:12px"></div></div>
 </div>
 
-<!-- REPRODUCTOR FINO ABAJO -->
+<!-- PLAYER FINO SPOTIFY -->
 <div class="player-fino">
 <div class="player-top-progress" id="playerTopProgress"><div class="player-top-progress-fill" id="playerTopProgressFill"></div></div>
 <div class="player-main">
@@ -133,22 +153,23 @@ input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px
 <div class="player-info">
 <b id="pTitle">Nada sonando</b>
 <span id="pDed">EL DON 2035</span>
-<span id="pSitio" style="color:#FFD700;font-size:9px;font-weight:700"></span>
+<span id="pSitio" style="color:#FFD700;font-size:9px;font-weight:600"></span>
 </div>
+<button class="pf-spt" style="color:#B3B3B3"><i class="fa-regular fa-heart"></i></button>
 </div>
 <div class="player-center">
 <div class="player-controls">
-<button class="pf-ctrl" id="pfShuffleBtn">🔀</button>
-<button class="pf-ctrl" id="pfPrevBtn">⏮️</button>
-<button class="pf-main" id="pfPlayBtn">▶️</button>
-<button class="pf-ctrl" id="pfNextBtn">⏭️</button>
-<button class="pf-ctrl" id="pfModeBtn">♾️</button>
+<button class="pf-spt" id="pfShuffleBtn"><i class="fa-solid fa-shuffle"></i></button>
+<button class="pf-spt" id="pfPrevBtn"><i class="fa-solid fa-backward-step"></i></button>
+<button class="pf-spt-main" id="pfPlayBtn"><i class="fa-solid fa-play" id="pfPlayIcon"></i></button>
+<button class="pf-spt" id="pfNextBtn"><i class="fa-solid fa-forward-step"></i></button>
+<button class="pf-spt" id="pfModeBtn"><i class="fa-solid fa-repeat"></i></button>
 </div>
 <div class="player-time"><span id="pfCurTime">0:00</span><span>/</span><span id="pfDurTime">0:00</span></div>
 </div>
 <div class="player-right">
 <div class="player-visual-mini paused" id="playerVisualMini"><div class="pv" style="height:6px"></div><div class="pv" style="height:14px"></div><div class="pv" style="height:9px"></div><div class="pv" style="height:16px"></div></div>
-<button class="pf-ctrl" id="pfVolBtn" style="width:32px;height:32px;font-size:12px">🔊</button>
+<button class="pf-spt" id="pfVolBtn"><i class="fa-solid fa-volume-high"></i></button>
 </div>
 </div>
 </div>
@@ -167,13 +188,13 @@ function verLetra(id){let t=[...temasCache,...temasOnlineCache].find(x=>String(x
 function descargar(id){let t=[...temasCache,...temasOnlineCache].find(x=>String(x.id)===String(id));if(!t)return;if(t.audio_url||t.cancion_url){window.open(t.audio_url||t.cancion_url,'_blank');return;}let url=URL.createObjectURL(t.audioBlob);let a=document.createElement("a");a.href=url;a.download=t.titulo+".mp3";a.click()}
 function compartir(id,titulo){let texto=encodeURIComponent("🎧 "+titulo+" - EL DON 2035 EL PEZ OFICIAL: "+LINK_OFICIAL);window.open("https://wa.me/?text="+texto,"_blank")}
 function formatTime(s){if(isNaN(s))return"0:00";let m=Math.floor(s/60);let sec=Math.floor(s%60);return m+":"+(sec<10?"0":"")+sec}
-function tocar(idx,isOnline=false){let lista=isOnline?temasOnlineCache:temasCache;let t=lista[idx];if(!t)return;if(!isOnline)currentIdx=idx;let urlA=t.audio_url||t.cancion_url||(t.audioBlob?URL.createObjectURL(t.audioBlob):"");let urlC=t.cover_url||t.portada_url||(t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png');document.getElementById("mainCover").src=urlC;document.getElementById("bgBlur").style.backgroundImage="url('"+urlC+"')";document.getElementById("mainTitle").textContent=t.titulo||"Sin titulo";document.getElementById("mainDedicado").textContent=(t.dedicado||t.artista||"Mi Negra Bella")+" • "+(t.genero||"Balada Romántica");document.getElementById("pImg").src=urlC;document.getElementById("pTitle").textContent=t.titulo;document.getElementById("pDed").textContent=t.dedicado||t.artista||"EL DON 2035";document.getElementById("favBtn").textContent=t.fav?"❤️ FAV":"🤍 FAV";let a=document.getElementById("mainAudio");a.src=urlA;a.volume=volumen;a.play();document.getElementById("playBtn").textContent="⏸️";document.getElementById("pfPlayBtn").textContent="⏸️";document.getElementById("nowPlaying").textContent="▶️ Sonando: "+t.titulo+" ♾️";document.getElementById("visualizer").classList.remove("paused");document.getElementById("playerVisualMini").classList.remove("paused");if(!isOnline){let tx=db.transaction("temas","readwrite");let req=tx.objectStore("temas").get(t.id);req.onsuccess=()=>{let tt=req.result;if(!tt)return;tt.repro=(tt.repro||0)+1;tx.objectStore("temas").put(tt)};}render(false);}
+function tocar(idx,isOnline=false){let lista=isOnline?temasOnlineCache:temasCache;let t=lista[idx];if(!t)return;if(!isOnline)currentIdx=idx;let urlA=t.audio_url||t.cancion_url||(t.audioBlob?URL.createObjectURL(t.audioBlob):"");let urlC=t.cover_url||t.portada_url||(t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png');document.getElementById("mainCover").src=urlC;document.getElementById("bgBlur").style.backgroundImage="url('"+urlC+"')";document.getElementById("mainTitle").textContent=t.titulo||"Sin titulo";document.getElementById("mainDedicado").textContent=(t.dedicado||t.artista||"Mi Negra Bella")+" • "+(t.genero||"Balada Romántica");document.getElementById("pImg").src=urlC;document.getElementById("pTitle").textContent=t.titulo;document.getElementById("pDed").textContent=t.dedicado||t.artista||"EL DON 2035";document.getElementById("favBtn").innerHTML=t.fav?"❤️ FAV":"🤍 FAV";let a=document.getElementById("mainAudio");a.src=urlA;a.volume=volumen;a.play();document.getElementById("playIcon").className="fa-solid fa-pause";document.getElementById("pfPlayIcon").className="fa-solid fa-pause";document.getElementById("playBtn").classList.add("playing");document.getElementById("pfPlayBtn").style.background="linear-gradient(135deg,#FFE9A0,#FFD700)";document.getElementById("nowPlaying").textContent="▶️ Sonando: "+t.titulo;document.getElementById("visualizer").classList.remove("paused");document.getElementById("playerVisualMini").classList.remove("paused");if(!isOnline){let tx=db.transaction("temas","readwrite");let req=tx.objectStore("temas").get(t.id);req.onsuccess=()=>{let tt=req.result;if(!tt)return;tt.repro=(tt.repro||0)+1;tx.objectStore("temas").put(tt)};}render(false);}
 async function cargarOnline(){const{data,error}=await supabaseClient.from('canciones').select('*').order('created_at',{ascending:false});if(error){return[];}return data.map(d=>({id:d.id,titulo:d.titulo,dedicado:d.artista||d.dedicado,genero:d.genero||'Online',letra:d.letra,portada_url:d.portada_url,cover_url:d.portada_url,cancion_url:d.cancion_url,audio_url:d.cancion_url,online:true}))}
 function limpiarNombre(n){return n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9._-]/g,'_').replace(/__+/g,'_').slice(0,70);}
 function mostrarMenu(e,id){e.preventDefault();selectedTemaId=id;const menu=document.getElementById('contextMenu');menu.style.left=e.clientX+'px';menu.style.top=e.clientY+'px';menu.style.display='block';}
 function ocultarMenu(){document.getElementById('contextMenu').style.display='none';}
 async function reintentarSubida(soloPortada=false){if(!selectedTemaId)return;ocultarMenu();let t=await obtenerTemaPorId(selectedTemaId);if(!t)return;let msg=document.getElementById('msg');msg.textContent="♻️ Reintentando '"+t.titulo+"'...";try{let portada_url="",cancion_url="";if(t.coverBlob){let nombreP=Date.now()+"_retry_portada_"+limpiarNombre(t.titulo+"_portada.jpg");let{error}=await supabaseClient.storage.from('portadas').upload(nombreP,t.coverBlob);if(!error){let{data}=supabaseClient.storage.from('portadas').getPublicUrl(nombreP);portada_url=data.publicUrl;}}if(!soloPortada&&t.audioBlob){let nombreC=Date.now()+"_retry_"+limpiarNombre(t.titulo+".mp3");let{error}=await supabaseClient.storage.from('canciones').upload(nombreC,t.audioBlob);if(error)throw error;let{data}=supabaseClient.storage.from('canciones').getPublicUrl(nombreC);cancion_url=data.publicUrl;}if(soloPortada){let{data:existe}=await supabaseClient.from('canciones').select('*').eq('titulo',t.titulo).limit(1);if(existe&&existe.length>0&&portada_url){await supabaseClient.from('canciones').update({portada_url:portada_url}).eq('id',existe[0].id);}else if(portada_url){await supabaseClient.from('canciones').insert([{artista:t.dedicado||'El Don 2035',titulo:t.titulo,letra:t.letra,portada_url,cancion_url:""}]);}}else{await supabaseClient.from('canciones').insert([{artista:t.dedicado||'El Don 2035',titulo:t.titulo,letra:t.letra,portada_url,cancion_url}]);}msg.textContent="¡Reintentado ONLINE! ✅ "+t.titulo;render();}catch(err){msg.textContent="Error al reintentar: "+err.message;}}
-async function render(){let temas=await obtenerTemas();temas.sort((a,b)=>(a.orden||0)-(b.orden||0));let online=await cargarOnline();temasOnlineCache=online;let filtrar=t=>!filtro||(t.titulo+(t.dedicado||"")).toLowerCase().includes(filtro.toLowerCase());temas=temas.filter(filtrar);online=online.filter(filtrar);temasCache=temas;let l=document.getElementById("lista");l.innerHTML="";if(temas.length===0&&online.length===0)l.innerHTML='<div style="opacity:.6;text-align:center;padding:16px">No hay temas mi pez</div>';online.forEach((t,idx)=>{let urlC=t.portada_url||'logo.png';let btnBorrar=modoBorrado?`<button onclick="borrarTemaOnline('${t.id}')" style="background:#ff444422;border:1px solid #ff4444;color:#ff5555;border-radius:6px;padding:4px 6px">🗑️</button>`:"";let d=document.createElement("div");d.className="tema";d.style.borderColor="#00ff8822";d.innerHTML=`<img src="${urlC}" onclick="tocar(${idx},true)"><div style="flex:1;min-width:0" onclick="tocar(${idx},true)"><b style="color:#00ff88;font-size:14px">🌐 ${t.titulo}</b><div style="font-size:12px;opacity:.7">${t.dedicado||''} • ONLINE</div></div><button class="btn2" onclick="verLetra('${t.id}')">📜</button><button class="btn2" onclick="descargar('${t.id}')">⬇️</button><button class="btn2" onclick="compartir('${t.id}','${t.titulo}')">📲</button>${btnBorrar}`;l.appendChild(d);});temas.forEach((t,idx)=>{let urlC=t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png';let btnBorrar=modoBorrado?`<button onclick="borrarTema(${t.id})" style="background:#ff444422;border:1px solid #ff4444;color:#ff5555;border-radius:6px;padding:4px 6px">🗑️</button>`:"";let d=document.createElement("div");d.className="tema";if(idx===currentIdx)d.classList.add("playing");d.dataset.id=t.id;d.draggable=true;d.oncontextmenu=(e)=>mostrarMenu(e,t.id);d.innerHTML=`<img src="${urlC}" onclick="tocar(${idx})"><div style="flex:1;min-width:0" onclick="tocar(${idx})"><b style="background:linear-gradient(90deg,#FFD700,#FFE9A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:14px">${t.fav?"❤️ ":""}${t.titulo} <span style="font-size:10px;opacity:.6">▶️${t.repro||0}</span></b><div style="font-size:12px;color:#FFE9A0AA">${t.dedicado||''} • ${t.genero||''}</div></div><button class="btn2" onclick="verLetra(${t.id})">📜</button><button class="btn2" onclick="descargar(${t.id})">⬇️</button><button class="btn2" onclick="compartir(${t.id},'${t.titulo}')">📲</button>${btnBorrar}`;l.appendChild(d);});document.getElementById("contador").textContent=(await obtenerTemas()).length+online.length;document.getElementById("contador2").textContent=temas.length+online.length;}
+async function render(){let temas=await obtenerTemas();temas.sort((a,b)=>(a.orden||0)-(b.orden||0));let online=await cargarOnline();temasOnlineCache=online;let filtrar=t=>!filtro||(t.titulo+(t.dedicado||"")).toLowerCase().includes(filtro.toLowerCase());temas=temas.filter(filtrar);online=online.filter(filtrar);temasCache=temas;let l=document.getElementById("lista");l.innerHTML="";if(temas.length===0&&online.length===0)l.innerHTML='<div style="opacity:.6;text-align:center;padding:16px">No hay temas mi pez</div>';online.forEach((t,idx)=>{let urlC=t.portada_url||'logo.png';let btnBorrar=modoBorrado?`<button onclick="borrarTemaOnline('${t.id}')" style="background:#ff444422;border:1px solid #ff4444;color:#ff5555;border-radius:6px;padding:4px 6px">🗑️</button>`:"";let d=document.createElement("div");d.className="tema";d.style.borderColor="#00ff8822";d.innerHTML=`<img src="${urlC}" onclick="tocar(${idx},true)"><div style="flex:1;min-width:0" onclick="tocar(${idx},true)"><b style="color:#1DB954;font-size:14px">🌐 ${t.titulo}</b><div style="font-size:12px;color:#B3B3B3">${t.dedicado||''} • ONLINE</div></div><button class="btn2" onclick="verLetra('${t.id}')">📜</button><button class="btn2" onclick="descargar('${t.id}')"><i class="fa-solid fa-download"></i></button><button class="btn2" onclick="compartir('${t.id}','${t.titulo}')"><i class="fa-solid fa-share"></i></button>${btnBorrar}`;l.appendChild(d);});temas.forEach((t,idx)=>{let urlC=t.coverBlob?URL.createObjectURL(t.coverBlob):'logo.png';let btnBorrar=modoBorrado?`<button onclick="borrarTema(${t.id})" style="background:#ff444422;border:1px solid #ff4444;color:#ff5555;border-radius:6px;padding:4px 6px">🗑️</button>`:"";let d=document.createElement("div");d.className="tema";if(idx===currentIdx)d.classList.add("playing");d.dataset.id=t.id;d.draggable=true;d.oncontextmenu=(e)=>mostrarMenu(e,t.id);d.innerHTML=`<img src="${urlC}" onclick="tocar(${idx})"><div style="flex:1;min-width:0" onclick="tocar(${idx})"><b style="color:#FFF;font-size:14px">${t.fav?"❤️ ":""}${t.titulo} <span style="font-size:10px;color:#B3B3B3">▶️${t.repro||0}</span></b><div style="font-size:12px;color:#B3B3B3">${t.dedicado||''} • ${t.genero||''}</div></div><button class="btn2" onclick="verLetra(${t.id})">📜</button><button class="btn2" onclick="descargar(${t.id})"><i class="fa-solid fa-download"></i></button><button class="btn2" onclick="compartir(${t.id},'${t.titulo}')"><i class="fa-solid fa-share"></i></button>${btnBorrar}`;l.appendChild(d);});document.getElementById("contador").textContent=(await obtenerTemas()).length+online.length;document.getElementById("contador2").textContent=temas.length+online.length;}
 function activarClave(){let a=Date.now();if(a-tiempoClick>3000)clicksLogo=0;tiempoClick=a;clicksLogo++;if(clicksLogo>=5){clicksLogo=0;let c=prompt("Clave secreta:");if(c===CLAVE){modoBorrado=true;alert("Borrado 60s ON");render();setTimeout(()=>{modoBorrado=false;render()},60000)}else if(c!==null)alert("Clave mala mi pez")}}
 async function subir(){let ded=document.getElementById("dedicado").value.trim();let gen=document.getElementById("genero").value;let letra=document.getElementById("letra").value.trim();let f=document.getElementById("mp3").files[0];let c=document.getElementById("portada").files[0];if(!f){alert("Falta MP3 mi pez");return}let titulo=letra.split("\n")[0].substring(0,40).trim()||ded||f.name.replace(".mp3","")||"Mi Tema";let msg=document.getElementById("msg");msg.textContent="Subiendo online mi pez... espera";try{await guardarTema({titulo,dedicado:ded,genero:gen,letra,audioBlob:f,coverBlob:c||null,repro:0,orden:Date.now(),fav:false});let portada_url="",cancion_url="";if(c){let nombre=Date.now()+"_"+limpiarNombre(c.name);let{error}=await supabaseClient.storage.from('portadas').upload(nombre,c);if(error)throw error;let{data}=supabaseClient.storage.from('portadas').getPublicUrl(nombre);portada_url=data.publicUrl;}if(f){let nombre=Date.now()+"_"+limpiarNombre(f.name);let{error}=await supabaseClient.storage.from('canciones').upload(nombre,f);if(error)throw error;let{data}=supabaseClient.storage.from('canciones').getPublicUrl(nombre);cancion_url=data.publicUrl;}let{error:err2}=await supabaseClient.from('canciones').insert([{artista:ded||'El Don 2035',titulo,letra,portada_url,cancion_url}]);if(err2)throw err2;msg.textContent="¡Subido ONLINE para todos! ✅";document.getElementById("dedicado").value="";document.getElementById("letra").value="";render();}catch(e){console.error(e);msg.textContent="Error online: "+e.message+" (guardado local - click derecho para reintentar)";render();}}
 abrirDB().then(()=>{document.getElementById('ctxRetry').addEventListener('click',()=>reintentarSubida(false));document.getElementById('ctxRetryPortada').addEventListener('click',()=>reintentarSubida(true));document.getElementById('ctxVerLetra').addEventListener('click',()=>{ocultarMenu();verLetra(selectedTemaId);});document.getElementById('ctxCompartir').addEventListener('click',()=>{ocultarMenu();let t=temasCache.find(x=>x.id==selectedTemaId);if(t)compartir(t.id,t.titulo);});document.addEventListener('click',ocultarMenu);
@@ -181,8 +202,8 @@ actualizarFechas();setInterval(actualizarFechas,1000);render();
 let mainA=document.getElementById("mainAudio");
 function updateProgress(){let pct=(mainA.currentTime/mainA.duration)*100;if(!isNaN(pct)){document.getElementById("progressFill").style.width=pct+"%";document.getElementById("playerTopProgressFill").style.width=pct+"%";}let cur=formatTime(mainA.currentTime);let dur=formatTime(mainA.duration);document.getElementById("curTime").textContent=cur;document.getElementById("durTime").textContent=dur;document.getElementById("pfCurTime").textContent=cur;document.getElementById("pfDurTime").textContent=dur;}
 mainA.addEventListener("timeupdate",updateProgress);
-mainA.addEventListener("play",()=>{document.getElementById("visualizer").classList.remove("paused");document.getElementById("playerVisualMini").classList.remove("paused");document.getElementById("playBtn").textContent="⏸️";document.getElementById("pfPlayBtn").textContent="⏸️";});
-mainA.addEventListener("pause",()=>{document.getElementById("visualizer").classList.add("paused");document.getElementById("playerVisualMini").classList.add("paused");document.getElementById("playBtn").textContent="▶️";document.getElementById("pfPlayBtn").textContent="▶️";});
+mainA.addEventListener("play",()=>{document.getElementById("visualizer").classList.remove("paused");document.getElementById("playerVisualMini").classList.remove("paused");document.getElementById("playIcon").className="fa-solid fa-pause";document.getElementById("pfPlayIcon").className="fa-solid fa-pause";document.getElementById("playBtn").classList.add("playing");});
+mainA.addEventListener("pause",()=>{document.getElementById("visualizer").classList.add("paused");document.getElementById("playerVisualMini").classList.add("paused");document.getElementById("playIcon").className="fa-solid fa-play";document.getElementById("pfPlayIcon").className="fa-solid fa-play";document.getElementById("playBtn").classList.remove("playing");document.getElementById("pfPlayBtn").style.background="#FFF";});
 mainA.addEventListener("ended",()=>{document.getElementById("visualizer").classList.add("paused");document.getElementById("playerVisualMini").classList.add("paused");if(repeatMode==="one"){mainA.currentTime=0;mainA.play();return}let next=null;if(shuffle){next=Math.floor(Math.random()*temasCache.length)}else{next=currentIdx+1}if(next<temasCache.length){tocar(next)}else if(repeatMode==="all"&&temasCache.length>0){tocar(0)}});
 function seek(e){let rect=e.currentTarget.getBoundingClientRect();let pct=(e.clientX-rect.left)/rect.width;mainA.currentTime=pct*mainA.duration;}
 document.getElementById("progressBar").addEventListener("click",seek);
@@ -202,12 +223,12 @@ document.getElementById("pfPrevBtn").addEventListener("click",prevTrack);
 function toggleShuffle(){shuffle=!shuffle;document.getElementById("shuffleBtn").classList.toggle("active",shuffle);document.getElementById("pfShuffleBtn").classList.toggle("active",shuffle);}
 document.getElementById("shuffleBtn").addEventListener("click",toggleShuffle);
 document.getElementById("pfShuffleBtn").addEventListener("click",toggleShuffle);
-function toggleMode(){repeatMode=repeatMode==="all"?"one":"all";let txt=repeatMode==="all"?"♾️":"🔂";document.getElementById("modeBtn").textContent=txt;document.getElementById("pfModeBtn").textContent=txt;document.getElementById("modeBtn").classList.toggle("active",repeatMode==="one");document.getElementById("pfModeBtn").classList.toggle("active",repeatMode==="one");}
+function toggleMode(){repeatMode=repeatMode==="all"?"one":"all";document.getElementById("modeBtn").classList.toggle("active",repeatMode==="one");document.getElementById("pfModeBtn").classList.toggle("active",repeatMode==="one");}
 document.getElementById("modeBtn").addEventListener("click",toggleMode);
 document.getElementById("pfModeBtn").addEventListener("click",toggleMode);
-document.getElementById("volBtn").addEventListener("click",function(){volumen=volumen>0.5?0.3:1;mainA.volume=volumen;this.textContent=volumen>0.5?"🔊 100%":"🔉 30%";document.getElementById("pfVolBtn").textContent=volumen>0.5?"🔊":"🔉";});
-document.getElementById("pfVolBtn").addEventListener("click",function(){volumen=volumen>0.5?0.3:1;mainA.volume=volumen;this.textContent=volumen>0.5?"🔊":"🔉";document.getElementById("volBtn").textContent=volumen>0.5?"🔊 100%":"🔉 30%";});
-document.getElementById("favBtn").addEventListener("click",()=>{if(temasCache.length===0)return;let t=temasCache[currentIdx];let tx=db.transaction("temas","readwrite");let req=tx.objectStore("temas").get(t.id);req.onsuccess=()=>{let tt=req.result;tt.fav=!tt.fav;tx.objectStore("temas").put(tt);document.getElementById("favBtn").textContent=tt.fav?"❤️ FAV":"🤍 FAV";render(false)}});
+document.getElementById("volBtn").addEventListener("click",function(){volumen=volumen>0.5?0.3:1;mainA.volume=volumen;this.innerHTML=volumen>0.5?'<i class="fa-solid fa-volume-high"></i> 100%':'<i class="fa-solid fa-volume-low"></i> 30%';});
+document.getElementById("pfVolBtn").addEventListener("click",function(){volumen=volumen>0.5?0.3:1;mainA.volume=volumen;this.innerHTML=volumen>0.5?'<i class="fa-solid fa-volume-high"></i>':'<i class="fa-solid fa-volume-low"></i>';});
+document.getElementById("favBtn").addEventListener("click",()=>{if(temasCache.length===0)return;let t=temasCache[currentIdx];let tx=db.transaction("temas","readwrite");let req=tx.objectStore("temas").get(t.id);req.onsuccess=()=>{let tt=req.result;tt.fav=!tt.fav;tx.objectStore("temas").put(tt);document.getElementById("favBtn").innerHTML=tt.fav?"❤️ FAV":"🤍 FAV";render(false)}});
 document.getElementById("btnFiesta").addEventListener("click",()=>{document.querySelector(".cover-wrap").requestFullscreen?.()});
 document.getElementById("btnExport").addEventListener("click",async()=>{let temas=await obtenerTemas();if(temas.length===0){alert("No hay temas");return}let out=[];for(let t of temas){let buf=await t.audioBlob.arrayBuffer();let b64=btoa(String.fromCharCode(...new Uint8Array(buf)));let coverB64=null;if(t.coverBlob){let b2=await t.coverBlob.arrayBuffer();coverB64=btoa(String.fromCharCode(...new Uint8Array(b2)))}out.push({titulo:t.titulo,dedicado:t.dedicado,genero:t.genero,letra:t.letra,repro:t.repro,fav:t.fav,audioB64:b64,coverB64})}let blob=new Blob([JSON.stringify(out)],{type:"application/json"});let url=URL.createObjectURL(blob);let a=document.createElement("a");a.href=url;a.download="respaldo-pez-"+Date.now()+".json";a.click()});
 document.getElementById("btnImport").addEventListener("click",()=>document.getElementById("importFile").click());
