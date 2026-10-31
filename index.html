@@ -5,17 +5,25 @@
 <title>EL DON 2035 EL PEZ OFICIAL</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:wght@700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box}
 body{margin:0;padding-bottom:90px;min-height:100vh;color:#FFF8DC;font-family:'Poppins';overflow-x:hidden;background:#000;cursor:none !important}
 * {cursor:none !important}
-/* PUNTERO EL DON 2035 - ACORDE ESTILO DORADO */
-.cursor-dot{width:10px;height:10px;background:#FFD700;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 12px #FFD700, 0 0 25px #FFD700;transition:width 0.2s,height 0.2s}
+/* PUNTERO EL DON DORADO */
+.cursor-dot{width:10px;height:10px;background:#FFD700;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 12px #FFD700, 0 0 25px #FFD700}
 .cursor-outline{width:38px;height:38px;border:2px solid #FFD700;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;border-radius:50%;transform:translate(-50%,-50%);transition:all 0.15s ease-out;display:flex;align-items:center;justify-content:center;font-size:16px;background:rgba(255,215,0,0.08)}
 .cursor-outline::after{content:'🐟';}
 .cursor-hover .cursor-dot{width:20px;height:20px;background:#FFE9A0}
 .cursor-hover .cursor-outline{width:62px;height:62px;background:rgba(255,215,0,0.22);border-color:#FFE9A0;transform:translate(-50%,-50%) scale(1.15)}
+/* TELEFONO PAIS */
+.iti{width:100%;margin-bottom:10px;display:block}
+.iti input{width:100% !important;padding-left:90px !important;text-align:left;background:#2A2A2A !important;color:#FFF !important;border:1px solid #FFFFFF14 !important;border-radius:6px !important}
+.iti__flag-container{cursor:pointer !important}
+.iti__country-list{background:#1E1E1E !important;color:#FFF !important;border:1px solid #FFD70033 !important;z-index:99999 !important}
+.iti__country:hover{background:#FFD70022 !important}
+.iti__dial-code{color:#FFD700 !important}
 #bgBlur{position:fixed;inset:0;background:#050300 url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1400') center/cover;filter:blur(28px) brightness(0.25);transform:scale(1.15);z-index:-3}
 .topbar{display:flex;align-items:center;gap:16px;padding:12px 18px;background:#000000F0;backdrop-filter:blur(16px);border-bottom:1px solid #FFFFFF14;position:sticky;top:0;z-index:30}
 .topbar img{width:40px;height:40px;border-radius:50%;border:2px solid #FFD700}
@@ -108,12 +116,13 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 <div class="registroBox">
 <div style="font-size:50px;margin-bottom:12px">🔒</div>
 <h2>EL DON 2035 EL PEZ</h2>
-<p>Estás en modo <b style="color:#FFD700">INVITADO</b> • Solo puedes escuchar música<br>Regístrate gratis para desbloquear todo: subir temas, crear listas, compartir y más.</p>
+<p>Estás en modo <b style="color:#FFD700">INVITADO</b> • Regístrate gratis para desbloquear todo</p>
 <input id="regNombre" placeholder="Tu nombre completo">
-<input id="regWhats" placeholder="Tu WhatsApp (ej: 0991234567)">
+<input id="regWhats" type="tel" placeholder="Tu WhatsApp">
+<div id="paisDetectado" style="font-size:11px;color:#FFD700;margin:-4px 0 8px;display:none;background:#FFD70011;padding:6px 10px;border-radius:20px"></div>
 <input id="regCiudad" placeholder="Tu ciudad">
 <button class="btn" id="btnRegistrar"><i class="fa-solid fa-unlock"></i> REGISTRARME GRATIS Y DESBLOQUEAR</button>
-<p style="font-size:10px;margin-top:12px;color:#666">Al registrarte aceptas escuchar buena música de El Pez 🎧<br>100% gratis, sin spam</p>
+<p style="font-size:10px;margin-top:12px;color:#666">Detectamos tu país automáticamente 🌍</p>
 <button class="btn2" id="btnInvitado" style="margin-top:10px;border:none;color:#666">Seguir como invitado solo escuchando</button>
 </div>
 </div>
@@ -152,9 +161,7 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 <span class="count count-online" id="otrosCount">0</span>
 <i class="fa-solid fa-chevron-right chevron"></i>
 </div>
-<div class="folder-content">
-<div id="listaOtros" style="padding:0 8px 8px"></div>
-</div>
+<div class="folder-content"><div id="listaOtros" style="padding:0 8px 8px"></div></div>
 </div>
 <div style="margin-top:20px;border-top:1px solid #FFFFFF0A;padding-top:16px" id="subirBox">
 <h3>Subir Tema</h3>
@@ -199,38 +206,58 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 <div class="player-fino">
 <div class="player-top-progress" id="playerTopProgress"><div class="player-top-progress-fill" id="playerTopProgressFill"></div></div>
 <div class="player-main">
-<div class="player-left">
-<img id="pImg" src="logo.png">
-<div class="player-info">
-<b id="pTitle">Nada sonando</b>
-<span id="pDed">EL DON 2035</span>
-</div>
-</div>
-<div class="player-center">
-<div class="player-controls">
-<button class="pf-spt" id="pfShuffleBtn"><i class="fa-solid fa-shuffle"></i></button>
-<button class="pf-spt" id="pfPrevBtn"><i class="fa-solid fa-backward-step"></i></button>
-<button class="pf-spt-main" id="pfPlayBtn"><i class="fa-solid fa-play" id="pfPlayIcon"></i></button>
-<button class="pf-spt" id="pfNextBtn"><i class="fa-solid fa-forward-step"></i></button>
-<button class="pf-spt" id="pfModeBtn"><i class="fa-solid fa-repeat"></i></button>
-</div>
-<div class="player-time"><span id="pfCurTime">0:00</span> / <span id="pfDurTime">0:00</span></div>
-</div>
-<div class="player-right">
-<button class="pf-spt" id="pfVolBtn"><i class="fa-solid fa-volume-high"></i></button>
-</div>
+<div class="player-left"><img id="pImg" src="logo.png"><div class="player-info"><b id="pTitle">Nada sonando</b><span id="pDed">EL DON 2035</span></div></div>
+<div class="player-center"><div class="player-controls"><button class="pf-spt" id="pfShuffleBtn"><i class="fa-solid fa-shuffle"></i></button><button class="pf-spt" id="pfPrevBtn"><i class="fa-solid fa-backward-step"></i></button><button class="pf-spt-main" id="pfPlayBtn"><i class="fa-solid fa-play" id="pfPlayIcon"></i></button><button class="pf-spt" id="pfNextBtn"><i class="fa-solid fa-forward-step"></i></button><button class="pf-spt" id="pfModeBtn"><i class="fa-solid fa-repeat"></i></button></div><div class="player-time"><span id="pfCurTime">0:00</span> / <span id="pfDurTime">0:00</span></div></div>
+<div class="player-right"><button class="pf-spt" id="pfVolBtn"><i class="fa-solid fa-volume-high"></i></button></div>
 </div>
 </div>
 
 <div id="letraModal"><button class="btn2" onclick="document.getElementById('letraModal').style.display='none'">✖️ CERRAR</button><pre id="letraContenido"></pre></div>
-<script>
-const SUPABASE_URL="https://hrvmidwtojjmhmbxxkpz.supabase.co";const SUPABASE_KEY="sb_publishable_PYd42RgJIYn2WP2CA-wz1Q_7cQ2EaRU";const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const LINK_OFICIAL="https://eldon2035.github.io/elpez/";const SITIO_CORTO="eldon2035.github.io/elpez";const CLAVE="Elpez2035";
-// TELEGRAM CONFIG - YA PROBADO MI PEZ FABIAN
-const TELEGRAM_BOT_TOKEN="9242572538:AAEjeqPBBOLWfDNoaUE8UHF4l2unP6pOsI8";const TELEGRAM_CHAT_ID="684478704";
-function enviarAvisoTelegram(nombre,whats,ciudad){try{let mensaje=`🎉 NUEVO REGISTRO EL PEZ!\n\n👤 Nombre: ${nombre}\n📱 WhatsApp: ${whats}\n🏙️ Ciudad: ${ciudad||'No puso'}\n🕐 ${new Date().toLocaleString('es-EC')}\n\nAdmin: eldon2035.github.io/elpez/admin.html`;let url=`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(mensaje)}`;let img=new Image();img.src=url;console.log('✅ Aviso Telegram enviado')}catch(e){console.log('Error Telegram',e)}}
 
-let modoBorrado=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],selectedTemaId=null,isRegistrado=false;
-function checkRegistro(){let u=localStorage.getItem('pez_usuario');if(u){isRegistrado=true;try{let d=JSON.parse(u);document.getElementById('userBadge').style.display='inline-block';document.getElementById('userBadge').textContent='👤 '+d.nombre;document.getElementById('registroOverlay').style.display='none';document.getElementById('avisoBloqueo').style.display='none';document.getElementById('sidebar').classList.remove('locked')}catch(e){}}else{isRegistrado=false;document.getElementById('sidebar').classList.add('locked');document.getElementById('avisoBloqueo').style.display='block'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script>
+const SUPABASE_URL="https://hrvmidwtojjmhmbxxkpz.supabase.co";const SUPABASE_KEY="sb_publishable_PYd42RgJIYn2WP2CA-wz1Q_7cQ2EaRU";const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const LINK_OFICIAL="https://eldon2035.github.io/elpez/";const CLAVE="Elpez2035";
+// TELEGRAM YA PROBADO - ID 684478704 FABIAN
+const TELEGRAM_BOT_TOKEN="9242572538:AAEjeqPBBOLWfDNoaUE8UHF4l2unP6pOsI8";const TELEGRAM_CHAT_ID="684478704";
+function enviarAvisoTelegram(nombre,whats,ciudad,pais){try{let mensaje=`🎉 NUEVO REGISTRO EL PEZ!\n\n👤 ${nombre}\n📱 ${whats}\n🌍 ${pais||'Pais no detectado'}\n🏙️ ${ciudad||'No puso'}\n🕐 ${new Date().toLocaleString('es-EC')}\n\nAdmin: eldon2035.github.io/elpez/`;let url=`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(mensaje)}`;let img=new Image();img.src=url;console.log('✅ Aviso enviado')}catch(e){}}
+
+let modoBorrado=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],selectedTemaId=null,isRegistrado=false,iti=null;
+
+function initTelefono(){
+  const input=document.querySelector("#regWhats");
+  iti=window.intlTelInput(input,{
+    initialCountry:"ec",
+    preferredCountries:["ec","co","pe","mx","es","us","ar","cl"],
+    separateDialCode:true,
+    utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    geoIpLookup:function(callback){
+      fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>callback(d.country_code)).catch(()=>callback("ec"));
+    }
+  });
+  input.addEventListener('countrychange',()=>{
+    let data=iti.getSelectedCountryData();
+    let el=document.getElementById('paisDetectado');
+    el.style.display='block';
+    el.innerHTML=`🌍 ${data.name} (+${data.dialCode}) • ${data.iso2.toUpperCase()}`;
+  });
+  // Mostrar inicial
+  setTimeout(()=>{
+    let data=iti.getSelectedCountryData();
+    let el=document.getElementById('paisDetectado');
+    el.style.display='block';
+    el.innerHTML=`🌍 Detectado: ${data.name} (+${data.dialCode})`;
+  },800);
+}
+
+function checkRegistro(){
+  let urlParams=new URLSearchParams(window.location.search);
+  if(urlParams.get('admin')==='Elpez2035'){
+    let adminUser={nombre:"ADMIN Fabian",whats:"+593 admin",ciudad:"Santo Domingo",pais:"Ecuador ADMIN",fecha:Date.now()};
+    localStorage.setItem('pez_usuario', JSON.stringify(adminUser));
+    history.replaceState({}, '', window.location.pathname);
+  }
+  let u=localStorage.getItem('pez_usuario');
+  if(u){isRegistrado=true;try{let d=JSON.parse(u);document.getElementById('userBadge').style.display='inline-block';document.getElementById('userBadge').textContent='👤 '+d.nombre;document.getElementById('registroOverlay').style.display='none';document.getElementById('avisoBloqueo').style.display='none';document.getElementById('sidebar').classList.remove('locked')}catch(e){}}else{isRegistrado=false;document.getElementById('sidebar').classList.add('locked');document.getElementById('avisoBloqueo').style.display='block'}}
 function setFiltro(t){if(!isRegistrado&&t!=='todos'){alert('🔒 Regístrate para usar filtros mi pez');return} filtroTipo=t;document.querySelectorAll('.filtros .btn2').forEach(b=>b.classList.remove('active'));document.getElementById('filtro'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active');render();}
 function actualizarFechas(){let ahora=new Date();let meses=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];let topTxt=`${ahora.getDate()} ${meses[ahora.getMonth()]} • ${String(ahora.getHours()).padStart(2,'0')}:${String(ahora.getMinutes()).padStart(2,'0')}`;let elTop=document.getElementById('fechaHoraTop');if(elTop)elTop.textContent=topTxt;}
 function abrirDB(){return new Promise(r=>{let q=indexedDB.open("PezDB",1);q.onupgradeneeded=e=>{e.target.result.createObjectStore("temas",{keyPath:"id",autoIncrement:true})};q.onsuccess=e=>{db=e.target.result;r()}})}
@@ -258,34 +285,39 @@ if(filtroTipo==='local'){document.getElementById('folderOtros').style.display='n
 function activarClave(){let a=Date.now();if(a-tiempoClick>3000)clicksLogo=0;tiempoClick=a;clicksLogo++;if(clicksLogo>=5){clicksLogo=0;let c=prompt("Clave secreta:");if(c===CLAVE){modoBorrado=true;alert("Borrado 60s ON");render();setTimeout(()=>{modoBorrado=false;render()},60000)}else if(c!==null)alert("Clave mala mi pez")}}
 async function subir(){if(!isRegistrado){alert('🔒 Debes registrarte para subir temas mi pez');document.getElementById('registroOverlay').style.display='flex';return} let ded=document.getElementById("dedicado").value.trim();let gen=document.getElementById("genero").value;let letra=document.getElementById("letra").value.trim();let f=document.getElementById("mp3").files[0];let c=document.getElementById("portada").files[0];if(!f){alert("Falta MP3 mi pez");return}let titulo=letra.split("\n")[0].substring(0,40).trim()||ded||f.name.replace(".mp3","")||"Mi Tema";let msg=document.getElementById("msg");msg.textContent="Subiendo online mi pez... espera";try{await guardarTema({titulo,dedicado:ded,genero:gen,letra,audioBlob:f,coverBlob:c||null,repro:0,orden:Date.now(),fav:false});let portada_url="",cancion_url="";if(c){let nombre=Date.now()+"_"+limpiarNombre(c.name);let{error}=await supabaseClient.storage.from('portadas').upload(nombre,c);if(error)throw error;let{data}=supabaseClient.storage.from('portadas').getPublicUrl(nombre);portada_url=data.publicUrl;}if(f){let nombre=Date.now()+"_"+limpiarNombre(f.name);let{error}=await supabaseClient.storage.from('canciones').upload(nombre,f);if(error)throw error;let{data}=supabaseClient.storage.from('canciones').getPublicUrl(nombre);cancion_url=data.publicUrl;}let{error:err2}=await supabaseClient.from('canciones').insert([{artista:ded||'El Don 2035',titulo,letra,portada_url,cancion_url}]);if(err2)throw err2;msg.textContent="¡Subido ONLINE para todos! ✅";document.getElementById("dedicado").value="";document.getElementById("letra").value="";render();}catch(e){console.error(e);msg.textContent="Error online: "+e.message+" (guardado como LOCAL 📱)";render();}}
 abrirDB().then(()=>{
-// PUNTERO INIT
-const dot=document.getElementById('cursor-dot');const outline=document.getElementById('cursor-outline');let mx=0,my=0,ox=0,oy=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});(function anim(){ox+=(mx-ox)*0.18;oy+=(my-oy)*0.18;outline.style.left=ox+'px';outline.style.top=oy+'px';requestAnimationFrame(anim);})();document.addEventListener('mouseover',e=>{if(e.target.closest('button,input,select,textarea,a,.tema,.folder-header'))document.body.classList.add('cursor-hover');else document.body.classList.remove('cursor-hover');});
+// PUNTERO
+const dot=document.getElementById('cursor-dot');const outline=document.getElementById('cursor-outline');let mx=0,my=0,ox=0,oy=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});(function anim(){ox+=(mx-ox)*0.18;oy+=(my-oy)*0.18;outline.style.left=ox+'px';outline.style.top=oy+'px';requestAnimationFrame(anim);})();document.addEventListener('mouseover',e=>{if(e.target.closest('button,input,select,textarea,a,.tema,.folder-header,.iti__flag-container'))document.body.classList.add('cursor-hover');else document.body.classList.remove('cursor-hover');});
 
-checkRegistro();
+checkRegistro();initTelefono();actualizarFechas();setInterval(actualizarFechas,1000);render();
+
 document.getElementById('btnRegistrar').addEventListener('click',async()=>{
-let nombre=document.getElementById('regNombre').value.trim();
-let whats=document.getElementById('regWhats').value.trim();
-let ciudad=document.getElementById('regCiudad').value.trim();
-if(!nombre||!whats){alert('Pon tu nombre y WhatsApp mi pez');return}
-let user={nombre,whats,ciudad,fecha:Date.now()};
-localStorage.setItem('pez_usuario',JSON.stringify(user));
-try{await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,ciudad}]);}catch(e){console.log('usuarios tabla error',e)}
-// AVISO TELEGRAM INSTANTANEO - ESTO ES LO NUEVO MI PEZ
-enviarAvisoTelegram(nombre,whats,ciudad);
+  let nombre=document.getElementById('regNombre').value.trim();
+  let ciudad=document.getElementById('regCiudad').value.trim();
+  if(!nombre){alert('Pon tu nombre mi pez');return}
+  if(!iti){alert('Espera cargando país mi pez');return}
+  let numeroCompleto = iti.getNumber();
+  let paisData = iti.getSelectedCountryData();
+  if(!iti.isValidNumber()){alert('Número no válido mi pez, revisa tu país y número');return}
+  let whats = numeroCompleto;
+  let pais = `${paisData.name} (+${paisData.dialCode}) ${paisData.iso2.toUpperCase()}`;
 
-isRegistrado=true;
-document.getElementById('userBadge').style.display='inline-block';
-document.getElementById('userBadge').textContent='👤 '+nombre;
-document.getElementById('registroOverlay').style.display='none';
-document.getElementById('avisoBloqueo').style.display='none';
-document.getElementById('sidebar').classList.remove('locked');
-render();
-alert('¡Bienvenido '+nombre+' mi pez! 🎉 Ya puedes usar todo');
+  let user={nombre,whats,ciudad,pais,fecha:Date.now()};
+  localStorage.setItem('pez_usuario', JSON.stringify(user));
+  try{await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,ciudad,pais}]);}catch(e){console.log('usuarios error',e)}
+  enviarAvisoTelegram(nombre,whats,ciudad,pais);
+  isRegistrado=true;
+  document.getElementById('userBadge').style.display='inline-block';
+  document.getElementById('userBadge').textContent='👤 '+nombre+' • '+paisData.iso2.toUpperCase();
+  document.getElementById('registroOverlay').style.display='none';
+  document.getElementById('avisoBloqueo').style.display='none';
+  document.getElementById('sidebar').classList.remove('locked');
+  render();
+  alert('¡Bienvenido '+nombre+' de '+paisData.name+' mi pez! 🎉');
 });
+
 document.getElementById('btnInvitado').addEventListener('click',()=>{document.getElementById('registroOverlay').style.display='none';});
 document.getElementById('linkRegistrar').addEventListener('click',(e)=>{e.preventDefault();document.getElementById('registroOverlay').style.display='flex';});
 document.getElementById('ctxRetry').addEventListener('click',()=>reintentarSubida(false));document.getElementById('ctxRetryPortada').addEventListener('click',()=>reintentarSubida(true));document.getElementById('ctxVerLetra').addEventListener('click',()=>{ocultarMenu();verLetra(selectedTemaId);});document.getElementById('ctxCompartir').addEventListener('click',()=>{ocultarMenu();let t=temasCache.find(x=>x.id==selectedTemaId);if(t)compartir(t.id,t.titulo);});document.addEventListener('click',ocultarMenu);
-actualizarFechas();setInterval(actualizarFechas,1000);render();
 let mainA=document.getElementById("mainAudio");
 function updateProgress(){let pct=(mainA.currentTime/mainA.duration)*100;if(!isNaN(pct)){document.getElementById("progressFill").style.width=pct+"%";document.getElementById("playerTopProgressFill").style.width=pct+"%";}let cur=formatTime(mainA.currentTime);let dur=formatTime(mainA.duration);document.getElementById("curTime").textContent=cur;document.getElementById("durTime").textContent=dur;document.getElementById("pfCurTime").textContent=cur;document.getElementById("pfDurTime").textContent=dur;}
 mainA.addEventListener("timeupdate",updateProgress);
