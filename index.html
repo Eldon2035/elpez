@@ -39,20 +39,20 @@ body{margin:0;padding-bottom:56px;min-height:100vh;color:#FFF8DC;font-family:'Po
 .cover-title h2{font-family:'Playfair Display';font-weight:900;font-size:30px;margin:0;color:#FFF}
 .cover-title p{margin:8px 0 0;font-size:12px;color:#FFE9A0}
 #sitioFecha{display:block;margin-top:8px;font-size:10px;color:#FFD700;background:rgba(0,0,0,0.6);padding:5px 10px;border-radius:20px;width:fit-content}
-/* FORMATO ORIGINAL VERDE MI PEZ - NO CAMBIADO */
+/* FORMATO VERDE ORIGINAL DE TU FOTO MI PEZ */
 .tema{display:flex;gap:10px;padding:10px;border-radius:8px;margin-bottom:6px;align-items:center;border:1px solid transparent;transition:0.2s;cursor:pointer}
 .tema.playing{border-color:#FFD70055;box-shadow:0 0 12px #FFD70022}
 .tema img{width:50px;height:50px;border-radius:6px;flex-shrink:0}
 .tema-info{flex:1;min-width:0}
 .tema-info b{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tema-info span{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;margin-top:2px;color:#B3B3B3}
+.tema-info span{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;margin-top:2px}
 .badge{font-size:9px;font-weight:800;padding:3px 7px;border-radius:12px}
 .badge-local{background:#FFD700;color:#000}
 .badge-online{background:#1DB954;color:#FFF}
 .tema-local{background:#1E1E1E}
 .tema-local b{color:#FFF}
 .tema-online{background:#0F1F15;border-color:#1DB95422}
-.tema-online b{color:#1DB954 !important} /* VERDE COMO EN TU FOTO MI PEZ */
+.tema-online b{color:#1DB954 !important}
 .tema-online span{color:#FFE9A0 !important}
 .btn-icon{width:28px;height:28px;border:none;background:rgba(255,255,255,0.06);color:#B3B3B3;font-size:12px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer}
 .folder{border:1px solid #FFFFFF0A;border-radius:8px;margin-bottom:10px;overflow:hidden;background:#181818}
@@ -111,7 +111,6 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 .foto-placeholder{width:90px;height:90px;border-radius:50%;border:3px dashed #FFD70055;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:30px;color:#FFD70055;background:#1E1E1E}
 #perfilUsuarioBox{background:linear-gradient(180deg,#1E1E1E,#121212);border:1px solid #FFD70033;border-radius:12px;padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:12px;display:none}
 #perfilUsuarioBox img{width:56px;height:56px;border-radius:50%;border:2px solid #FFD700;object-fit:cover}
-/* TOP MAS ESCUCHADAS - CON FORMATO VERDE RESPETADO */
 #topHitsCard{border:1px solid #FFD70044;background:linear-gradient(180deg,#1E1800,#121212)}
 .top-item{display:flex;gap:10px;padding:12px;border-radius:10px;background:#0F1F15;margin-bottom:8px;border:1px solid #1DB95422;align-items:center}
 .top-num{font-family:'Cinzel';font-weight:900;font-size:22px;color:#1DB954;width:32px;text-align:center}
@@ -137,8 +136,8 @@ body.modo-admin #fabUpload{display:block !important}
 </style>
 </head>
 <body>
-<div id="registroOverlay"><div class="registroBox"><div style="font-size:40px">🔒</div><h2>EL DON 2035 EL PEZ</h2><p style="font-size:11px;color:#FFE9A0">Estás en modo <b style="color:#FFD700">INVITADO</b> • Solo escuchas</p><div class="foto-placeholder" id="fotoPlaceholder"><i class="fa-solid fa-camera"></i></div><img id="fotoPreview" class="foto-preview"><input type="file" id="regFoto" accept="image/*"><p style="font-size:10px;color:#666">Tu foto (opcional) 📸</p><input id="regNombre" placeholder="Tu nombre completo"><input id="regWhats" type="tel" placeholder="0000000000"><input id="regCiudad" placeholder="Tu ciudad"><div class="aviso-legal"><b style="color:#1DB954">✅ PERMITIDO:</b> IA, autor propio, libre<br><b style="color:#FF3B3B;background:#FF3B3B22;padding:3px 8px;border-radius:6px;display:inline-block;margin-top:6px">⛔ PROHIBIDO COPYRIGHT</b></div><button class="btn" id="btnRegistrar">REGISTRARME GRATIS</button><button class="btn2" id="btnShowLogin" style="margin-top:12px;width:100%;background:#1DB95422;color:#1DB954">¿YA REGISTRADO? INICIA SESIÓN</button><button class="btn2" id="btnInvitado" style="margin-top:8px;border:none;color:#666;width:100%">Seguir como invitado</button></div></div>
-<div id="loginOverlay"><div class="registroBox"><div style="font-size:40px">🔑</div><h2>INICIAR SESIÓN</h2><p style="font-size:11px;color:#FFE9A0;margin-bottom:8px">Pon tu número sin +593<br>Ej: 0000000000</p><input id="loginWhats" type="tel" placeholder="0000000000"><button class="btn" id="btnLogin" style="background:linear-gradient(90deg,#1DB954,#1ED760);color:#FFF">ENTRAR</button><p id="loginMsg" style="font-size:11px;color:#FF3B3B;margin-top:10px"></p><button class="btn2" id="btnVolverRegistro" style="margin-top:10px;width:100%">VOLVER</button></div></div>
+<div id="registroOverlay"><div class="registroBox"><div style="font-size:40px">🔒</div><h2>EL DON 2035 EL PEZ</h2><p style="font-size:11px;color:#FFE9A0">Estás en modo <b style="color:#FFD700">INVITADO</b> • Solo escuchas</p><div class="foto-placeholder" id="fotoPlaceholder"><i class="fa-solid fa-camera"></i></div><img id="fotoPreview" class="foto-preview"><input type="file" id="regFoto" accept="image/*"><p style="font-size:10px;color:#666">Tu foto (opcional) 📸</p><input id="regNombre" placeholder="Tu nombre completo"><input id="regWhats" type="tel" placeholder="0000000000"><input id="regCiudad" placeholder="Tu ciudad"><div class="aviso-legal"><b style="color:#1DB954">✅ PERMITIDO:</b> IA, autor propio, libre<br><b style="color:#FF3B3B;background:#FF3B3B22;padding:3px 8px;border-radius:6px;display:inline-block;margin-top:6px">⛔ PROHIBIDO COPYRIGHT</b></div><button class="btn" id="btnRegistrar">REGISTRARME GRATIS</button><button class="btn2" id="btnShowLogin" style="margin-top:12px;width:100%;background:#1DB95422;color:#1DB954">¿YA REGISTRADO? INICIA SESIÓN</button><button class="btn2" id="btnInvitado" style="margin-top:8px;border:none;color:#666;width:100%;font-weight:800;background:#FFFFFF0A">👉 SEGUIR COMO INVITADO (SOLO ESCUCHAR)</button></div></div>
+<div id="loginOverlay"><div class="registroBox"><div style="font-size:40px">🔑</div><h2>INICIAR SESIÓN</h2><p style="font-size:11px;color:#FFE9A0;margin-bottom:8px">Pon tu número sin +593<br>Ej: 0000000000</p><input id="loginWhats" type="tel" placeholder="0000000000"><button class="btn" id="btnLogin" style="background:linear-gradient(90deg,#1DB954,#1ED760);color:#FFF">ENTRAR</button><p id="loginMsg" style="font-size:11px;color:#FF3B3B;margin-top:10px"></p><button class="btn2" id="btnVolverRegistro" style="margin-top:10px;width:100%">VOLVER</button><button class="btn2" id="btnLoginInvitado" style="margin-top:8px;border:none;color:#666;width:100%;font-weight:800;background:#FFFFFF0A">👉 ENTRAR COMO INVITADO</button></div></div>
 <button id="fabUpload">SUBIR MÚSICA</button>
 <div id="uploadOverlay"></div>
 <div id="uploadDrawer"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h3 style="margin:0;color:#FFD700;font-family:'Cinzel'">SUBIR TEMA</h3><button class="btn2" id="btnCerrarDrawer">CERRAR</button></div><div style="display:flex;gap:6px"><input id="dedicado" placeholder="Dedicado a" style="flex:1"><select id="genero" style="flex:1"><option>Balada Romántica</option><option>Reggaeton</option><option>Salsa</option><option>Bachata</option><option>Merengue</option><option>Vallenato</option></select><select id="carpetaSelect" style="flex:1"><option value="">Sin carpeta</option></select></div><textarea id="letra" placeholder="Letra aquí mi pez..." style="margin-top:8px;min-height:70px"></textarea><div style="display:flex;gap:6px;margin-top:8px"><input type="file" id="mp3" accept="audio/*" style="flex:1"><input type="file" id="portada" accept="image/*" style="flex:1"></div><label style="display:flex;gap:8px;align-items:center;font-size:11px;color:#FFE9A0;margin-top:12px;background:#1E1E1E;padding:10px;border-radius:8px"><input type="checkbox" id="checkDerechos" style="width:18px;height:18px"> <span>Confirmo que es <b>IA o libre</b> y <b style="color:#FF3B3B">NO es copyright.</b></span></label><button class="btn" id="btnSubir">SUBIR ONLINE</button><p id="msg" style="font-size:11px;color:#1DB954;margin-top:8px"></p></div>
@@ -169,8 +168,92 @@ const LINK_OFICIAL="https://eldon2035.github.io/elpez/";const CLAVE="Elpez2035";
 let modoBorrado=false,isAdmin=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],playQueue=[],selectedTemaId=null,isRegistrado=false,iti=null,itiLogin=null,currentPlayingTema=null,fotoBase64=null,carpetasCache=[],soloFavsTop=false;
 function normalizarTelefono(tel){if(!tel) return ""; let s=tel.toString().replace(/\D/g,""); if(s.length>9) s=s.slice(-9); return s;}
 function digitosCompletos(tel){return tel.toString().replace(/\D/g,"");}
-function cerrarSesionTotal(){if(!confirm('¿Cerrar sesión mi pez? Tu foto queda guardada en la nube')) return; try{localStorage.removeItem('pez_usuario');localStorage.removeItem('pez_usuario_respaldo');localStorage.removeItem('pez_admin');Object.keys(localStorage).forEach(k=>{if(k.startsWith('pez_whats_')) localStorage.removeItem(k);});}catch(e){} location.href = location.pathname + '?logout='+Date.now();}
-function checkRegistro(){try{if(new URLSearchParams(window.location.search).has('logout')){localStorage.removeItem('pez_usuario');localStorage.removeItem('pez_usuario_respaldo');localStorage.removeItem('pez_admin');Object.keys(localStorage).forEach(k=>{if(k.startsWith('pez_whats_')) localStorage.removeItem(k);});history.replaceState({}, '', window.location.pathname);}let u=localStorage.getItem('pez_usuario');let u2=localStorage.getItem('pez_usuario_respaldo');if(!u && u2){u=u2; localStorage.setItem('pez_usuario',u2);}let perfilHeader=document.getElementById('perfilHeader');let badge=document.getElementById('userBadge');let badgeFull=document.getElementById('userBadgeFull');let btnSalir=document.getElementById('btnCerrarSesion');let fab=document.getElementById('fabUpload');let avatar=document.getElementById('userAvatar');let bloqueo=document.getElementById('avisoBloqueo');let perfilBox=document.getElementById('perfilUsuarioBox');let perfilBoxAvatar=document.getElementById('perfilBoxAvatar');let perfilBoxNombre=document.getElementById('perfilBoxNombre');let perfilBoxCiudad=document.getElementById('perfilBoxCiudad');let perfilBoxWhats=document.getElementById('perfilBoxWhats');if(u){isRegistrado=true;if(!isAdmin) document.body.classList.remove('invitado');try{let d=JSON.parse(u);perfilHeader.style.display='flex';badge.textContent=d.nombre;badgeFull.textContent=(d.ciudad||'')+' • '+(d.pais||'Registrado');if(btnSalir) btnSalir.style.display='inline-block';if(fab) fab.style.display='block';if(d.foto){avatar.src=d.foto;perfilBoxAvatar.src=d.foto;}else{avatar.src='https://via.placeholder.com/100/FFD700/000?text='+encodeURIComponent(d.nombre.charAt(0));perfilBoxAvatar.src=avatar.src;}perfilBox.style.display='flex';perfilBoxNombre.textContent=d.nombre;perfilBoxCiudad.textContent=(d.ciudad||'Sin ciudad')+' • '+(d.pais||'');perfilBoxWhats.textContent=d.whats||'';bloqueo.innerHTML='✅ Registrado como <b>'+d.nombre+'</b>';bloqueo.className='registrado';document.getElementById('registroOverlay').style.display='none';document.getElementById('loginOverlay').style.display='none';}catch(e){}}else{if(!isAdmin){isRegistrado=false;document.body.classList.add('invitado');perfilHeader.style.display='none';perfilBox.style.display='none';if(btnSalir) btnSalir.style.display='inline-block';if(fab) fab.style.display='none';bloqueo.innerHTML='🔒 INVITADO - Solo puedes escuchar. <a href="#" id="linkRegistrar2" style="color:#FFD700;font-weight:800">Regístrate aquí</a>';bloqueo.className='';let l2=document.getElementById('linkRegistrar2');if(l2) l2.addEventListener('click',(e)=>{e.preventDefault();document.getElementById('registroOverlay').style.display='flex';});document.getElementById('registroOverlay').style.display='flex';}}}catch(e){if(!isAdmin) document.getElementById('registroOverlay').style.display='flex';}}
+function cerrarSesionTotal(){
+  if(!confirm('¿Cerrar sesión mi pez? Tu foto queda guardada en la nube')) return;
+  try{
+    localStorage.removeItem('pez_usuario');
+    localStorage.removeItem('pez_usuario_respaldo');
+    localStorage.removeItem('pez_admin');
+    localStorage.removeItem('pez_modo_invitado');
+    Object.keys(localStorage).forEach(k=>{if(k.startsWith('pez_whats_')) localStorage.removeItem(k);});
+  }catch(e){}
+  location.href = location.pathname + '?logout='+Date.now();
+}
+function checkRegistro(){
+  try{
+    if(new URLSearchParams(window.location.search).has('logout')){
+      localStorage.removeItem('pez_usuario');
+      localStorage.removeItem('pez_usuario_respaldo');
+      localStorage.removeItem('pez_admin');
+      localStorage.removeItem('pez_modo_invitado');
+      Object.keys(localStorage).forEach(k=>{if(k.startsWith('pez_whats_')) localStorage.removeItem(k);});
+      history.replaceState({}, '', window.location.pathname);
+    }
+    let modoInvitado = localStorage.getItem('pez_modo_invitado');
+    let perfilHeader=document.getElementById('perfilHeader');
+    let btnSalir=document.getElementById('btnCerrarSesion');
+    let fab=document.getElementById('fabUpload');
+    let bloqueo=document.getElementById('avisoBloqueo');
+    let perfilBox=document.getElementById('perfilUsuarioBox');
+    if(modoInvitado==='1'){
+      isRegistrado=false;
+      if(!isAdmin) document.body.classList.add('invitado');
+      document.getElementById('registroOverlay').style.display='none';
+      document.getElementById('loginOverlay').style.display='none';
+      if(perfilHeader) perfilHeader.style.display='none';
+      if(perfilBox) perfilBox.style.display='none';
+      if(fab) fab.style.display='none';
+      if(btnSalir) btnSalir.style.display='inline-block';
+      if(bloqueo){bloqueo.innerHTML='🔒 INVITADO - Solo escuchas • <a href="#" id="linkRegistrar2" style="color:#FFD700;font-weight:800">Regístrate aquí</a>'; bloqueo.className=''; let l2=document.getElementById('linkRegistrar2'); if(l2) l2.addEventListener('click',(e)=>{e.preventDefault();localStorage.removeItem('pez_modo_invitado');document.getElementById('registroOverlay').style.display='flex';});}
+      return;
+    }
+    let u=localStorage.getItem('pez_usuario');
+    let u2=localStorage.getItem('pez_usuario_respaldo');
+    if(!u && u2){u=u2; localStorage.setItem('pez_usuario',u2);}
+    let badge=document.getElementById('userBadge');
+    let badgeFull=document.getElementById('userBadgeFull');
+    let avatar=document.getElementById('userAvatar');
+    let perfilBoxAvatar=document.getElementById('perfilBoxAvatar');
+    let perfilBoxNombre=document.getElementById('perfilBoxNombre');
+    let perfilBoxCiudad=document.getElementById('perfilBoxCiudad');
+    let perfilBoxWhats=document.getElementById('perfilBoxWhats');
+    if(u){
+      isRegistrado=true;
+      if(!isAdmin) document.body.classList.remove('invitado');
+      try{
+        let d=JSON.parse(u);
+        perfilHeader.style.display='flex';
+        badge.textContent=d.nombre;
+        badgeFull.textContent=(d.ciudad||'')+' • '+(d.pais||'Registrado');
+        if(btnSalir) btnSalir.style.display='inline-block';
+        if(fab) fab.style.display='block';
+        if(d.foto){avatar.src=d.foto;perfilBoxAvatar.src=d.foto;}else{avatar.src='https://via.placeholder.com/100/FFD700/000?text='+encodeURIComponent(d.nombre.charAt(0));perfilBoxAvatar.src=avatar.src;}
+        perfilBox.style.display='flex';
+        perfilBoxNombre.textContent=d.nombre;
+        perfilBoxCiudad.textContent=(d.ciudad||'Sin ciudad')+' • '+(d.pais||'');
+        perfilBoxWhats.textContent=d.whats||'';
+        bloqueo.innerHTML='✅ Registrado como <b>'+d.nombre+'</b>';
+        bloqueo.className='registrado';
+        document.getElementById('registroOverlay').style.display='none';
+        document.getElementById('loginOverlay').style.display='none';
+      }catch(e){}
+    }else{
+      if(!isAdmin){
+        isRegistrado=false;
+        document.body.classList.add('invitado');
+        perfilHeader.style.display='none';
+        perfilBox.style.display='none';
+        if(btnSalir) btnSalir.style.display='inline-block';
+        if(fab) fab.style.display='none';
+        bloqueo.innerHTML='🔒 INVITADO - Solo puedes escuchar. <a href="#" id="linkRegistrar2" style="color:#FFD700;font-weight:800">Regístrate aquí</a>';
+        bloqueo.className='';
+        let l2=document.getElementById('linkRegistrar2');
+        if(l2) l2.addEventListener('click',(e)=>{e.preventDefault();document.getElementById('registroOverlay').style.display='flex';});
+        document.getElementById('registroOverlay').style.display='flex';
+      }
+    }
+  }catch(e){if(!isAdmin) document.getElementById('registroOverlay').style.display='flex';}
+}
 function setFiltro(t){filtroTipo=t;document.querySelectorAll('.filtros .btn2').forEach(b=>b.classList.remove('active'));let el=document.getElementById('filtro'+t.charAt(0).toUpperCase()+t.slice(1));if(el) el.classList.add('active');render();}
 function actualizarFechas(){try{let ahora=new Date();let meses=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];let topTxt=`${ahora.getDate()} ${meses[ahora.getMonth()]} • ${String(ahora.getHours()).padStart(2,'0')}:${String(ahora.getMinutes()).padStart(2,'0')}`;let elTop=document.getElementById('fechaHoraTop');if(elTop)elTop.textContent=topTxt;}catch(e){}}
 function abrirDB(){return new Promise(r=>{try{let q=indexedDB.open("PezDB",2);q.onupgradeneeded=e=>{let db=e.target.result;if(!db.objectStoreNames.contains("temas")) db.createObjectStore("temas",{keyPath:"id",autoIncrement:true});if(!db.objectStoreNames.contains("carpetas")) db.createObjectStore("carpetas",{keyPath:"id",autoIncrement:true});};q.onsuccess=e=>{db=e.target.result;r()};q.onerror=()=>r();}catch(e){r();}})}
@@ -226,10 +309,95 @@ document.getElementById('btnCerrarDrawer')?.addEventListener('click',closeDrawer
 document.getElementById('uploadOverlay')?.addEventListener('click',closeDrawer);
 document.getElementById('btnShowLogin')?.addEventListener('click',()=>{document.getElementById('registroOverlay').style.display='none';document.getElementById('loginOverlay').style.display='flex';});
 document.getElementById('btnVolverRegistro')?.addEventListener('click',()=>{document.getElementById('loginOverlay').style.display='none';document.getElementById('registroOverlay').style.display='flex';});
-document.getElementById('btnLoginInvitado')?.addEventListener('click',()=>{document.getElementById('loginOverlay').style.display='none';if(!isAdmin){isRegistrado=false;localStorage.removeItem('pez_usuario');}checkRegistro();});
+
+// BOTONES INVITADO ARREGLADOS MI PEZ
+document.getElementById('btnInvitado')?.addEventListener('click',()=>{
+  localStorage.setItem('pez_modo_invitado','1');
+  localStorage.removeItem('pez_usuario');
+  isRegistrado=false;
+  document.body.classList.add('invitado');
+  document.getElementById('registroOverlay').style.display='none';
+  document.getElementById('loginOverlay').style.display='none';
+  checkRegistro();
+  render();
+});
+document.getElementById('btnLoginInvitado')?.addEventListener('click',()=>{
+  localStorage.setItem('pez_modo_invitado','1');
+  document.getElementById('loginOverlay').style.display='none';
+  document.getElementById('registroOverlay').style.display='none';
+  isRegistrado=false;
+  document.body.classList.add('invitado');
+  checkRegistro();
+  render();
+});
+
 document.getElementById('btnCrearCarpeta')?.addEventListener('click',async()=>{let input=document.getElementById('inputNuevaCarpeta');let nombre=input.value.trim();if(!nombre){alert('Pon nombre a la carpeta mi pez');return}await guardarCarpeta(nombre);input.value='';render();});
-document.getElementById('btnRegistrar')?.addEventListener('click',async()=>{try{let nombre=document.getElementById('regNombre').value.trim();let ciudad=document.getElementById('regCiudad').value.trim();if(!nombre){alert('Pon tu nombre mi pez');return}let whats="";let pais="";try{if(iti){whats=iti.getNumber();let paisData=iti.getSelectedCountryData();pais=`${paisData.name} (+${paisData.dialCode})`;}}catch(e){whats=document.getElementById('regWhats').value.trim();}if(!whats) whats=document.getElementById('regWhats').value.trim();if(!whats){alert('Pon tu WhatsApp mi pez');return}let whatsNorm = normalizarTelefono(whats);let whatsDig = digitosCompletos(whats);let user={nombre,whats,whats_normalizado:whatsNorm,whats_digitos:whatsDig,ciudad,pais,fecha:Date.now(),foto:fotoBase64||''};localStorage.setItem('pez_usuario', JSON.stringify(user));localStorage.setItem('pez_usuario_respaldo', JSON.stringify(user));localStorage.setItem('pez_whats_'+whatsNorm, JSON.stringify(user));try{if(supabaseClient) await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,whatsapp_normalizado:whatsNorm,ciudad,pais,avatar_url:fotoBase64||''}]);}catch(e){}isRegistrado=true;document.body.classList.remove('invitado');document.getElementById('registroOverlay').style.display='none';document.getElementById('loginOverlay').style.display='none';checkRegistro();render();alert("✅ Registrado mi pez "+nombre);}catch(e){alert('Error registro: '+e.message);}});
-document.getElementById('btnLogin')?.addEventListener('click',async()=>{try{let loginInput="";try{loginInput=itiLogin?itiLogin.getNumber():document.getElementById('loginWhats').value.trim();}catch(e){loginInput=document.getElementById('loginWhats').value.trim();}if(!loginInput) loginInput=document.getElementById('loginWhats').value.trim();let msg=document.getElementById('loginMsg');if(!loginInput){msg.textContent='Pon tu WhatsApp mi pez';return}let loginNorm = normalizarTelefono(loginInput);msg.style.color='#FFD700';msg.textContent='Buscando '+loginNorm+'... mi pez';let localKey = localStorage.getItem('pez_whats_'+loginNorm);if(localKey){localStorage.setItem('pez_usuario', localKey);localStorage.setItem('pez_usuario_respaldo', localKey);let d=JSON.parse(localKey);msg.style.color='#1DB954';msg.textContent='✅ ¡Bienvenido de vuelta '+d.nombre+'!';setTimeout(()=>{isRegistrado=true;document.body.classList.remove('invitado');document.getElementById('loginOverlay').style.display='none';document.getElementById('registroOverlay').style.display='none';checkRegistro();render();},800);return;}let encontrado=null;try{let {data:d1} = await supabaseClient.from('usuarios').select('*').ilike('whatsapp','%'+loginNorm+'%').limit(1);if(d1 && d1.length>0) encontrado=d1[0];if(!encontrado){let {data:d2} = await supabaseClient.from('usuarios').select('*').ilike('whatsapp_normalizado','%'+loginNorm+'%').limit(1);if(d2 && d2.length>0) encontrado=d2[0];}if(!encontrado){let {data:d3} = await supabaseClient.from('usuarios').select('*').limit(150);if(d3){for(let u of d3){if(normalizarTelefono(u.whatsapp||"")===loginNorm){encontrado=u; break;}}}} }catch(e){console.log(e)}if(!encontrado){msg.style.color='#FF3B3B';msg.textContent='❌ No encontré cuenta con '+loginNorm+' mi pez.';return;}let u=encontrado;let user={nombre:u.nombre,whats:u.whatsapp,whats_normalizado:normalizarTelefono(u.whatsapp),whats_digitos:digitosCompletos(u.whatsapp),ciudad:u.ciudad||'',pais:u.pais||'',fecha:Date.now(),foto:u.avatar_url||''};localStorage.setItem('pez_usuario', JSON.stringify(user));localStorage.setItem('pez_usuario_respaldo', JSON.stringify(user));localStorage.setItem('pez_whats_'+user.whats_normalizado, JSON.stringify(user));msg.style.color='#1DB954';msg.textContent='✅ ¡Bienvenido de nuevo '+u.nombre+'!';setTimeout(()=>{isRegistrado=true;document.body.classList.remove('invitado');document.getElementById('loginOverlay').style.display='none';document.getElementById('registroOverlay').style.display='none';checkRegistro();render();},800);}catch(e){document.getElementById('loginMsg').style.color='#FF3B3B';document.getElementById('loginMsg').textContent='Error: '+e.message;}});
+document.getElementById('btnRegistrar')?.addEventListener('click',async()=>{
+  try{
+    let nombre=document.getElementById('regNombre').value.trim();
+    let ciudad=document.getElementById('regCiudad').value.trim();
+    if(!nombre){alert('Pon tu nombre mi pez');return}
+    let whats="";let pais="";
+    try{if(iti){whats=iti.getNumber();let paisData=iti.getSelectedCountryData();pais=`${paisData.name} (+${paisData.dialCode})`;}}catch(e){whats=document.getElementById('regWhats').value.trim();}
+    if(!whats) whats=document.getElementById('regWhats').value.trim();
+    if(!whats){alert('Pon tu WhatsApp mi pez');return}
+    let whatsNorm = normalizarTelefono(whats);
+    let whatsDig = digitosCompletos(whats);
+    let user={nombre,whats,whats_normalizado:whatsNorm,whats_digitos:whatsDig,ciudad,pais,fecha:Date.now(),foto:fotoBase64||''};
+    localStorage.setItem('pez_usuario', JSON.stringify(user));
+    localStorage.setItem('pez_usuario_respaldo', JSON.stringify(user));
+    localStorage.setItem('pez_whats_'+whatsNorm, JSON.stringify(user));
+    localStorage.removeItem('pez_modo_invitado');
+    try{if(supabaseClient) await supabaseClient.from('usuarios').insert([{nombre,whatsapp:whats,whatsapp_normalizado:whatsNorm,ciudad,pais,avatar_url:fotoBase64||''}]);}catch(e){}
+    isRegistrado=true;document.body.classList.remove('invitado');
+    document.getElementById('registroOverlay').style.display='none';
+    document.getElementById('loginOverlay').style.display='none';
+    checkRegistro();render();
+    alert("✅ Registrado mi pez "+nombre);
+  }catch(e){alert('Error registro: '+e.message);}
+});
+document.getElementById('btnLogin')?.addEventListener('click',async()=>{
+  try{
+    let loginInput="";try{loginInput=itiLogin?itiLogin.getNumber():document.getElementById('loginWhats').value.trim();}catch(e){loginInput=document.getElementById('loginWhats').value.trim();}
+    if(!loginInput) loginInput=document.getElementById('loginWhats').value.trim();
+    let msg=document.getElementById('loginMsg');
+    if(!loginInput){msg.textContent='Pon tu WhatsApp mi pez';return}
+    let loginNorm = normalizarTelefono(loginInput);
+    msg.style.color='#FFD700';msg.textContent='Buscando '+loginNorm+'... mi pez';
+    let localKey = localStorage.getItem('pez_whats_'+loginNorm);
+    if(localKey){
+      localStorage.setItem('pez_usuario', localKey);
+      localStorage.setItem('pez_usuario_respaldo', localKey);
+      localStorage.removeItem('pez_modo_invitado');
+      let d=JSON.parse(localKey);
+      msg.style.color='#1DB954';msg.textContent='✅ ¡Bienvenido de vuelta '+d.nombre+'!';
+      setTimeout(()=>{isRegistrado=true;document.body.classList.remove('invitado');document.getElementById('loginOverlay').style.display='none';document.getElementById('registroOverlay').style.display='none';checkRegistro();render();},800);
+      return;
+    }
+    let encontrado=null;
+    try{
+      let {data:d1} = await supabaseClient.from('usuarios').select('*').ilike('whatsapp','%'+loginNorm+'%').limit(1);
+      if(d1 && d1.length>0) encontrado=d1[0];
+      if(!encontrado){
+        let {data:d2} = await supabaseClient.from('usuarios').select('*').ilike('whatsapp_normalizado','%'+loginNorm+'%').limit(1);
+        if(d2 && d2.length>0) encontrado=d2[0];
+      }
+      if(!encontrado){
+        let {data:d3} = await supabaseClient.from('usuarios').select('*').limit(150);
+        if(d3){for(let u of d3){if(normalizarTelefono(u.whatsapp||"")===loginNorm){encontrado=u; break;}}}
+      }
+    }catch(e){console.log(e)}
+    if(!encontrado){msg.style.color='#FF3B3B';msg.textContent='❌ No encontré cuenta con '+loginNorm+' mi pez.';return;}
+    let u=encontrado;
+    let user={nombre:u.nombre,whats:u.whatsapp,whats_normalizado:normalizarTelefono(u.whatsapp),whats_digitos:digitosCompletos(u.whatsapp),ciudad:u.ciudad||'',pais:u.pais||'',fecha:Date.now(),foto:u.avatar_url||''};
+    localStorage.setItem('pez_usuario', JSON.stringify(user));
+    localStorage.setItem('pez_usuario_respaldo', JSON.stringify(user));
+    localStorage.setItem('pez_whats_'+user.whats_normalizado, JSON.stringify(user));
+    localStorage.removeItem('pez_modo_invitado');
+    msg.style.color='#1DB954';msg.textContent='✅ ¡Bienvenido de nuevo '+u.nombre+'!';
+    setTimeout(()=>{isRegistrado=true;document.body.classList.remove('invitado');document.getElementById('loginOverlay').style.display='none';document.getElementById('registroOverlay').style.display='none';checkRegistro();render();},800);
+  }catch(e){document.getElementById('loginMsg').style.color='#FF3B3B';document.getElementById('loginMsg').textContent='Error: '+e.message;}
+});
 document.getElementById('userAvatar')?.addEventListener('click',()=>{document.getElementById('changeFotoInput').click();});
 document.getElementById('perfilBoxAvatar')?.addEventListener('click',()=>{document.getElementById('changeFotoInput').click();});
 document.getElementById('btnCambiarFotoBox')?.addEventListener('click',()=>{document.getElementById('changeFotoInput').click();});
@@ -240,7 +408,6 @@ document.getElementById('changeFotoInput')?.addEventListener('change',e=>{
     alert('¡Foto actualizada y guardada en la nube mi pez! 📸');
   };reader.readAsDataURL(file);
 });
-document.getElementById('btnInvitado')?.addEventListener('click',()=>{document.getElementById('registroOverlay').style.display='none';if(!isAdmin){isRegistrado=false;localStorage.removeItem('pez_usuario');}checkRegistro();});
 document.getElementById('btnCerrarSesion')?.addEventListener('click', cerrarSesionTotal);
 document.getElementById('ctxRetry')?.addEventListener('click',()=>reintentarSubida());document.getElementById('ctxVerLetra')?.addEventListener('click',()=>{ocultarMenu();verLetra(selectedTemaId);});document.getElementById('ctxMoverCarpeta')?.addEventListener('click',async()=>{ocultarMenu();let carpetas=await obtenerCarpetas();if(carpetas.length===0){alert('Primero crea una carpeta mi pez');return}let opciones=carpetas.map((c,i)=>`${i+1}. ${c.nombre}`).join('\n');let sel=prompt(`Mover a qué carpeta?\n${opciones}\n0 para sacar:`);if(sel===null)return;let idx=parseInt(sel)-1;if(sel=='0'){await moverA(null, selectedTemaId);render();return}if(idx>=0 && idx<carpetas.length){await moverA(carpetas[idx].id, selectedTemaId);render();}});document.addEventListener('click',ocultarMenu);
 let mainA=document.getElementById("mainAudio");
