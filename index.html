@@ -9,8 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box}
-body{margin:0;padding-bottom:110px;min-height:100vh;color:#FFF8DC;font-family:'Poppins';overflow-x:hidden;background:#000;cursor:none !important}
-* {cursor:none !important}
+body{margin:0;padding-bottom:110px;min-height:100vh;color:#FFF8DC;font-family:'Poppins';overflow-x:hidden;background:#000;cursor:auto}
 .cursor-dot{width:10px;height:10px;background:#FFD700;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 12px #FFD700}
 .cursor-outline{width:38px;height:38px;border:2px solid #FFD700;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;border-radius:50%;transform:translate(-50%,-50%);transition:all 0.15s ease-out;display:flex;align-items:center;justify-content:center;background:rgba(255,215,0,0.08)}
 .cursor-outline::after{content:'🐟';}
@@ -37,7 +36,6 @@ body{margin:0;padding-bottom:110px;min-height:100vh;color:#FFF8DC;font-family:'P
 .sidebar{width:380px;min-width:380px;background:#121212;border-right:1px solid #FFFFFF0A;padding:14px;overflow-y:auto;max-height:calc(100vh - 65px - 110px);position:sticky;top:65px}
 .sidebar h3{font-size:11px;font-weight:700;color:#B3B3B3;letter-spacing:1.2px;margin:14px 0 8px;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
 .main-content{flex:1;padding:18px;overflow-y:auto;position:relative}
-/* BUSCADOR FIJO */
 .buscador-wrapper{position:sticky;top:0;z-index:25;background:#121212F2;backdrop-filter:blur(12px);padding:12px 0;margin-bottom:18px;display:flex;align-items:center;gap:10px;justify-content:flex-start;border-bottom:1px solid #FFFFFF0A}
 #buscador{width:320px;max-width:60%;padding:12px 18px 12px 44px;border-radius:25px !important;border:1px solid #FFD70044 !important;background:linear-gradient(180deg,#1E1E1E,#121212) !important;color:#FFF !important;font-size:13px;box-shadow:0 4px 20px rgba(0,0,0,0.5);transition:all 0.3s}
 #buscador:focus{border-color:#FFD700 !important;box-shadow:0 4px 25px rgba(255,215,0,0.15);outline:none;width:360px}
@@ -125,7 +123,16 @@ input,select,textarea{width:100%;padding:10px 12px;border-radius:6px;border:1px 
 #perfilUsuarioBox img{width:56px;height:56px;border-radius:50%;border:2px solid #FFD700;object-fit:cover}
 #perfilUsuarioBox b{color:#FFD700;font-size:14px;display:block}
 #perfilUsuarioBox span{color:#FFE9A0;font-size:11px}
-@media(max-width:900px){.layout{flex-direction:column}.sidebar{width:100%;min-width:100%;max-height:none;position:static;order:2}.main-content{order:1}#uploadDrawer{width:100%}.player-main{flex-wrap:wrap}.player-center{order:3;width:100%}.player-right{order:2}#buscador{width:100%;max-width:100%}.buscador-hint{display:none} #perfilHeader{padding:4px 8px} #userBadge{max-width:90px;font-size:11px}}
+/* PUNTERO ARREGLADO MI PEZ */
+#registroOverlay, #loginOverlay, #uploadDrawer,
+#registroOverlay *, #loginOverlay *, #uploadDrawer *{cursor:auto !important}
+#registroOverlay input, #loginOverlay input, #uploadDrawer input,
+#registroOverlay textarea, #uploadDrawer textarea{cursor:text !important}
+#registroOverlay button, #loginOverlay button, #uploadDrawer button{cursor:pointer !important}
+@media (pointer: coarse), (max-width:900px){
+  .cursor-dot, .cursor-outline{display:none !important}
+  .layout{flex-direction:column}.sidebar{width:100%;min-width:100%;max-height:none;position:static;order:2}.main-content{order:1}#uploadDrawer{width:100%}.player-main{flex-wrap:wrap}.player-center{order:3;width:100%}.player-right{order:2}#buscador{width:100%;max-width:100%}.buscador-hint{display:none} #perfilHeader{padding:4px 8px} #userBadge{max-width:90px;font-size:11px}
+}
 body.invitado #pfDownloadBtn, body.invitado #pfShareBtn, body.invitado #pfFavBtn, body.invitado #exportImportBox, body.invitado #fabUpload, body.invitado .folder-actions, body.invitado #btnCrearCarpeta{display:none !important}
 </style>
 </head>
@@ -480,7 +487,6 @@ async function render(){
   let filtrarTexto=t=>!filtro||(t.titulo+(t.dedicado||"")).toLowerCase().includes(filtro.toLowerCase());
   let filtrarTipoFn=(t,isOnline)=>{if(filtroTipo==='local')return !isOnline;if(filtroTipo==='online')return isOnline;return true};
   temas=temas.filter(filtrarTexto);online=online.filter(filtrarTexto);temasCache=temas;actualizarPlayQueue();
-  // Carpetas
   let listaCarpetas=document.getElementById("listaCarpetas");
   let carpetaSelect=document.getElementById("carpetaSelect");
   listaCarpetas.innerHTML="";carpetaSelect.innerHTML='<option value="">Sin carpeta</option>';
@@ -515,11 +521,10 @@ async function render(){
       if(qIdx===currentIdx && currentPlayingTema) d.classList.add("playing");
       d.dataset.id=t.id;
       d.oncontextmenu=(e)=>mostrarMenu(e,t.id);
-      d.innerHTML=`<img src="${urlC}"><div class="tema-info" onclick="tocar(${idx})"><b>${t.titulo} <span class="badge badge-local">📁 ${c.nombre}</span></b><span>${t.dedicado||''} • ▶️${t.repro||0}</span></div><div class="tema-actions"><button class="btn-icon" onclick="moverA(null,${t.id})" title="Sacar de carpeta"><i class="fa-solid fa-folder-open"></i></button><button class="btn-icon" onclick="verLetra(${t.id})"><i class="fa-solid fa-file-lines"></i></button>${btnBorrar}</div>`;
+      d.innerHTML=`<img src="${urlC}"><div class="tema-info" onclick="tocar(${idx})"><b>${t.titulo} <span class="badge badge-local">📁 ${c.nombre}</span></b><span>${t.dedicado||''} • ▶️${t.repro||0}</span></div><div class="tema-actions"><button class="btn-icon" onclick="moverA(null,${t.id})" title="Sacar"><i class="fa-solid fa-folder-open"></i></button><button class="btn-icon" onclick="verLetra(${t.id})"><i class="fa-solid fa-file-lines"></i></button>${btnBorrar}</div>`;
       cont.appendChild(d);
     });
   });
-
   let l=document.getElementById("lista");l.innerHTML="";
   let temasSinCarpeta=temas.filter(t=>!t.carpetaId && filtrarTipoFn(t,false));
   document.getElementById("contador2").textContent=temasSinCarpeta.length;
@@ -535,7 +540,6 @@ async function render(){
     d.innerHTML=`<img src="${urlC}"><div class="tema-info" onclick="tocar(${idx})"><b>${t.titulo} <span class="badge badge-local">📱 LOCAL</span></b><span>${t.dedicado||''} • ▶️${t.repro||0}</span></div><div class="tema-actions"><button class="btn-icon" onclick="verLetra(${t.id})"><i class="fa-solid fa-file-lines"></i></button>${btnBorrar}</div>`;
     l.appendChild(d);
   });
-
   let lOtros=document.getElementById("listaOtros");lOtros.innerHTML="";
   let onlineFiltrado=online.filter(t=>filtrarTipoFn(t,true));
   document.getElementById("otrosCount").textContent=onlineFiltrado.length;
