@@ -6,7 +6,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0b1020;color:#fff;font-family:Arial}
-header{background:#070b18;border-bottom:2px solid #ffcc00;padding:12px 20px;display:flex;gap:10px;align-items:center;cursor:pointer;user-select:none}
+header{background:#070b18;border-bottom:2px solid #ffcc00;padding:12px 20px;display:flex;gap:10px;align-items:center;user-select:none}
 header img{width:50px;height:50px;border-radius:50%;border:2px solid #ffcc00}
 .container{max-width:650px;margin:auto;padding:20px}
 h2{color:#ffcc00;text-align:center;margin:20px 0}
@@ -24,24 +24,23 @@ input,select,textarea{width:100%;background:#1c1e3a;border:1px solid #2a2c50;col
 </style>
 </head>
 <body>
-<header id="logoHeader" title="Toca 5 veces para modo admin">
-<img src="logo.png" onerror="this.src='https://i.ibb.co/3m5cZQv/logo.png'">
-<div><b style="color:#d4a017">EL DON 2035</b> <span id="adminBadge">ADMIN</span><br><small style="letter-spacing:2px;color:#888">EL PEZ OFICIAL</small></div>
+<header id="logoHeader">
+<img src="logo.png"><div><b style="color:#d4a017">EL DON 2035</b> <span id="adminBadge">ADMIN</span><br><small style="letter-spacing:2px;color:#888">EL PEZ OFICIAL</small></div>
 </header>
 <div class="container">
 <h2>SUBIR TU MUSICA REAL</h2>
-<label>Título</label><input id="title" value="Mi conchita">
+<label>Título</label><input id="title" value="Hija de mi vida">
 <label>Artista</label><input id="artist" value="El Pez">
 <label>Dedicado a</label><input id="dedicated" value="Mi hija">
-<label>Genero</label><select id="genre"><option>Balada Romántica</option><option>Reggaeton</option><option>Balada</option></select>
-<label>Letra</label><textarea id="lyrics" rows="3" placeholder="Pega aqui la letra..."></textarea>
+<label>Genero</label><select id="genre"><option>Balada Romántica</option><option>Reggaeton</option></select>
+<label>Letra</label><textarea id="lyrics" rows="3"></textarea>
 <label>Archivo MP3</label><input type="file" id="mp3" accept=".mp3,audio/*">
 <label>Portada</label><input type="file" id="cover" accept="image/*">
 <button class="btn" onclick="subir()">🚀 SUBIR DE VERDAD</button>
 <div id="status"></div>
 <div class="card">
 <b style="color:#ffcc00">🎧 Tus Temas (<span id="count">0</span>)</b>
-<div id="lista" style="margin-top:10px">Cargando...</div>
+<div id="lista">Cargando...</div>
 </div>
 </div>
 <script>
@@ -50,42 +49,24 @@ const KEY = "sb_publishable_SfXj31r9TeqJu--BroldTw_WAEPpl4s";
 const HEAD = { "apikey": KEY, "Authorization": "Bearer "+KEY, "Content-Type": "application/json" };
 const CLAVE_ADMIN = "Elpez2035";
 let isAdmin = localStorage.getItem("elpez_admin")==="1";
-let taps=0;
 if(isAdmin) document.body.classList.add("admin-on");
-
+let taps=0;
 document.getElementById("logoHeader").addEventListener("click",()=>{
-  taps++;
-  if(taps>=5){
-    taps=0;
-    let c = prompt("🔒 Clave de ADMIN EL PEZ:");
-    if(c===CLAVE_ADMIN){
-      localStorage.setItem("elpez_admin","1");
-      isAdmin=true;
-      document.body.classList.add("admin-on");
-      alert("✅ Modo ADMIN activado mi pez");
-      cargar();
-    }else if(c!==null){
-      alert("❌ Clave incorrecta");
-    }
-  }
-  setTimeout(()=>taps=0,3000);
+  taps++; if(taps>=5){ taps=0;
+    let c=prompt("🔒 Clave ADMIN:"); if(c===CLAVE_ADMIN){localStorage.setItem("elpez_admin","1");document.body.classList.add("admin-on");alert("✅ ADMIN activado mi pez");} else if(c) alert("❌ Clave mala");
+  } setTimeout(()=>taps=0,3000);
 });
 
+function crearHTML(s){
+ let txt = encodeURIComponent(`🎵 Escucha "${s.title}" de EL DON 2035 🔥 ${s.audio_url}`);
+ return `<div class="song" id="song-${s.id}"><img src="${s.cover_url||'logo.png'}" style="width:60px;height:60px;border-radius:8px;object-fit:cover"><div style="flex:1"><b style="color:#ffcc00">${s.title}</b><br><audio controls preload="none" src="${s.audio_url}" style="width:100%;height:30px;margin-top:4px"></audio><br><a class="wa" target="_blank" href="https://wa.me/?text=${txt}">📲 WhatsApp</a><button class="del" onclick="borrar('${s.id}')">Borrar</button></div></div>`;
+}
+
 async function cargar(){
- try{
-  let r = await fetch(URL+"/rest/v1/songs?select=*&order=created_at.desc", {headers: HEAD});
-  if(!r.ok) throw new Error(await r.text());
-  let data = await r.json();
-  document.getElementById('count').innerText = data.length;
-  let lista = document.getElementById('lista');
-  if(data.length==0){lista.innerHTML="Aún no hay temas";return;}
-  let h="";
-  data.forEach(s=>{
-   let txt = encodeURIComponent(`🎵 Escucha "${s.title}" de EL DON 2035 🔥 ${s.audio_url}`);
-   h+=`<div class="song"><img src="${s.cover_url||'logo.png'}" style="width:60px;height:60px;border-radius:8px;object-fit:cover"><div style="flex:1"><b style="color:#ffcc00">${s.title}</b><br><audio controls src="${s.audio_url}" style="width:100%;height:30px;margin-top:4px"></audio><br><a class="wa" target="_blank" href="https://wa.me/?text=${txt}">📲 WhatsApp</a><button class="del" onclick="borrar('${s.id}')">Borrar</button></div></div>`;
-  });
-  lista.innerHTML=h;
- }catch(e){document.getElementById('lista').innerHTML="Error: "+e.message;}
+ let r = await fetch(URL+"/rest/v1/songs?select=*&order=created_at.desc", {headers: HEAD});
+ let data = await r.json();
+ document.getElementById('count').innerText = data.length;
+ document.getElementById('lista').innerHTML = data.map(crearHTML).join("") || "Aún no hay temas";
 }
 
 async function subir(){
@@ -106,23 +87,27 @@ async function subir(){
    await fetch(URL+"/storage/v1/object/covers/"+cname, {method:"POST", headers: {...HEAD, "Content-Type": cover.type}, body: cover});
    cover_url = URL+"/storage/v1/object/public/covers/"+cname;
   }
-  let r2 = await fetch(URL+"/rest/v1/songs", {method:"POST", headers: {...HEAD, "Prefer":"return=minimal"}, body: JSON.stringify({title, artist:document.getElementById('artist').value, dedicated_to:document.getElementById('dedicated').value, genre:document.getElementById('genre').value, lyrics:document.getElementById('lyrics').value, audio_url, cover_url})});
-  if(!r2.ok) throw new Error(await r2.text());
-  st.innerHTML="✅ ¡Subido mi pez!";
-  cargar();
+  let newSong = {title, artist:document.getElementById('artist').value, dedicated_to:document.getElementById('dedicated').value, genre:document.getElementById('genre').value, lyrics:document.getElementById('lyrics').value, audio_url, cover_url};
+  let r2 = await fetch(URL+"/rest/v1/songs", {method:"POST", headers: {...HEAD, "Prefer":"return=representation"}, body: JSON.stringify(newSong)});
+  let saved = await r2.json();
+  // --- ESTO ES EL FIX MI PEZ: NO RECARGO, SOLO AGREGO ARRIBA ---
+  let lista = document.getElementById('lista');
+  if(lista.innerHTML.includes("Aún no hay")) lista.innerHTML="";
+  let s = Array.isArray(saved)?saved[0]:newSong;
+  if(!s.id) s.id = Date.now();
+  lista.insertAdjacentHTML("afterbegin", crearHTML(s));
+  document.getElementById('count').innerText = parseInt(document.getElementById('count').innerText||0)+1;
+  st.innerHTML="✅ ¡Subido sin cortar la música mi pez!";
  }catch(e){st.innerHTML="❌ "+e.message;}
 }
 
 async function borrar(id){
-  let c = prompt("🔒 Para borrar pon la clave de ADMIN:");
-  if(c!==CLAVE_ADMIN){alert("❌ Clave incorrecta");return;}
-  if(!confirm("¿Seguro borrar mi pez?")) return;
-  try{
-    let r = await fetch(URL+"/rest/v1/songs?id=eq."+id, {method:"DELETE", headers: HEAD});
-    if(!r.ok) throw new Error(await r.text());
-    alert("🗑️ Borrado");
-    cargar();
-  }catch(e){alert("Error: "+e.message);}
+ let c = prompt("🔒 Clave ADMIN para borrar:"); if(c!==CLAVE_ADMIN){alert("❌ Clave mala");return;}
+ if(!confirm("¿Seguro borrar mi pez?")) return;
+ await fetch(URL+"/rest/v1/songs?id=eq."+id, {method:"DELETE", headers: HEAD});
+ let el = document.getElementById("song-"+id);
+ if(el) el.remove(); // Solo quito ese, no toco los demás audios
+ document.getElementById('count').innerText = Math.max(0, parseInt(document.getElementById('count').innerText)-1);
 }
 cargar();
 </script>
