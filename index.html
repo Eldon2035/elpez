@@ -18,10 +18,10 @@ textarea{min-height:80px}
 .box{background:#1c1e3a;border-radius:10px;padding:6px}
 .btn{width:100%;background:#ffeb3b;color:#000;border:none;border-radius:12px;padding:14px;font-weight:bold;margin-top:20px;cursor:pointer;font-size:16px}
 .card{background:#151735;border:1px solid #2a2c50;border-radius:14px;padding:15px;margin-top:20px}
-#status{text-align:center;margin-top:12px;font-weight:bold;min-height:20px}
+#status{text-align:center;margin-top:12px;font-weight:bold}
 .song{background:#1e2040;border-radius:12px;padding:12px;margin-top:10px;display:flex;gap:12px}
-.wa{background:#25D366;color:#fff;padding:6px 12px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:12px;display:inline-block;margin-top:6px}
-.del{background:#ff3b3b;color:#fff;border:none;border-radius:8px;padding:6px 10px;font-weight:bold;cursor:pointer;margin-left:5px}
+.wa{background:#25D366;color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:12px}
+.del{background:#ff3b3b;color:#fff;border:none;border-radius:8px;padding:8px 10px;font-weight:bold;cursor:pointer}
 </style>
 </head>
 <body>
@@ -41,13 +41,12 @@ textarea{min-height:80px}
 <button class="btn" onclick="subir()">🚀 SUBIR DE VERDAD</button>
 <div id="status"></div>
 <div class="card">
-<div style="display:flex;justify-content:space-between"><b style="color:#ffcc00">🎧 Tus Temas (<span id="count">0</span>)</b><input id="search" placeholder="Buscar..." oninput="cargar()" style="width:110px;padding:6px;border-radius:8px"></div>
+<div style="display:flex;justify-content:space-between"><b style="color:#ffcc00">🎧 Tus Temas (<span id="count">0</span>)</b><input id="search" placeholder="Buscar..." oninput="cargar()" style="width:110px;padding:6px;border-radius:8px;background:#1c1e3a;color:#fff;border:1px solid #333"></div>
 <div id="lista" style="margin-top:12px">Cargando...</div>
 </div>
 </div>
 <script>
-// URL CORRECTA DE TU FOTO
-const SUPA_URL = "https://tjsvoufyqiqtogklqeqyf.supabase.co";
+const SUPA_URL = "https://tjsvoufyiqtogklqeqyf.supabase.co";
 const SUPA_KEY = "sb_publishable_SfXj31r9TeqJu--BroldTw_WAEPpl4s";
 const client = supabase.createClient(SUPA_URL, SUPA_KEY);
 
@@ -81,12 +80,12 @@ async function cargar(){
   if(error) throw error;
   document.getElementById('count').innerText=data.length;
   const lista=document.getElementById('lista');
-  if(data.length===0){lista.innerHTML="Aún no hay temas";return;}
+  if(data.length===0){lista.innerHTML="Aún no hay temas - sube el primero mi pez";return;}
   const q=document.getElementById('search').value.toLowerCase();
   let h="";
   data.filter(s=>s.title.toLowerCase().includes(q)).forEach(s=>{
-   const txt=encodeURIComponent(`🎵 Escucha "${s.title}" de EL DON 2035 🔥 ${s.audio_url}`);
-   h+=`<div class="song"><img src="${s.cover_url||'logo.png'}" style="width:60px;height:60px;border-radius:8px"><div style="flex:1"><b style="color:#ffcc00">${s.title}</b><br><audio controls src="${s.audio_url}" style="width:100%;height:30px;margin-top:5px"></audio><br><a class="wa" target="_blank" href="https://wa.me/?text=${txt}">📲 Compartir por WhatsApp</a><button class="del" onclick="borrar('${s.id}')">Borrar</button></div></div>`;
+   const txt=encodeURIComponent(`🎵 Escucha "${s.title}" de EL DON 2035 - EL PEZ OFICIAL 🔥 ${s.audio_url}`);
+   h+=`<div class="song"><img src="${s.cover_url||'logo.png'}" style="width:60px;height:60px;border-radius:8px;object-fit:cover"><div style="flex:1"><b style="color:#ffcc00">${s.title}</b><br><audio controls src="${s.audio_url}" style="width:100%;height:30px;margin-top:5px"></audio><br><a class="wa" target="_blank" href="https://wa.me/?text=${txt}">📲 Compartir por WhatsApp</a><button class="del" onclick="borrar('${s.id}')">Borrar</button></div></div>`;
   });
   lista.innerHTML=h;
  }catch(e){document.getElementById('lista').innerHTML="Error: "+e.message;}
