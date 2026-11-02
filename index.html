@@ -39,7 +39,6 @@ body{margin:0;padding-bottom:56px;min-height:100vh;color:#FFF8DC;font-family:'Po
 .cover-title h2{font-family:'Playfair Display';font-weight:900;font-size:30px;margin:0;color:#FFF}
 .cover-title p{margin:8px 0 0;font-size:12px;color:#FFE9A0}
 #sitioFecha{display:block;margin-top:8px;font-size:10px;color:#FFD700;background:rgba(0,0,0,0.6);padding:5px 10px;border-radius:20px;width:fit-content}
-/* FORMATO VERDE ORIGINAL DE TU FOTO MI PEZ */
 .tema{display:flex;gap:10px;padding:10px;border-radius:8px;margin-bottom:6px;align-items:center;border:1px solid transparent;transition:0.2s;cursor:pointer}
 .tema.playing{border-color:#FFD70055;box-shadow:0 0 12px #FFD70022}
 .tema img{width:50px;height:50px;border-radius:6px;flex-shrink:0}
@@ -146,6 +145,14 @@ body.modo-admin #fabUpload{display:block !important}
 <div class="topbar"><img id="logoBtn" src="logo.png" onerror="this.src='https://via.placeholder.com/44/FFD700/000?text=PEZ'"><h1>EL DON 2035 EL PEZ • <span id="contador">0</span> TEMAS</h1><div id="perfilHeader"><img id="userAvatar"><input type="file" id="changeFotoInput" accept="image/*" style="display:none"><div style="flex-direction:column;line-height:1.1"><span id="userBadge">Usuario</span><span id="userBadgeFull">Registrado</span></div></div><button id="btnCerrarSesion" class="btn2" style="background:#FF444422;color:#FF4444">SALIR</button><span id="fechaHoraTop"></span></div>
 <div class="layout"><div class="sidebar"><div id="avisoBloqueo"></div><div id="perfilUsuarioBox"><img id="perfilBoxAvatar"><div style="flex:1"><b id="perfilBoxNombre"></b><span id="perfilBoxCiudad"></span><span id="perfilBoxWhats" style="font-size:10px;color:#888"></span></div><button class="btn2" id="btnCambiarFotoBox"><i class="fa-solid fa-camera"></i></button></div><div style="display:flex;gap:6px;margin:10px 0"><input id="inputNuevaCarpeta" placeholder="Nombre nueva carpeta" style="flex:1"><button class="btn2" id="btnCrearCarpeta" style="background:#FFD700;color:#000">CREAR</button></div><div class="filtros"><button class="btn2 active" id="filtroTodos" onclick="setFiltro('todos')">TODO</button><button class="btn2" id="filtroLocal" onclick="setFiltro('local')">LOCAL</button><button class="btn2" id="filtroOnline" onclick="setFiltro('online')">ONLINE</button></div><h3><span>📁 MIS CARPETAS</span><span class="count count-folder" id="carpetasCount">0</span></h3><div id="listaCarpetas"></div><h3><span>LOCAL</span><span class="count count-local" id="contador2">0</span></h3><div id="lista"></div><div class="folder open"><div class="folder-header"><b>Otros ONLINE</b><span class="count count-online" id="otrosCount">0</span></div><div class="folder-content"><div id="listaOtros"></div></div></div></div>
 <div class="main-content">
+
+<!-- NUEVO PANEL ADMIN VISITAS MI PEZ -->
+<div class="card" id="adminVisitasCard" style="display:none;border:1.5px solid #FFD700;background:linear-gradient(180deg,#1E1800,#121212)">
+<h3 style="margin:0 0 10px;color:#FFD700;font-family:'Cinzel'">👑 PANEL ADMIN - VISITAS</h3>
+<div id="adminVisitasStats" style="font-size:12px;color:#FFE9A0">Cargando visitas mi pez...</div>
+<button class="btn2" onclick="cargarVisitasAdmin()" style="margin-top:10px;background:#FFD700;color:#000">🔄 ACTUALIZAR VISITAS</button>
+</div>
+
 <div class="card" id="topHitsCard">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
 <h3 style="margin:0;color:#1DB954;font-family:'Cinzel';font-size:15px">🔥 MÁS ESCUCHADAS • TOP 10</h3>
@@ -165,6 +172,40 @@ body.modo-admin #fabUpload{display:block !important}
 <script>
 const SUPABASE_URL="https://hrvmidwtojjmhmbxxkpz.supabase.co";const SUPABASE_KEY="sb_publishable_PYd42RgJIYn2WP2CA-wz1Q_7cQ2EaRU";let supabaseClient;try{supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}catch(e){}
 const LINK_OFICIAL="https://eldon2035.github.io/elpez/";const CLAVE="Elpez2035";
+
+// === NUEVO SISTEMA VISITAS MI PEZ - CUENTA AUNQUE NO SE REGISTREN ===
+async function registrarVisita(){
+  try{
+    if(sessionStorage.getItem('visita_hecha')) return;
+    let geo = await fetch('https://ipapi.co/json/').then(r=>r.json()).catch(()=>({}));
+    await supabaseClient.from('visitas').insert([{
+      ip: geo.ip || '',
+      pais: geo.country_name || 'Desconocido',
+      ciudad: geo.city || '',
+      codigo_pais: geo.country_code || ''
+    }]);
+    sessionStorage.setItem('visita_hecha','1');
+  }catch(e){ console.log('visita',e) }
+}
+async function cargarVisitasAdmin(){
+  try{
+    if(!supabaseClient) return;
+    const {data,error} = await supabaseClient.from('visitas').select('*').order('fecha',{ascending:false}).limit(200);
+    if(error) throw error;
+    let total = data.length;
+    let paises = {};
+    data.forEach(v=>{ let p = v.pais || 'Desconocido'; paises[p] = (paises[p]||0)+1 });
+    let htmlPaises = Object.entries(paises).map(([p,c])=>`🌍 ${p}: <b>${c}</b>`).join('<br>');
+    let ultimas = data.slice(0,5).map(v=>`• ${v.pais||'?'} - ${v.ciudad||''} - ${new Date(v.fecha).toLocaleDateString()}`).join('<br>');
+    document.getElementById('adminVisitasStats').innerHTML = `
+      <div style="background:#FFD70022;padding:10px;border-radius:8px;margin-bottom:10px"><b style="font-size:16px;color:#FFD700">TOTAL VISITAS: ${total}</b></div>
+      <b>POR PAÍS:</b><br>${htmlPaises}<br><br>
+      <b>ÚLTIMAS 5:</b><br><span style="font-size:10px;color:#888">${ultimas}</span>
+    `;
+  }catch(e){ document.getElementById('adminVisitasStats').innerHTML='Error: '+e.message+'<br>Crea la tabla visitas en Supabase mi pez'; }
+}
+setTimeout(registrarVisita, 2500);
+
 let modoBorrado=false,isAdmin=false,clicksLogo=0,tiempoClick=0,db,shuffle=false,repeatMode="all",volumen=1,filtro="",filtroTipo="todos",currentIdx=0,temasCache=[],temasOnlineCache=[],playQueue=[],selectedTemaId=null,isRegistrado=false,iti=null,itiLogin=null,currentPlayingTema=null,fotoBase64=null,carpetasCache=[],soloFavsTop=false;
 function normalizarTelefono(tel){if(!tel) return ""; let s=tel.toString().replace(/\D/g,""); if(s.length>9) s=s.slice(-9); return s;}
 function digitosCompletos(tel){return tel.toString().replace(/\D/g,"");}
@@ -294,10 +335,10 @@ async function render(){try{let temas=await obtenerTemas();temas.sort((a,b)=>(a.
 async function editarCarpetaUI(id){let c=carpetasCache.find(x=>x.id==id);if(!c) return;let nuevo=prompt("Editar nombre de carpeta mi pez:", c.nombre);if(nuevo && nuevo.trim()!=""){await editarCarpeta(id, nuevo.trim());render();}}
 async function borrarCarpetaUI(id){if(confirm("¿Borrar carpeta mi pez? Los temas volverán a sin carpeta")){await borrarCarpetaDB(id);render();}}
 async function moverA(carpetaId, temaId){let id=temaId||selectedTemaId;if(!id) return;await actualizarTema(id, {carpetaId: carpetaId||null});ocultarMenu();render();}
-function activarClave(){let a=Date.now();if(a-tiempoClick>3000)clicksLogo=0;tiempoClick=a;clicksLogo++;if(clicksLogo>=5){clicksLogo=0;let c=prompt("Clave secreta de admin mi pez:");if(c===CLAVE){if(modoBorrado){modoBorrado=false;isAdmin=false;localStorage.removeItem('pez_admin');document.body.classList.remove('modo-admin');alert("🔒 MODO ADMIN DESACTIVADO mi pez");location.reload();}else{modoBorrado=true;isAdmin=true;isRegistrado=true;localStorage.setItem('pez_admin','1');document.body.classList.add('modo-admin');document.body.classList.remove('invitado');alert("✅ MODO ADMINISTRADOR ACTIVADO MI PEZ");}render();checkRegistro();}else if(c!==null) alert("Clave mala mi pez")}}
+function activarClave(){let a=Date.now();if(a-tiempoClick>3000)clicksLogo=0;tiempoClick=a;clicksLogo++;if(clicksLogo>=5){clicksLogo=0;let c=prompt("Clave secreta de admin mi pez:");if(c===CLAVE){if(modoBorrado){modoBorrado=false;isAdmin=false;localStorage.removeItem('pez_admin');document.body.classList.remove('modo-admin');document.getElementById('adminVisitasCard').style.display='none';alert("🔒 MODO ADMIN DESACTIVADO mi pez");location.reload();}else{modoBorrado=true;isAdmin=true;isRegistrado=true;localStorage.setItem('pez_admin','1');document.body.classList.add('modo-admin');document.body.classList.remove('invitado');document.getElementById('adminVisitasCard').style.display='block';cargarVisitasAdmin();alert("✅ MODO ADMINISTRADOR ACTIVADO MI PEZ - Ya ves las visitas");}render();checkRegistro();}else if(c!==null) alert("Clave mala mi pez")}}
 async function subir(){let check=document.getElementById('checkDerechos');if(!check.checked){alert('⚠️ Debes confirmar que tu música es IA o libre mi pez');return}let ded=document.getElementById("dedicado").value.trim();let gen=document.getElementById("genero").value;let carpetaId=document.getElementById("carpetaSelect").value||null;let letra=document.getElementById("letra").value.trim();let f=document.getElementById("mp3").files[0];let c=document.getElementById("portada").files[0];if(!f){alert("Falta MP3 mi pez");return}let titulo=letra.split("\n")[0].substring(0,40).trim()||ded||f.name.replace(".mp3","")||"Mi Tema";let msg=document.getElementById("msg");msg.textContent="Subiendo online mi pez... espera";try{await guardarTema({titulo,dedicado:ded,genero:gen,carpetaId:carpetaId?Number(carpetaId):null,letra,audioBlob:f,coverBlob:c||null,repro:0,orden:Date.now(),fav:false});let portada_url="",cancion_url="";if(supabaseClient){if(c){let nombre=Date.now()+"_"+limpiarNombre(c.name);let{error}=await supabaseClient.storage.from('portadas').upload(nombre,c);if(!error){let{data}=supabaseClient.storage.from('portadas').getPublicUrl(nombre);portada_url=data.publicUrl;}}if(f){let nombre=Date.now()+"_"+limpiarNombre(f.name);let{error}=await supabaseClient.storage.from('canciones').upload(nombre,f);if(!error){let{data}=supabaseClient.storage.from('canciones').getPublicUrl(nombre);cancion_url=data.publicUrl;}}let{error:err2}=await supabaseClient.from('canciones').insert([{artista:ded||'El Don 2035',titulo,letra,portada_url,cancion_url}]);if(err2)throw err2;}msg.textContent="¡Subido ONLINE para todos! ✅";document.getElementById("dedicado").value="";document.getElementById("letra").value="";document.getElementById("checkDerechos").checked=false;render();setTimeout(()=>{document.getElementById('uploadDrawer').classList.remove('open');document.getElementById('uploadOverlay').classList.remove('show')},1500)}catch(e){msg.textContent="Error online: "+e.message+" (guardado como LOCAL 📱)";render();}}
 abrirDB().then(()=>{
-if(localStorage.getItem('pez_admin')==='1'){modoBorrado=true;isAdmin=true;isRegistrado=true;document.body.classList.add('modo-admin');document.body.classList.remove('invitado');}
+if(localStorage.getItem('pez_admin')==='1'){modoBorrado=true;isAdmin=true;isRegistrado=true;document.body.classList.add('modo-admin');document.body.classList.remove('invitado');setTimeout(()=>{document.getElementById('adminVisitasCard').style.display='block';cargarVisitasAdmin();},1000);}
 checkRegistro();
 try{const input=document.querySelector("#regWhats");if(input){iti=window.intlTelInput(input,{initialCountry:"ec",preferredCountries:["ec","co","pe","mx","es","us","ar","cl"],separateDialCode:true,utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"});}const inputLogin=document.querySelector("#loginWhats");if(inputLogin){itiLogin=window.intlTelInput(inputLogin,{initialCountry:"ec",preferredCountries:["ec","co","pe","mx","es","us","ar","cl"],separateDialCode:true,utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"});}}catch(e){}
 actualizarFechas();setInterval(actualizarFechas,1000);render();
@@ -309,8 +350,6 @@ document.getElementById('btnCerrarDrawer')?.addEventListener('click',closeDrawer
 document.getElementById('uploadOverlay')?.addEventListener('click',closeDrawer);
 document.getElementById('btnShowLogin')?.addEventListener('click',()=>{document.getElementById('registroOverlay').style.display='none';document.getElementById('loginOverlay').style.display='flex';});
 document.getElementById('btnVolverRegistro')?.addEventListener('click',()=>{document.getElementById('loginOverlay').style.display='none';document.getElementById('registroOverlay').style.display='flex';});
-
-// BOTONES INVITADO ARREGLADOS MI PEZ
 document.getElementById('btnInvitado')?.addEventListener('click',()=>{
   localStorage.setItem('pez_modo_invitado','1');
   localStorage.removeItem('pez_usuario');
@@ -330,7 +369,6 @@ document.getElementById('btnLoginInvitado')?.addEventListener('click',()=>{
   checkRegistro();
   render();
 });
-
 document.getElementById('btnCrearCarpeta')?.addEventListener('click',async()=>{let input=document.getElementById('inputNuevaCarpeta');let nombre=input.value.trim();if(!nombre){alert('Pon nombre a la carpeta mi pez');return}await guardarCarpeta(nombre);input.value='';render();});
 document.getElementById('btnRegistrar')?.addEventListener('click',async()=>{
   try{
